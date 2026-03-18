@@ -17,9 +17,6 @@ mainMenuVar=True
 # ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
 # ListaIntegrantes= ["id","nombre","rol","TareasAsignadas"]
 
-ListaProyectos = []
-ListaTareas = []
-ListaIntegrantes= []
 
 
     
@@ -27,7 +24,7 @@ ListaIntegrantes= []
 
 
 
-
+    
 
 
 #! Imprimir Menus --------------------
