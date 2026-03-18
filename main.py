@@ -1,3 +1,5 @@
+from utils.clearConsole import *
+
 """"Tareas (Crear tareas, eliminar tareas
 asignar tareas, actualizar su estado (pendiente
 en progreso, completada), registrar nuevas tareas)
@@ -22,16 +24,11 @@ ListaTareas = []
 ListaIntegrantes= []
 
 
-    
-
-
-
-
-
 
 
 #! Imprimir Menus --------------------
 def imprimirMenuProyectos():
+    clearConsole()
     print("1. Ver proyectos")
     print("2. Crear Proyecto")
     print("3. Editar Proyecto")
@@ -155,8 +152,20 @@ def editar_proyecto():
 
 
 def eliminar_proyecto():
+    #* Aca falta agregar validacion de input NO numerico para que no rompa (y conversor de texto a num)
+    id = int(input("Ingrese el ID del proyecto a eliminar: "))
+    isProjectReal = False
 
-    pass
+    for item in ListaProyectos:
+        if item[0] == id:
+            isProjectReal = True
+
+    if isProjectReal:
+        del ListaProyectos[id-1]
+        #* Aca falta funcion para reacomodar el ID de TODOS los elementos de la lista para que no haya saltos
+        #* (Es opcional esto) 
+    else:
+        print("El proyecto con el ID ingresado no existe")    
 
    
     
@@ -166,6 +175,7 @@ def eliminar_proyecto():
 #! Menu Principal --------------------
 while app:
     while mainMenuVar:
+        clearConsole()
         print("Menu Principal: ")
         print("1. Proyectos")
         print("2. Tareas")
@@ -173,6 +183,7 @@ while app:
         Opcion=input("Selecione una opcion: ")
         if Opcion=="1": #Proyectos
             imprimirMenuProyectos()
+            input("Ingrese una opcion para continuar...")
             
         elif Opcion=="2": #Tareas
             imprimirMenuTareas()
