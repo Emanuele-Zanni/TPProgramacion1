@@ -173,7 +173,7 @@ def eliminar_proyecto():
 
 def ver_tareas():
     if len(ListaTareas) == 0:
-        return print("No hay tareas registradas.")
+         print("No hay tareas registradas.")
         
     elif len(ListaTareas) > 0:
         for tarea in ListaTareas:
@@ -339,7 +339,10 @@ while app:
             
         elif Opcion=="2": #Tareas
             imprimirMenuTareas()
+            input("Ingrese una opcion para continuar...")
         elif Opcion=="3": #Integrantes
             imprimirMenuIntegrantes()
+            input("Ingrese una opcion para continuar...")2
+            
         else: 
             print("Opcion invalida. Intente nuevamente.")
