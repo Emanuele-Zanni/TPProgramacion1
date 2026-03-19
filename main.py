@@ -85,6 +85,8 @@ def imprimirMenuIntegrantes():
     
 #! CRUDs --------------------
 
+#* ------------------------------------------ PROYECTOS -----------------------------------------------
+
 def ver_proyectos():
     if len(ListaProyectos) == 0:
         print("No hay proyectos registrados.")
@@ -168,7 +170,159 @@ def eliminar_proyecto():
         print("El proyecto con el ID ingresado no existe")    
 
    
+
+
+#* ------------------------------------------ TAREAS -----------------------------------------------
+
+def ver_tareas ():
+    if len(ListaTareas) == 0:
+        print("No hay tareas registradas.")
+        return
+    elif len(ListaTareas) > 0:
+        for tarea in ListaTareas:
+            print(tarea)
+
+
+def crear_tarea():
+    id = len(ListaTareas) + 1
+    nombreTarea=input("Ingrese el nombre de la tarea: ")
+    #! INTEGRANTES ASIGNADOS ???
+    FechaInicio=input("Ingrese la fecha de inicio de la tarea: ")
+    FechaFinal=input("Ingrese la fecha de la tarea:")
+    Estado=input("Ingrese el estado de la tarea:")
+    #* Enum
+
+    nueva_tarea = [id,nombreTarea,FechaInicio,FechaFinal,Estado]
     
+    ListaTareas.append(nueva_tarea) 
+    
+    # ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
+
+    # return nueva_tarea
+
+
+def editar_tarea():
+    #* Que_tarea? [POSICION]
+    posicion = 0
+    isTaskReal = False
+    task_id = int(input("Ingrese ID de la tarea a editar: "))
+    for item in ListaTareas:
+            if item[0] == task_id:
+                posicion = task_id - 1
+                isTaskReal = True
+
+    if isTaskReal:
+        #* Menu con variables de ESA tarea (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado de la tarea)
+        print("1. Cambiar Nombre")
+        print("2. Cambiar fecha de inicio")
+        print("3. Cambiar fecha final")
+        print("4. Cambiar el estado de la tarea")
+        opcion = input("Seleccione una opcion")
+        
+        if opcion == "1":
+            editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+            ListaTareas[posicion][1] = editarNombre
+        elif opcion == "2":
+            editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
+            ListaTareas[posicion][3] = editarFechaInicio
+        elif opcion == "3":
+            editarFechaFinal=input("Ingrese la nueva fecha final: ")
+            ListaTareas[posicion][4] = editarFechaFinal
+        elif opcion == "4": 
+            editarEstado=input("Ingrese el nuevo estado de la tarea: ")
+            ListaTareas[posicion][5] = editarEstado
+        else:
+            print("Número inválido")
+
+        # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
+
+    else:
+        print("La tarea ingresada no existe")
+
+
+def eliminar_tarea():
+    id = int(input("Ingrese el ID de la tarea a eliminar: "))
+    isTaskReal = False
+
+    for item in ListaTareas:
+        if item[0] == id:
+            isTaskReal = True
+
+    if isTaskReal:
+        del ListaTareas[id-1]
+
+
+    else:
+        print("La tarea con el ID ingresado no existe")    
+
+
+#! -------------------------------------------INTEGRANTES-----------------------------------------------
+
+#!ListaIntegrantes= ["id","nombre","rol","TareasAsignadas"]
+
+def ver_integrantes():
+    if len(ListaIntegrantes) == 0:
+        print("No hay integrantes registrados")
+        return
+    elif len(ListaIntegrantes) > 0:
+        for integrante in ListaIntegrantes:
+            print(integrante)
+
+def agregar_integrante():
+    id = len(ListaIntegrantes) + 1
+    nombre_integrante = input("Ingrese el nombre del integrante")
+    rol = input("Ingrese el rol")
+    #! Tareas asignadas???
+
+    nuevo_integrante = [id,nombre_integrante,rol]
+
+    ListaIntegrantes.append(nuevo_integrante)
+
+def editar_integrante():
+    posicion = 0
+    isMemberReal = False
+    member_id = int(input("Ingrese ID de la tarea a editar: "))
+    for item in ListaIntegrantes:
+            if item[0] == member_id:
+                posicion = member_id - 1
+                isMemberReal = True
+
+    if isMemberReal:
+        print("1. Cambiar Nombre")
+        print("2. Cambiar rol")
+        opcion = input("Seleccione una opcion")
+        
+        if opcion == "1":
+            editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+            ListaIntegrantes[posicion][1] = editarNombre
+        elif opcion == "2":
+            editarRol=input("Ingrese la nueva fecha de inicio: ")
+            ListaIntegrantes[posicion][2] = editarRol
+        else:
+            print("Número inválido")
+
+        # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
+
+    else:
+        print("El integrante ingresado no existe")
+
+
+def eliminar_integrante():
+    id = int(input("Ingrese el ID del integrante a eliminar: "))
+    isMemberReal = False
+
+    for item in ListaIntegrantes:
+        if item[0] == id:
+            isMemberReal = True
+
+    if isMemberReal:
+        del ListaIntegrantes[id-1]
+
+
+    else:
+        print("El integrante con el ID ingresado no existe")    
+
+
 
 
 
@@ -187,7 +341,11 @@ while app:
             
         elif Opcion=="2": #Tareas
             imprimirMenuTareas()
+            input("Ingrese una opcion para continuar...")
+            
         elif Opcion=="3": #Integrantes
             imprimirMenuIntegrantes()
+            input("Ingrese una opcion para continuar...")
+
         else: 
             print("Opcion invalida. Intente nuevamente.")
