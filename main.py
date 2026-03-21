@@ -116,6 +116,7 @@ def crear_proyecto():
 
 def editar_proyecto():
     #* Que proyecto? [POSICION]
+
     posicion = 0
     isProjectReal = False
     project_id = int(input("Ingrese ID del proyecto a editar: "))
@@ -282,8 +283,8 @@ def editar_integrante():
     posicion = 0
     isMemberReal = False
     member_id = int(input("Ingrese ID de la tarea a editar: "))
-    for item in ListaIntegrantes:
-            if item[0] == member_id:
+    for integrante in ListaIntegrantes:
+            if integrante[0] == member_id:
                 posicion = member_id - 1
                 isMemberReal = True
 
@@ -311,9 +312,9 @@ def eliminar_integrante():
     id = int(input("Ingrese el ID del integrante a eliminar: "))
     isMemberReal = False
 
-    for item in ListaIntegrantes:
-        if item[0] == id:
-            isMemberReal = True
+    for integrante in ListaIntegrantes:
+        if integrante[0] == id:
+            isMemberReal = True 
 
     if isMemberReal:
         del ListaIntegrantes[id-1]
@@ -321,8 +322,6 @@ def eliminar_integrante():
 
     else:
         print("El integrante con el ID ingresado no existe")    
-
-
 
 
 
