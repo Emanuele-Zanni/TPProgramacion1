@@ -1,9 +1,12 @@
 from Integrantes.funciones import *
+from General.clearConsole import *
 
 
 
 def imprimirMenuIntegrantes(ListaIntegrantes):
-    
+    clearConsole()
+    print("[Menu Principal > *Integrantes*]")
+    print()
     print("1. Ver integrantes")
     print("2. Agregar integrante")
     print("3. Editar integrante")

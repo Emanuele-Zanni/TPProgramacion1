@@ -1,7 +1,10 @@
-
+from General.clearConsole import *
 
 
 def ver_integrantes(ListaIntegrantes):
+    clearConsole()
+    print("[Menu Principal > Integrantes > *Ver Integrantes*]")
+    print()
     if len(ListaIntegrantes) == 0:
         print("No hay integrantes registrados")
         return
@@ -10,9 +13,12 @@ def ver_integrantes(ListaIntegrantes):
             print(integrante)
 
 def agregar_integrante(ListaIntegrantes):
+    clearConsole()
+    print("[Menu Principal > Integrantes > *Agregar Integrantes*]")
+    print()
     id = len(ListaIntegrantes) + 1
-    nombre_integrante = input("Ingrese el nombre del integrante")
-    rol = input("Ingrese el rol")
+    nombre_integrante = input("Ingrese el nombre del integrante: ")
+    rol = input("Ingrese el rol: ")
     #! Tareas asignadas???
 
     nuevo_integrante = [id,nombre_integrante,rol]
@@ -20,6 +26,9 @@ def agregar_integrante(ListaIntegrantes):
     ListaIntegrantes.append(nuevo_integrante)
 
 def editar_integrante(ListaIntegrantes):
+    clearConsole()
+    print("[Menu Principal > Integrantes > *Editar Integrantes*]")
+    print()
     posicion = 0
     isMemberReal = False
     member_id = int(input("Ingrese ID de la tarea a editar: "))
@@ -49,6 +58,9 @@ def editar_integrante(ListaIntegrantes):
 
 
 def eliminar_integrante(ListaIntegrantes):
+    clearConsole()
+    print("[Menu Principal > Integrantes > *Eliminar Integrante*]")
+    print()
     id = int(input("Ingrese el ID del integrante a eliminar: "))
     isMemberReal = False
 

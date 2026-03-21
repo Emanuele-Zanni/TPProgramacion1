@@ -1,4 +1,6 @@
 def ver_tareas(ListaTareas):
+    print("[Menu Tareas > Ver Tareas]")
+    print()
     if len(ListaTareas) == 0:
         print("No hay tareas registradas.")
         return
@@ -8,6 +10,8 @@ def ver_tareas(ListaTareas):
 
 
 def crear_tarea(ListaTareas):
+    print("[Menu Tareas > Crear Tareas]")
+    print()
     id = len(ListaTareas) + 1
     nombreTarea=input("Ingrese el nombre de la tarea: ")
     #! INTEGRANTES ASIGNADOS ???
@@ -28,6 +32,8 @@ def crear_tarea(ListaTareas):
 
 
 def editar_tarea(ListaTareas):
+    print("[Menu Tareas > Editar Tareas]")
+    print()
     #* Que_tarea? [POSICION]
     posicion = 0
     isTaskReal = False
@@ -67,6 +73,8 @@ def editar_tarea(ListaTareas):
 
 
 def eliminar_tarea(ListaTareas):
+    print("[Menu Tareas > Eliminar Tareas]")
+    print()
     id = int(input("Ingrese el ID de la tarea a eliminar: "))
     isTaskReal = False
 

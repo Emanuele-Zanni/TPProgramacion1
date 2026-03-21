@@ -37,22 +37,22 @@ ListaIntegrantes= []
 while app:
     while mainMenuVar:
         clearConsole()
-        print("[Menu Principal]")
+        print("[*Menu Principal*]")
         print("")
-        print("1. Proyectos")
-        print("2. Tareas")
-        print("3. Integrantes")
+        print("1. Ver Proyectos")
+        print("2. Ver Personal")
+        print("3. Stats (WIP)")
         Opcion=input("Selecione una opcion: ")
-        if Opcion=="1": #Proyectos
+        if Opcion=="1": #* Ver Proyectos
             imprimirMenuProyectos(ListaProyectos)
             input("Ingrese una opcion para continuar...")
             
-        elif Opcion=="2": #Tareas
-            imprimirMenuTareas(ListaTareas)
-            
-        elif Opcion=="3": #Integrantes
+        elif Opcion=="2": #* Ver Personal
             imprimirMenuIntegrantes(ListaIntegrantes)
             input("Ingrese una opcion para continuar...")
+            
+        elif Opcion=="3": #* Stats
+            input("WIP...")
 
         else: 
             input("Opcion invalida. Intente nuevamente.")
