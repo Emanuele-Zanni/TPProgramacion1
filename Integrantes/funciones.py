@@ -16,7 +16,12 @@ def agregar_integrante(ListaIntegrantes):
     clearConsole()
     print("[Menu Principal > Integrantes > *Agregar Integrantes*]")
     print()
-    id = len(ListaIntegrantes) + 1
+    
+    if len(ListaIntegrantes)==0:
+        id=1
+    else: 
+        id = ListaIntegrantes[len(ListaIntegrantes)-1][0]+1 
+    
     nombre_integrante = input("Ingrese el nombre del integrante: ")
     rol = input("Ingrese el rol: ")
     #! Tareas asignadas???
@@ -27,34 +32,38 @@ def agregar_integrante(ListaIntegrantes):
 
 def editar_integrante(ListaIntegrantes):
     clearConsole()
-    print("[Menu Principal > Integrantes > *Editar Integrantes*]")
-    print()
-    posicion = 0
-    isMemberReal = False
-    member_id = int(input("Ingrese ID de la tarea a editar: "))
-    for item in ListaIntegrantes:
-            if item[0] == member_id:
-                posicion = member_id - 1
-                isMemberReal = True
-
-    if isMemberReal:
-        print("1. Cambiar Nombre")
-        print("2. Cambiar rol")
-        opcion = input("Seleccione una opcion")
-        
-        if opcion == "1":
-            editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
-            ListaIntegrantes[posicion][1] = editarNombre
-        elif opcion == "2":
-            editarRol=input("Ingrese la nueva fecha de inicio: ")
-            ListaIntegrantes[posicion][2] = editarRol
-        else:
-            print("Número inválido")
-
-        # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
-
+    
+    if len(ListaIntegrantes)==0:
+        print("No hay integrantes")
+    
     else:
-        print("El integrante ingresado no existe")
+        print("[Menu Principal > Integrantes > *Editar Integrantes*]")
+        print()
+        posicion = 0
+        isMemberReal = False
+        member_id = int(input("Ingrese ID de la tarea a editar: "))
+        for item in ListaIntegrantes:
+                if item[0] == member_id:
+                    posicion = member_id - 1
+                    isMemberReal = True
+        if isMemberReal:
+            print("1. Cambiar Nombre")
+            print("2. Cambiar rol")
+            opcion = input("Seleccione una opcion")
+            
+            if opcion == "1":
+                editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+                ListaIntegrantes[posicion][1] = editarNombre
+            elif opcion == "2":
+                editarRol=input("Ingrese la nueva fecha de inicio: ")
+                ListaIntegrantes[posicion][2] = editarRol
+            else:
+                print("Número inválido")
+
+            # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
+
+        else:
+            print("El integrante ingresado no existe")
 
 
 def eliminar_integrante(ListaIntegrantes):
@@ -74,3 +83,5 @@ def eliminar_integrante(ListaIntegrantes):
 
     else:
         print("El integrante con el ID ingresado no existe")    
+
+    
