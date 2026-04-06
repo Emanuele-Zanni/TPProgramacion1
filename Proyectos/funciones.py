@@ -1,3 +1,5 @@
+from turtle import pos
+
 from General.clearConsole import *
 
 def ver_proyectos(ListaProyectos):
@@ -14,21 +16,25 @@ def ver_proyectos(ListaProyectos):
 def seleccionar_proyecto(ListaProyectos):
     clearConsole()
     print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
-    print()
+    print() 
+    id = int(input("ingrese el ID del proyecto: "))
+
+    if not ListaProyectos:
+        print("no hay proyectos")
     
-    id = int(input("ingrese el ID del proyecto a seleccionar: "))
-    posicion = id - 1
-    for posicion in range(len(ListaProyectos)):
-        if len(ListaProyectos) == 0:
-            print("no hay proyectos registrados")
+    if id < 0 or id >= len(ListaProyectos):
+        print("ID de proyecto no válido.")
+    
+    for i in range(len(ListaProyectos)): 
+        if id == ListaProyectos[i][0]:
+            imprimir_proyecto(ListaProyectos[i])
             
-        elif id - 1 != ListaProyectos[posicion]:
-            if posicion == len(ListaProyectos) - 1:    
-                print("el proyecto ingresado no existe")
-            
-        elif id - 1 == ListaProyectos[posicion]:
-            print("proyecto seleccionado: ", ListaProyectos[posicion])
-            return ListaProyectos[posicion]
+
+def imprimir_proyecto(proyecto): 
+    clearConsole()
+    print("[Menu principal > Proyectos > *Proyecto Seleccionado*]")
+    print() 
+    print(proyecto)   
 
 def crear_proyecto(ListaProyectos):
     clearConsole()
