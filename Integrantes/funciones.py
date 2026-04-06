@@ -50,10 +50,12 @@ def agregar_integrante(ListaIntegrantes):
         elif rol[0].strip().isdigit(): 
             print("")
             input("[ERROR] El rol ingresado no puede empezar con un número")
+
         else:
             nuevo_integrante = [id,nombre_integrante,rol]
             ListaIntegrantes.append(nuevo_integrante)
             p2 = False
+            registroFechaIntegrantes=input("Ingrese la fecha de hoy: ")
             print("")
             print("Nuevo integrante añadido con éxito")
             print("ID:",nuevo_integrante[0])

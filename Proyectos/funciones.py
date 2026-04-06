@@ -69,7 +69,7 @@ def editar_proyecto(ListaProyectos):
         print("1. Cambiar Nombre")
         print("2. Cambiar fecha de inicio")
         print("3. Cambiar fecha final")
-        print("4. Cambiaar el estado del proyecto")
+        print("4. Cambiar el estado del proyecto")
         opcion = input("Seleccione una opcion")
         
         if opcion == "1":

@@ -1,9 +1,10 @@
 from Integrantes.funciones import *
 from General.clearConsole import *
+from Integrantes.roles import*
 
 
 
-def imprimirMenuIntegrantes(ListaIntegrantes):
+def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles):
     clearConsole()
     print("[Menu Principal > *Integrantes*]")
     print()
@@ -11,6 +12,7 @@ def imprimirMenuIntegrantes(ListaIntegrantes):
     print("2. Agregar integrante")
     print("3. Editar integrante")
     print("4. Eliminar integrante")
+    print("5. Gestionar roles")
     opcion=input("Seleccione una opcion: ")
     if opcion=="1":
         ver_integrantes(ListaIntegrantes)
@@ -20,5 +22,7 @@ def imprimirMenuIntegrantes(ListaIntegrantes):
         editar_integrante(ListaIntegrantes)
     elif opcion=="4":
         eliminar_integrante(ListaIntegrantes)
+    elif opcion=="5":
+        imprimirMenuRoles(ListaRoles)
     else:
         print("Opcion invalida. Intente nuevamente.")

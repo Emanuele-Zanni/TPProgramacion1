@@ -9,6 +9,7 @@ from Integrantes.funciones import *
 from Integrantes.menus import *
 from Tareas.menus import *
 from Proyectos.menus import *
+from Integrantes.roles import*
 
 """Tareas (Crear tareas, eliminar tareas
 asignar tareas, actualizar su estado (pendiente
@@ -28,10 +29,13 @@ mainMenuVar=True
 #? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
 #? ListaIntegrantes= ["id","nombre","rol","TareasAsignadas"]
+#? ListaRoles= [id,nombre, rol]
+
 
 ListaProyectos = []
 ListaTareas = []
 ListaIntegrantes= []
+ListaRoles=[]
 
 #! Main  ----------------------
 while app:
@@ -48,7 +52,7 @@ while app:
             input("Ingrese una opcion para continuar...")
             
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes)
+            imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles)
             input("Ingrese una opcion para continuar...")
             
         elif Opcion=="3": #* Stats
