@@ -5,11 +5,13 @@ def ver_proyectos(ListaProyectos):
     print("[Menu Principal > Proyectos > *Ver Proyectos*]")
     print()       
     if len(ListaProyectos) == 0:
-        print("No hay proyectos registrados.")
+        input("No hay proyectos registrados.")
         return
     elif len(ListaProyectos) > 0:
         for proyecto in ListaProyectos:
             print(proyecto)
+    print("")
+    input("Ingrese cualquier opcion para continuar...")
 
 def seleccionar_proyecto(ListaProyectos):
     clearConsole()
@@ -20,11 +22,12 @@ def seleccionar_proyecto(ListaProyectos):
     posicion = id - 1
     for posicion in range(len(ListaProyectos)):
         if len(ListaProyectos) == 0:
-            print("no hay proyectos registrados")
+            input("No hay proyectos registrados")
             
         elif id - 1 != ListaProyectos[posicion]:
-            if posicion == len(ListaProyectos) - 1:    
-                print("el proyecto ingresado no existe")
+            if posicion == len(ListaProyectos) - 1:   
+                print("")
+                input("[ERROR] El proyecto ingresado no existe")
             
         elif id - 1 == ListaProyectos[posicion]:
             print("proyecto seleccionado: ", ListaProyectos[posicion])
@@ -34,17 +37,51 @@ def crear_proyecto(ListaProyectos):
     clearConsole()
     print("[Menu Principal > Proyectos > *Crear Proyectos*]")
     print()
+    #* Variables para inicializar las flags para persistencia de inputs + validaciones
+    inProgress = True
+    p1,p2,p3 = True,False,False
+
     id = len(ListaProyectos) + 1
-    nombreProyecto=input("Ingrese el nombre del proyecto: ")
     tareas = []
-    FechaInicio=input("Ingrese la fecha de inicio del proyecto: ")
-    FechaFinal=input("Ingrese la fecha de finalizacion del proyecto: ")
-    Estado=input("Ingrese el estado del proyecto: ")
+
+    while p1:
+        clearConsole()
+        print("[Menu Principal > Proyectos > *Crear Proyectos*]")
+        print()
+        nombreProyecto=input("Ingrese el nombre del proyecto: ")  
+        if nombreProyecto == "":
+            print("")
+            input("[ERROR] El nombre ingresado no puede estar vacio") 
+        else:
+            p1 = False
+            p2 = True
+
+    while p2 and inProgress:
+        clearConsole()
+        print("[Menu Principal > Proyectos > *Crear Proyectos*]")
+        print()
+        print(f"Nombre del Proyecto: {nombreProyecto}")
+        FechaInicio=input("Ingrese la fecha de inicio del proyecto: ")
+    
+    while p3 and inProgress:
+        clearConsole()
+        print("[Menu Principal > Proyectos > *Crear Proyectos*]")
+        print()
+        print(f"Nombre del Proyecto: {nombreProyecto}")
+        print(f"Fecha de Inicio: {FechaInicio}")
+        FechaFinal=input("Ingrese la fecha de finalizacion del proyecto: ")
+
+    if inProgress:
+        pass
+    # else:
+
+
+
     #* Enum
 
-    nuevo_proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
+    # nuevo_proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
     
-    ListaProyectos.append(nuevo_proyecto)
+    # ListaProyectos.append(nuevo_proyecto)
     
     #* ListaProyectos = [[id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]]
 
@@ -69,7 +106,8 @@ def editar_proyecto(ListaProyectos):
         print("1. Cambiar Nombre")
         print("2. Cambiar fecha de inicio")
         print("3. Cambiar fecha final")
-        print("4. Cambiaar el estado del proyecto")
+        print("4. Cambiar el estado del proyecto")
+        print("")
         opcion = input("Seleccione una opcion")
         
         if opcion == "1":
@@ -85,12 +123,14 @@ def editar_proyecto(ListaProyectos):
             editarEstado=input("Ingrese el nuevo estado del proyecto: ")
             ListaProyectos[posicion][5] = editarEstado
         else:
-            print("Número inválido")
+            print("")
+            print("[ERROR] Número inválido")
 
         # proyecto_editado = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
 
     else:
-        print("El proyecto ingresado no existe")
+        print("")
+        print("[ERROR] El proyecto ingresado no existe")
 
 
 def eliminar_proyecto(ListaProyectos):

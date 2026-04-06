@@ -42,17 +42,15 @@ while app:
         print("1. Ver Proyectos")
         print("2. Ver Personal")
         print("3. Stats (WIP)")
+        print("")
         Opcion=input("Selecione una opcion: ")
         if Opcion=="1": #* Ver Proyectos
-            imprimirMenuProyectos(ListaProyectos)
-            input("Ingrese una opcion para continuar...")
-            
+            imprimirMenuProyectos(ListaProyectos)            
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes)
-            input("Ingrese una opcion para continuar...")
-            
+            imprimirMenuIntegrantes(ListaIntegrantes)            
         elif Opcion=="3": #* Stats
             input("WIP...")
 
         else: 
-            input("Opcion invalida. Intente nuevamente.")
+            print("")
+            input("[ERROR] Opcion invalida. Intente nuevamente.")

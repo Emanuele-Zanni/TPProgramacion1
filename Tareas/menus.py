@@ -9,6 +9,7 @@ def imprimirMenuTareas(ListaTareas):
     print("2. Crear tarea")
     print("3. Editar tarea")
     print("4. Eliminar tarea")
+    print("")
     opcion=input("Seleccione una opcion: ")
     if opcion=="1":
         ver_tareas(ListaTareas)

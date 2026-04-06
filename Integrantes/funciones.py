@@ -49,6 +49,7 @@ def editar_integrante(ListaIntegrantes):
         if isMemberReal:
             print("1. Cambiar Nombre")
             print("2. Cambiar rol")
+            print("")
             opcion = input("Seleccione una opcion")
             
             if opcion == "1":

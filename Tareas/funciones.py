@@ -49,6 +49,7 @@ def editar_tarea(ListaTareas):
         print("2. Cambiar fecha de inicio")
         print("3. Cambiar fecha final")
         print("4. Cambiar el estado de la tarea")
+        print("")
         opcion = input("Seleccione una opcion")
         
         if opcion == "1":

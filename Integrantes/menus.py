@@ -11,6 +11,7 @@ def imprimirMenuIntegrantes(ListaIntegrantes):
     print("2. Agregar integrante")
     print("3. Editar integrante")
     print("4. Eliminar integrante")
+    print("")
     opcion=input("Seleccione una opcion: ")
     if opcion=="1":
         ver_integrantes(ListaIntegrantes)
