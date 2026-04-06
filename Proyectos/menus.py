@@ -3,24 +3,41 @@ from Proyectos.funciones import *
 
 
 def imprimirMenuProyectos(ListaProyectos):
-    clearConsole()
-    print("[Menu Principal > *Proyectos*]")
-    print("")
-    print("1. Ver proyectos")
-    print("2. Ver un proyecto en particular")
-    print("3. Crear Proyecto")
-    print("4. Editar Proyecto")
-    print("5. Eliminar Proyecto")
-    opcion=input("Seleccione una opcion: ")
-    if opcion=="1":
-        ver_proyectos(ListaProyectos)
-    elif opcion=="2":
-        seleccionar_proyecto(ListaProyectos)
-    elif opcion=="3":
-        crear_proyecto(ListaProyectos)
-    elif opcion=="4":
-        editar_proyecto(ListaProyectos)
-    elif opcion=="5":
-        eliminar_proyecto(ListaProyectos)
-    else:
-        print("Opcion invalida. Intente nuevamente.")
+    activo=True
+
+    while activo:
+        clearConsole()
+        print("[Menu Principal > *Proyectos*]")
+        print("")
+        print("1. Ver proyectos")
+        print("2. Selecciona Proyecto")
+        print("3. Crear Proyecto")
+        print("4. Editar Proyecto")
+        print("5. Eliminar Proyecto")
+        print("0. Volver")
+        opcion=input("Seleccione una opcion: ")
+        if opcion=="1":
+            clearConsole()
+            ver_proyectos(ListaProyectos)
+            input("Aprete ENTER para continuar...")
+        elif opcion=="2":
+            clearConsole()
+            seleccionar_proyecto(ListaProyectos)
+            input("Aprete ENTER para continuar...")
+        elif opcion=="3":
+            clearConsole()
+            crear_proyecto(ListaProyectos)
+            input("Aprete ENTER para continuar...")
+        elif opcion=="4":
+            clearConsole()
+            editar_proyecto(ListaProyectos)
+            input("Aprete ENTER para continuar...")
+        elif opcion=="5":
+            clearConsole()
+            eliminar_proyecto(ListaProyectos)
+            input("Aprete ENTER para continuar...")
+        elif opcion=="0":
+
+            activo=False
+        else:
+            print("Opcion invalida. Intente nuevamente.")
