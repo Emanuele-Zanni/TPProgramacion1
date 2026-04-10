@@ -9,6 +9,7 @@ from Integrantes.funciones import *
 from Integrantes.menus import *
 from Tareas.menus import *
 from Proyectos.menus import *
+from Integrantes.roles import*
 
 """Tareas (Crear tareas, eliminar tareas
 asignar tareas, actualizar su estado (pendiente
@@ -32,6 +33,7 @@ mainMenuVar=True
 ListaProyectos = []
 ListaTareas = []
 ListaIntegrantes= []
+ListaRoles=[]
 
 #! Main  ----------------------
 while app:

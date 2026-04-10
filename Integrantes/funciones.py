@@ -70,6 +70,7 @@ def agregar_integrante(ListaIntegrantes):
             nuevo_integrante = [id,nombre_integrante,rol]
             ListaIntegrantes.append(nuevo_integrante)
             p2 = False
+            registroFechaIntegrantes=input("Ingrese la fecha de hoy: ")
             print("")
             print("Nuevo integrante añadido con éxito")
             print("ID:",nuevo_integrante[0])
