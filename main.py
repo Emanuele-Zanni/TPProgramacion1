@@ -27,7 +27,7 @@ mainMenuVar=True
 
 #? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
-#? ListaIntegrantes= ["id","nombre","rol","TareasAsignadas"]
+#? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
 
 ListaProyectos = []
 ListaTareas = []

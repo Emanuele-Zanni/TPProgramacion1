@@ -17,16 +17,12 @@ def imprimirMenuIntegrantes(ListaIntegrantes):
         print("0. Volver atras")
         opcion=input("Seleccione una opcion: ")
         if opcion=="1":
-            clearConsole()
             ver_integrantes(ListaIntegrantes)
         elif opcion=="2":
-            clearConsole()
             agregar_integrante(ListaIntegrantes)
         elif opcion=="3":
-            clearConsole()
             editar_integrante(ListaIntegrantes)
         elif opcion=="4":
-            clearConsole()
             eliminar_integrante(ListaIntegrantes)
         elif opcion=="0":
            activo=False 

@@ -1,4 +1,7 @@
+from General.clearConsole import *
+
 def ver_tareas(ListaTareas):
+    clearConsole()
     print("[Menu Tareas > Ver Tareas]")
     print()
     if len(ListaTareas) == 0:
@@ -10,6 +13,7 @@ def ver_tareas(ListaTareas):
 
 
 def crear_tarea(ListaTareas):
+    clearConsole()
     print("[Menu Tareas > Crear Tareas]")
     print()
     id = len(ListaTareas) + 1
@@ -32,6 +36,7 @@ def crear_tarea(ListaTareas):
 
 
 def editar_tarea(ListaTareas):
+    clearConsole()
     print("[Menu Tareas > Editar Tareas]")
     print()
     #* Que_tarea? [POSICION]
@@ -65,15 +70,16 @@ def editar_tarea(ListaTareas):
             editarEstado=input("Ingrese el nuevo estado de la tarea: ")
             ListaTareas[posicion][5] = editarEstado
         else:
-            print("Número inválido")
+            input("[ERROR] Número inválido")
 
         # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
 
     else:
-        print("La tarea ingresada no existe")
+        input("[ERROR] La tarea ingresada no existe")
 
 
 def eliminar_tarea(ListaTareas):
+    clearConsole()
     print("[Menu Tareas > Eliminar Tareas]")
     print()
     id = int(input("Ingrese el ID de la tarea a eliminar: "))
@@ -88,4 +94,4 @@ def eliminar_tarea(ListaTareas):
 
 
     else:
-        print("La tarea con el ID ingresado no existe")  
+        input("[ERORR] La tarea con el ID ingresado no existe")  
