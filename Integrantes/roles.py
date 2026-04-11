@@ -1,15 +1,50 @@
 from General.clearConsole import*
 
-def imprimirMenuRoles(ListaRoles):
+def ver_roles(ListaRoles):
     clearConsole()
-    print("[Menu Principal > Ver personal > *Roles*]")
-    print()  
-    print("1. Crear rol: ")
-    print("2. Editar rol: ")  
-    print("3. Eliminar rol: ")   
-    opcion_rol=int(input("Ingrese la opción deseada: "))
+    print("[Menu Principal > Integrantes > *Ver Roles*]")
+    print()
 
-def crear_rol(ListaRoles):
+    if len(ListaRoles) == 0:
+        print("No hay roles asignados")
+        return
+    elif len(ListaRoles) > 0:
+        for rol in ListaRoles:
+            print(rol)
+
+
+def imprimirMenuRoles(ListaRoles):
+    activo=True
+    while activo:
+        clearConsole()
+        print("[Menu Principal > Ver personal > *Roles*]")
+        print()  
+        print("1. Crear rol: ")
+        print("2. Editar rol: ")  
+        print("3: Eliminar rol")  
+        print("0. Volver")
+        opcion_rol=int(input("Ingrese la opción deseada: "))
+
+        if opcion_rol ==1: 
+            crear_roles(ListaRoles)
+            input("Aprete ENTER para continuar...")
+
+        elif opcion_rol==2:
+            editar_rol(ListaRoles)
+            input("Aprete ENTER para continuar...")
+
+        elif opcion_rol==3:
+            eliminar_rol(ListaRoles)
+            input("Aprete ENTER para continuar...")
+        
+        elif opcion_rol==0: 
+            activo=False
+        
+        else:
+            print("Número inválido")
+
+
+def crear_roles(ListaRoles):
     clearConsole()
     print("[Menu Principal > Integrantes > *Crear Rol*]")
     print()
@@ -21,6 +56,7 @@ def crear_rol(ListaRoles):
     nuevo_rol = [id, rol]
     
     ListaRoles.append(nuevo_rol)
+
 
 def editar_rol(ListaRoles):
     clearConsole()

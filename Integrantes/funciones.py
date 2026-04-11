@@ -37,11 +37,6 @@ def agregar_integrante(ListaIntegrantes):
             p1 = False
             p2= True
     while p2 and inProgress: 
-        print("A. Administrador")
-        print("B. Gerente del proyecto")
-        print("C. Analista")
-        print("D. Supervisor")
-        #print("E. Inversor")??
         
         rol = input("Ingrese el rol: ")
         if rol == "":
@@ -54,6 +49,7 @@ def agregar_integrante(ListaIntegrantes):
         else:
             nuevo_integrante = [id,nombre_integrante,rol]
             ListaIntegrantes.append(nuevo_integrante)
+            ListaRoles.append(nuevo_rol)
             p2 = False
             registroFechaIntegrantes=input("Ingrese la fecha de hoy: ")
             print("")

@@ -53,7 +53,7 @@ while app:
             input("Ingrese una opcion para continuar...")
             
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles)
+            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles)
             input("Ingrese una opcion para continuar...")
             
         elif Opcion=="3": #* Stats
