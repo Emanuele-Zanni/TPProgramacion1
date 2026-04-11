@@ -4,9 +4,8 @@ from Integrantes.roles import*
 
 
 
-def imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles):
+def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles):
     activo=True
-    
     while activo:
         clearConsole()
         print("[Menu Principal > *Integrantes*]")
@@ -15,25 +14,20 @@ def imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles):
         print("2. Agregar integrante")
         print("3. Editar integrante")
         print("4. Eliminar integrante")
-        print("5. Ver roles")
+        print("5. Gestionar roles")
         print("0. Volver atras")
         opcion=input("Seleccione una opcion: ")
         if opcion=="1":
-            clearConsole()
             ver_integrantes(ListaIntegrantes)
         elif opcion=="2":
-            clearConsole()
             agregar_integrante(ListaIntegrantes)
         elif opcion=="3":
-            clearConsole()
             editar_integrante(ListaIntegrantes)
         elif opcion=="4":
-            clearConsole()
             eliminar_integrante(ListaIntegrantes)
         elif opcion=="5":
-            clearConsole()
             imprimirMenuRoles(ListaRoles)
-        elif opcion=="0":
-           activo=False 
+        elif opcion == "0":
+            activo=False
         else:
             print("Opcion invalida. Intente nuevamente.")

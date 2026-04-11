@@ -28,9 +28,7 @@ mainMenuVar=True
 
 #? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
-#? ListaIntegrantes= ["id","nombre","rol","TareasAsignadas"]
-#? ListaRoles= [id,nombre, rol]
-
+#? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
 
 ListaProyectos = []
 ListaTareas = []
@@ -49,13 +47,9 @@ while app:
         print("0. Cerrar Programa")
         Opcion=input("Selecione una opcion: ")
         if Opcion=="1": #* Ver Proyectos
-            imprimirMenuProyectos(ListaProyectos)
-            input("Ingrese una opcion para continuar...")
-            
+            imprimirMenuProyectos(ListaProyectos)            
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles)
-            input("Ingrese una opcion para continuar...")
-            
+            imprimirMenuIntegrantes(ListaIntegrantes)            
         elif Opcion=="3": #* Stats
             input("WIP...")
         
@@ -64,4 +58,5 @@ while app:
             mainMenuVar=False
 
         else: 
-            input("Opcion invalida. Intente nuevamente.")
+            print("")
+            input("[ERROR] Opcion invalida. Intente nuevamente.")
