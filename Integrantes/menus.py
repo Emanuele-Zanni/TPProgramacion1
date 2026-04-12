@@ -1,5 +1,6 @@
 from Integrantes.funciones import *
 from General.clearConsole import *
+from Integrantes.funciones import *
 from Integrantes.roles import*
 
 
@@ -20,7 +21,7 @@ def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles):
         if opcion=="1":
             ver_integrantes(ListaIntegrantes)
         elif opcion=="2":
-            agregar_integrante(ListaIntegrantes)
+            agregar_integrante(ListaIntegrantes, ListaRoles)
         elif opcion=="3":
             editar_integrante(ListaIntegrantes)
         elif opcion=="4":

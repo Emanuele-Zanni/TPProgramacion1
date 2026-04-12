@@ -14,7 +14,7 @@ def ver_integrantes(ListaIntegrantes):
     
 
 #! TODO: COMPLETAR LOS PASOS RESTANTES & AGREGAR SUBMENU y CRUD para creacion y gestion de Roles
-def agregar_integrante(ListaIntegrantes):
+def agregar_integrante(ListaIntegrantes, ListaRoles):
     clearConsole()
     print("[Menu Principal > Integrantes > *Agregar Integrantes*]")
     print()
@@ -53,30 +53,27 @@ def agregar_integrante(ListaIntegrantes):
         print()
         print(f"Nombre del Integrante {nombre_integrante}")
         print("")
-        print("A. Administrador")
-        print("B. Gerente del proyecto")
-        print("C. Analista")
-        print("D. Supervisor")
-        #print("E. Inversor")??
-        
-        rol = input("Ingrese el rol del integrante: ")
-        if rol == "":
-            print("")
-            input("[ERROR] El rol ingresado no puede estar vacio")
-        elif rol[0].strip().isdigit(): 
-            print("")
-            input("[ERROR] El rol ingresado no puede empezar con un número")
-        else: #* Chequear esto
+        if len (ListaRoles)==0:
+            input("No hay roles existentes, por favor agregue un rol")
+            return
+        elif len(ListaRoles)>0:
+            print(ListaRoles)
+            rol = int(input("Asignele el id del rol al nuevo integrante: "))
+            for i in range(len(ListaRoles)):
+                if ListaRoles[i][0]==rol:
+                    ListaRoles[i][2].append(nombre_integrante)
+
             nuevo_integrante = [id,nombre_integrante,rol]
             ListaIntegrantes.append(nuevo_integrante)
-            ListaRoles.append(nuevo_rol)
+            
             p2 = False
             registroFechaIntegrantes=input("Ingrese la fecha de hoy: ")
             print("")
-            print("Nuevo integrante añadido con éxito")
+            print("Nuevo integrante añadido con éxito ")
             print("ID:",nuevo_integrante[0])
             print("Nombre:",nuevo_integrante[1])
             print("Rol:",nuevo_integrante[2])
+            input("Presione enter para continuar...")
 
 def editar_integrante(ListaIntegrantes):
     clearConsole()

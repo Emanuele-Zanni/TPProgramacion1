@@ -29,6 +29,9 @@ mainMenuVar=True
 #? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
 #? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
+#? ListaRoles= [["id","rol"]]
+
+
 
 ListaProyectos = []
 ListaTareas = []
@@ -49,7 +52,7 @@ while app:
         if Opcion=="1": #* Ver Proyectos
             imprimirMenuProyectos(ListaProyectos)            
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes)            
+            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles)            
         elif Opcion=="3": #* Stats
             input("WIP...")
         
