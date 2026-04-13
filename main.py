@@ -32,11 +32,16 @@ mainMenuVar=True
 #? ListaRoles= [["id","rol"]]
 
 
-
-ListaProyectos = []
+#* Datos Mockeados
+ListaProyectos = [[1, 'Proyecto 1', [], '1', '1', 'Activo?'],[2, 'Proyecto 2', [], '1', '1', 'Activo?'],[3, 'Proyecto 3', [], '1', '1', 'Activo?'],[4, 'Proyecto 4', [], '1', '1', 'Activo?']]
 ListaTareas = []
 ListaIntegrantes= []
 ListaRoles=[]
+
+# ListaProyectos = []
+# ListaTareas = []
+# ListaIntegrantes= []
+# ListaRoles=[]
 
 #! Main  ----------------------
 while app:
