@@ -10,6 +10,7 @@ from Integrantes.menus import *
 from Tareas.menus import *
 from Proyectos.menus import *
 from Integrantes.roles import*
+from Database import*
 
 """Tareas (Crear tareas, eliminar tareas
 asignar tareas, actualizar su estado (pendiente
@@ -30,6 +31,7 @@ mainMenuVar=True
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
 #? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
 #? ListaRoles= [["id","rol"]]
+#? ListaUsuarios= ["Usuario", "Contraseña"]
 
 
 
@@ -42,6 +44,7 @@ ListaRoles=[]
 while app:
     while mainMenuVar:
         clearConsole()
+
         print("[*Menu Principal*]")
         print("")
         print("1. Ver Proyectos")
