@@ -9,6 +9,7 @@ from Integrantes.funciones import *
 from Integrantes.menus import *
 from Tareas.menus import *
 from Proyectos.menus import *
+from Integrantes.roles import*
 
 """Tareas (Crear tareas, eliminar tareas
 asignar tareas, actualizar su estado (pendiente
@@ -27,11 +28,15 @@ mainMenuVar=True
 
 #? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
-#? ListaIntegrantes= ["id","nombre","rol","TareasAsignadas"]
+#? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
+#? ListaRoles= [["id","rol"]]
+
+
 
 ListaProyectos = []
 ListaTareas = []
 ListaIntegrantes= []
+ListaRoles=[]
 
 #! Main  ----------------------
 while app:
@@ -42,17 +47,19 @@ while app:
         print("1. Ver Proyectos")
         print("2. Ver Personal")
         print("3. Stats (WIP)")
+        print("0. Cerrar Programa")
         Opcion=input("Selecione una opcion: ")
         if Opcion=="1": #* Ver Proyectos
-            imprimirMenuProyectos(ListaProyectos)
-            input("Ingrese una opcion para continuar...")
-            
+            imprimirMenuProyectos(ListaProyectos)            
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes)
-            input("Ingrese una opcion para continuar...")
-            
+            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles)            
         elif Opcion=="3": #* Stats
             input("WIP...")
+        
+        elif Opcion=="0": #* Cerrar el programa
+            app=False
+            mainMenuVar=False
 
         else: 
-            input("Opcion invalida. Intente nuevamente.")
+            print("")
+            input("[ERROR] Opcion invalida. Intente nuevamente.")
