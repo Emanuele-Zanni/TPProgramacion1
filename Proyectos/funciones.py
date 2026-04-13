@@ -11,8 +11,8 @@ def ver_proyectos(ListaProyectos):
     elif len(ListaProyectos) > 0:
         for proyecto in ListaProyectos:
             print(proyecto)
-            print("")
-            input("Ingrese cualquier opcion para continuar...")
+        print("")
+        input("Ingrese cualquier opcion para continuar...")
 
 
 def seleccionar_proyecto(ListaProyectos):
@@ -58,6 +58,7 @@ def crear_proyecto(ListaProyectos):
 
     id = len(ListaProyectos) + 1
     tareas = []
+    Estado = "Activo?" #* Hacer enum!
 
     while p1:
         clearConsole()
@@ -104,20 +105,13 @@ def crear_proyecto(ListaProyectos):
             p3 = False
 
     if inProgress:
-        input("Proyecto creado exitosamente.")
-    # else:
 
-
-
-    #* Enum
-
-    # nuevo_proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
-    
-    # ListaProyectos.append(nuevo_proyecto)
-    
-    #* ListaProyectos = [[id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]]
-
-    # return nuevo_proyecto
+        #? Type Proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
+        nuevo_proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
+        
+        ListaProyectos.append(nuevo_proyecto)
+        print("")
+        input("[EXITO] Proyecto creado exitosamente.")
 
 
 def editar_proyecto(ListaProyectos):

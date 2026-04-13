@@ -5,7 +5,7 @@ def imprimirMenuTareas(ListaTareas):
     activo=True
     
     while activo:
-        clearConsole()
+        # clearConsole()
         print("[Menu Principal > Tareas]")
         print("")
         print("1. Ver tarea")
