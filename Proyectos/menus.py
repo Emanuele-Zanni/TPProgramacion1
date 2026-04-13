@@ -44,7 +44,7 @@ def imprimirMenuSeleccionarProyecto(proyecto):
         print(tarea)
     print("---")
 
-    imprimirMenuTareas(proyecto[2])
+    imprimirMenuTareas(ListaTareas)
     # print("1. Ver tareas en LISTA (debug)")
     # print("2. Crear Tarea")
     # print("3. Editar Tarea")

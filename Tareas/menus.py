@@ -1,6 +1,7 @@
 from Tareas.funciones import *
 from General.clearConsole import *
 
+
 def imprimirMenuTareas(ListaTareas):
     activo=True
     
@@ -8,6 +9,7 @@ def imprimirMenuTareas(ListaTareas):
         clearConsole()
         print("[Menu Principal > Tareas]")
         print("")
+        print()
         print("1. Ver tarea")
         print("2. Crear tarea")
         print("3. Editar tarea")

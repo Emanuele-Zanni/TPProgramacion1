@@ -5,34 +5,78 @@ def ver_tareas(ListaTareas):
     print("[Menu Tareas > Ver Tareas]")
     print()
     if len(ListaTareas) == 0:
-        print("No hay tareas registradas.")
-        return
+        print()
+        input("No hay tareas registradas.")
     elif len(ListaTareas) > 0:
         for tarea in ListaTareas:
             print(tarea)
-
+        print()
+        input("Ingrese cualquier opcion para continuar" )
 
 def crear_tarea(ListaTareas):
     clearConsole()
     print("[Menu Tareas > Crear Tareas]")
     print()
     id = len(ListaTareas) + 1
-    nombreTarea=input("Ingrese el nombre de la tarea: ")
-    #! INTEGRANTES ASIGNADOS ???
-    FechaInicio=input("Ingrese la fecha de inicio de la tarea: ")
-    FechaFinal=input("Ingrese la fecha de la tarea:")
-    Estado=input("Ingrese el estado de la tarea:")
-    #* Enum
+    p1,p2,p3= True,False,False
 
-    nueva_tarea = [id,nombreTarea,FechaInicio,FechaFinal,Estado]
+    inProgress = True
+
+    while p1 and inProgress:
+        clearConsole()
+        print("[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]")
+        print()
+        nombreTarea=input("Ingrese el nombre de la tarea: ")
+        if nombreTarea == "":
+            print("")
+            input("[ERROR] El nombre de la tarea no puede estar vacio")
+        else:
+            p1 = False
+            p2 = True
+
+    while p2 and inProgress:
+        clearConsole()
+        print("[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]")
+        print()
+        print(f"Nombre de la tarea: {nombreTarea}")
+        print()
+        FechaInicio=input("Ingrese la fecha de inicio de la tarea: ")
+        if FechaInicio == "":
+            print("")
+            input("[ERROR] La fecha ingresada no puede estar vacia")
+        elif FechaInicio.isdigit() == False:
+            print("")
+            input("[ERROR] La fecha ingresada debe ser un numero")
+        else:
+            p2 = False
+            p3 = True
     
-    ListaTareas.append(nueva_tarea) 
+    while p3 and inProgress:
+        clearConsole()
+        print("[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]")
+        print()
+        print(f"Nombre de la tarea: {nombreTarea}")
+        print(f"Fecha de Inicio: {FechaInicio}")
+        print()
+        FechaFinal=input("Ingrese la fecha de finalizacion de la tarea: ")
+        if FechaFinal == "":
+            print("")
+            input("[ERROR] La fecha ingresada no puede estar vacia")
+        elif FechaFinal.isdigit() == False:
+            print("")
+            input("[ERROR] La fecha ingresada debe ser un numero")
+        else:
+            p3 = False
+            
+    if inProgress:
 
-    input("Tarea Creada Exitosamente!")
+        #? Type Proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
+        nueva_tarea = [id,nombreTarea,FechaInicio,FechaFinal]
+        
+        ListaTareas.append(nueva_tarea)
+        print("")
+        input("[EXITO] Tarea creada exitosamente.")
     
-    # ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
-
-    # return nueva_tarea
 
 
 def editar_tarea(ListaTareas):
