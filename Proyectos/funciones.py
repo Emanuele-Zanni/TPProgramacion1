@@ -1,5 +1,3 @@
-from General.clearConsole import *
-
 def ver_proyectos(ListaProyectos):
     clearConsole()
     print("[Menu Principal > Proyectos > *Ver Proyectos*]")
@@ -15,20 +13,6 @@ def seleccionar_proyecto(ListaProyectos):
     clearConsole()
     print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
     print()
-    
-    id = int(input("ingrese el ID del proyecto a seleccionar: "))
-    posicion = id - 1
-    for posicion in range(len(ListaProyectos)):
-        if len(ListaProyectos) == 0:
-            print("no hay proyectos registrados")
-            
-        elif id - 1 != ListaProyectos[posicion]:
-            if posicion == len(ListaProyectos) - 1:    
-                print("el proyecto ingresado no existe")
-            
-        elif id - 1 == ListaProyectos[posicion]:
-            print("proyecto seleccionado: ", ListaProyectos[posicion])
-            return ListaProyectos[posicion]
 
 def crear_proyecto(ListaProyectos):
     clearConsole()
