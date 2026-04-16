@@ -61,7 +61,7 @@ def eliminar_rol(ListaRoles):
         input("No hay roles registrados ")
     else:
         print(ListaRoles)
-        rol_id=int(input("Elija el Rol que desea eliminar: "))
+        rol_id=int(input("Elija el ID del Rol que desea eliminar: "))
         for i in range(len(ListaRoles)):
             if ListaRoles[i][0]==rol_id:
                 ListaRoles.pop(i)
