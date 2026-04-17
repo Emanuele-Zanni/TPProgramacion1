@@ -55,7 +55,6 @@ def crear_proyecto(ListaProyectos):
     #* Variables para inicializar las flags para persistencia de inputs + validaciones
     inProgress = True
     p1,p2,p3 = True,False,False
-
     id = len(ListaProyectos) + 1
     tareas = []
     Estado = "Activo?" #* Hacer enum!
@@ -113,7 +112,7 @@ def crear_proyecto(ListaProyectos):
         print("")
         input("[EXITO] Proyecto creado exitosamente.")
 
-
+#no basico
 def editar_proyecto(ListaProyectos):
     clearConsole()
     print("[Menu principal > Proyectos > *Editar Proyectos*]")
@@ -161,7 +160,7 @@ def editar_proyecto(ListaProyectos):
             print("")
             input("[ERROR] El proyecto ingresado no existe")
 
-
+#no basico
 def eliminar_proyecto(ListaProyectos):
     clearConsole()
     print("[Menu principal > Proyectos > *Eliminar Proyectos*]")

@@ -47,27 +47,30 @@ ListaRoles=[]
 
 #! Main  ----------------------
 while app:
+    basico= login()
+    clearConsole()
     while mainMenuVar:
-        clearConsole()
-        listaUsuarios = login()
         clearConsole()
         print("[*Menu Principal*]")
         print("")
         print("1. Ver Proyectos")
         print("2. Ver Personal")
         print("3. Stats (WIP)")
+        print("4. Cerrar sesión")
         print("0. Cerrar Programa")
         Opcion=input("Selecione una opcion: ")
         if Opcion=="1": #* Ver Proyectos
-            imprimirMenuProyectos(ListaProyectos)            
+            imprimirMenuProyectos(ListaProyectos, basico)            
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles)            
+            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles, basico)            
         elif Opcion=="3": #* Stats
             input("WIP...")
-        
         elif Opcion=="0": #* Cerrar el programa
             app=False
             mainMenuVar=False
+        elif Opcion=="4":
+            clearConsole()
+            basico= login()
 
         else: 
             print("")
