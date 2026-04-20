@@ -1,36 +1,54 @@
 from General.clearConsole import*
 
 
-def imprimirMenuRoles(ListaRoles):
+def imprimirMenuRoles(ListaRoles, basico):
     activo=True
     while activo:
         clearConsole()
         print("[Menu Principal > Ver personal > *Roles*]")
         print()  
-        print("1. Crear rol: ")
-        print("2. Editar rol: ")  
-        print("3. Eliminar rol")  
-        print("4. Ver roles")
-        print("0. Volver")
-        opcion_rol=int(input("Ingrese la opción deseada: "))
+        if basico==False:
+            print("1. Crear rol: ")
+            print("2. Editar rol: ")  
+            print("3. Eliminar rol")  
+            print("4. Ver roles")
+            print("0. Volver")
+            opcion_rol=int(input("Ingrese la opción deseada: "))
 
-        if opcion_rol ==1:
-           crear_roles(ListaRoles)
-              
-        elif opcion_rol==2:
-             editar_rol(ListaRoles)
-           
-        elif opcion_rol==3:
-            eliminar_rol(ListaRoles)
-        
-        elif opcion_rol==4:
-              ver_roles(ListaRoles)
+            if opcion_rol ==1:
+                crear_roles(ListaRoles)
+                
+            elif opcion_rol==2:
+                editar_rol(ListaRoles)
+            
+            elif opcion_rol==3:
+                eliminar_rol(ListaRoles)
+            
+            elif opcion_rol==4:
+                ver_roles(ListaRoles)
 
-        elif opcion_rol==0: 
-            activo=False
-        
+            elif opcion_rol==0: 
+                activo=False
+            
+            else:
+                print("Número inválido")
+
         else:
-            print("Número inválido")
+            print("4. Ver roles")
+            print("0. Volver")
+            opcion_rol=int(input("Ingrese la opción deseada: "))
+            
+            if opcion_rol==4:
+                ver_roles(ListaRoles)
+
+            elif opcion_rol==0: 
+                activo=False
+            
+            else:
+                print("Número inválido")
+
+            
+     
 
 def crear_roles(ListaRoles):
     clearConsole()
@@ -61,7 +79,7 @@ def eliminar_rol(ListaRoles):
         input("No hay roles registrados ")
     else:
         print(ListaRoles)
-        rol_id=int(input("Elija el Rol que desea eliminar: "))
+        rol_id=int(input("Elija el ID del Rol que desea eliminar: "))
         for i in range(len(ListaRoles)):
             if ListaRoles[i][0]==rol_id:
                 ListaRoles.pop(i)
