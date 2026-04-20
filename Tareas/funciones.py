@@ -7,7 +7,7 @@ def ver_tareas(ListaTareas):
     if len(ListaTareas) == 0:
         print()
         input("No hay tareas registradas.")
-    elif len(ListaTareas) > 0:
+    else:
         for tarea in ListaTareas:
             print(tarea)
         print()
@@ -80,62 +80,70 @@ def crear_tarea(ListaTareas):
 
 
 def editar_tarea(ListaTareas):
-    clearConsole()
-    print("[Menu Tareas > Editar Tareas]")
-    print()
-    #* Que_tarea? [POSICION]
-    posicion = 0
-    isTaskReal = False
-    task_id = int(input("Ingrese ID de la tarea a editar: "))
-    for item in ListaTareas:
-            if item[0] == task_id:
-                posicion = task_id - 1
-                isTaskReal = True
-
-    if isTaskReal:
-        #* Menu con variables de ESA tarea (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado de la tarea)
-        print("1. Cambiar Nombre")
-        print("2. Cambiar fecha de inicio")
-        print("3. Cambiar fecha final")
-        print("4. Cambiar el estado de la tarea")
-        print("")
-        opcion = input("Seleccione una opcion")
-        
-        if opcion == "1":
-            editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
-            ListaTareas[posicion][1] = editarNombre
-        elif opcion == "2":
-            editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
-            ListaTareas[posicion][3] = editarFechaInicio
-        elif opcion == "3":
-            editarFechaFinal=input("Ingrese la nueva fecha final: ")
-            ListaTareas[posicion][4] = editarFechaFinal
-        elif opcion == "4": 
-            editarEstado=input("Ingrese el nuevo estado de la tarea: ")
-            ListaTareas[posicion][5] = editarEstado
-        else:
-            input("[ERROR] Número inválido")
-
-        # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
-
+    if len(ListaTareas) == 0:
+        clearConsole()
+        print("[Menu Tareas > *Editar Tareas*]")
+        print()
+        input("No hay tareas registradas.")
     else:
-        input("[ERROR] La tarea ingresada no existe")
+        clearConsole()
+        print("[Menu Tareas > Editar *Tareas*]")
+        print()
+        #* Que_tarea? [POSICION]
+        posicion = 0
+        isTaskReal = False
+        task_id = int(input("Ingrese ID de la tarea a editar: "))
+        for item in ListaTareas:
+                if item[0] == task_id:
+                    posicion = task_id - 1
+                    isTaskReal = True
+
+        if isTaskReal:
+            #* Menu con variables de ESA tarea (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado de la tarea)
+            print("1. Cambiar Nombre")
+            print("2. Cambiar fecha de inicio")
+            print("3. Cambiar fecha final")
+            print("4. Cambiar el estado de la tarea")
+            print("")
+            opcion = input("Seleccione una opcion")
+            
+            if opcion == "1":
+                editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+                ListaTareas[posicion][1] = editarNombre
+            elif opcion == "2":
+                editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
+                ListaTareas[posicion][3] = editarFechaInicio
+            elif opcion == "3":
+                editarFechaFinal=input("Ingrese la nueva fecha final: ")
+                ListaTareas[posicion][4] = editarFechaFinal
+            elif opcion == "4": 
+                editarEstado=input("Ingrese el nuevo estado de la tarea: ")
+                ListaTareas[posicion][5] = editarEstado
+            else:
+                input("[ERROR] Número inválido")
+
+            # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
+
+        else:
+            input("[ERROR] La tarea ingresada no existe")
 
 
 def eliminar_tarea(ListaTareas):
-    clearConsole()
-    print("[Menu Tareas > Eliminar Tareas]")
-    print()
-    id = int(input("Ingrese el ID de la tarea a eliminar: "))
-    isTaskReal = False
-
-    for item in ListaTareas:
-        if item[0] == id:
-            isTaskReal = True
-
-    if isTaskReal:
-        del ListaTareas[id-1]
-
-
+    if len(ListaTareas) == 0:
+        clearConsole()
+        print("[Menu Tareas > *Eliminar Tareas*]")
+        input("No hay tareas registradas.")
     else:
-        input("[ERORR] La tarea con el ID ingresado no existe")  
+        clearConsole()
+        print("[Menu Tareas > *Eliminar Tareas*]")
+        print()
+        id = int(input("Ingrese el ID de la tarea a eliminar: "))
+        isTaskReal = False
+
+        for item in ListaTareas:
+            if item[0] == id:
+                isTaskReal = True
+        if isTaskReal:
+            del ListaTareas[id-1]
+        else:
+            input("[ERROR] La tarea con el ID ingresado no existe")  

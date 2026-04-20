@@ -31,7 +31,7 @@ def agregar_integrante(ListaIntegrantes, ListaRoles):
         clearConsole()
         print("[Menu Principal > Integrantes > *Agregar Integrantes*]")
         print()
-        nombre_integrante = input("Ingrese el nombre del integrante: ")
+        nombre_integrante = input("• Ingrese el nombre del integrante: ")
         if nombre_integrante== "":
             print("")
             input("[ERROR] El nombre ingresado no puede estar vacio")
@@ -67,6 +67,7 @@ def agregar_integrante(ListaIntegrantes, ListaRoles):
             ListaIntegrantes.append(nuevo_integrante)
             
             p2 = False
+            #! ESTO ESTA MAL, TIENE QUE SER AUTOMATICO CON LIBRERIA "date"
             registroFechaIntegrantes=input("Ingrese la fecha de hoy: ")
             print("")
             print("Nuevo integrante añadido con éxito ")
@@ -86,7 +87,7 @@ def editar_integrante(ListaIntegrantes):
     else:
         posicion = 0
         isMemberReal = False
-        member_id = int(input("Ingrese ID de la tarea a editar: "))
+        member_id = int(input("• Ingrese ID del integrante a editar: "))
         for item in ListaIntegrantes:
                 if item[0] == member_id:
                     posicion = member_id - 1
@@ -119,13 +120,11 @@ def eliminar_integrante(ListaIntegrantes):
     if len(ListaIntegrantes) == 0:
         input("No hay integrantes registrados")
     else:
-        idIngresado = int(input("Ingrese el ID del integrante a eliminar: "))
+        idIngresado = input("Ingrese el ID del integrante a eliminar: ")
         isMemberReal = False
-
         for integrante in ListaIntegrantes:
             if integrante[0] == idIngresado:
                 isMemberReal = True
-
         if isMemberReal:
             del ListaIntegrantes[idIngresado-1]
         else:
