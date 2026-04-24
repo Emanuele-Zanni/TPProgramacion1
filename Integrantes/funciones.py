@@ -1,5 +1,18 @@
 from General.clearConsole import *
 
+def mostrarListaIntegrantes(ListaIntegrantes):
+     # Encabezados
+        print(f"{'ID':<5}{'Nombre':<20}{'Rol':<15}{'Tareas':<10}")
+        print("-" * 50)
+
+        for integrante in ListaIntegrantes:
+            id_ = integrante[0]
+            nombre = integrante[1]
+            rol = integrante[2]
+            tareas = len(integrante[3])  # cantidad de tareas asignadas
+
+            print(f"{id_:<5}{nombre:<20}{rol:<15}{tareas:<10}")
+
 
 def ver_integrantes(ListaIntegrantes):
     clearConsole()
@@ -8,8 +21,7 @@ def ver_integrantes(ListaIntegrantes):
     if len(ListaIntegrantes) == 0:
         input("No hay integrantes registrados")
     elif len(ListaIntegrantes) > 0:
-        for integrante in ListaIntegrantes:
-            print(integrante)
+        mostrarListaIntegrantes(ListaIntegrantes)
         input("\nPresione cualquier tecla para continuar...")
     
 
@@ -31,7 +43,7 @@ def agregar_integrante(ListaIntegrantes, ListaRoles):
         clearConsole()
         print("[Menu Principal > Integrantes > *Agregar Integrantes*]")
         print()
-        nombre_integrante = input("Ingrese el nombre del integrante: ")
+        nombre_integrante = input("• Ingrese el nombre del integrante: ")
         if nombre_integrante== "":
             print("")
             input("[ERROR] El nombre ingresado no puede estar vacio")
@@ -99,6 +111,7 @@ def editar_integrante(ListaIntegrantes):
             
             if opcion == "1":
                 editarNombre=input("Ingrese el nuevo nombre del integrante: ")
+                editarNombre=input("Ingrese el nuevo nombre del integrante: ")
                 ListaIntegrantes[posicion][1] = editarNombre
             elif opcion == "2":
                 editarRol=input("Ingrese el nuevo nombre del rol: ")
@@ -119,13 +132,11 @@ def eliminar_integrante(ListaIntegrantes):
     if len(ListaIntegrantes) == 0:
         input("No hay integrantes registrados")
     else:
-        idIngresado = int(input("Ingrese el ID del integrante a eliminar: "))
+        idIngresado = input("Ingrese el ID del integrante a eliminar: ")
         isMemberReal = False
-
         for integrante in ListaIntegrantes:
             if integrante[0] == idIngresado:
                 isMemberReal = True
-
         if isMemberReal:
             del ListaIntegrantes[idIngresado-1]
         else:

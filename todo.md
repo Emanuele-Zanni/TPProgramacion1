@@ -5,16 +5,18 @@ Opcion Seleccionar Proyecto NO se debe poder realizar si listaProyectos es 0
 - Lo mismo con Eliminar Proyectos
 - Agregar la solucion a los demas MODULOS (a los CRUDs)
 
-ver integrantes NO tiene un input despues de mostrar la lista.
+LOGICA DE ROLES ESTA MAL (no consume ListaRoles, esta hardcodeado)
 
-Agregar clearConsole() a Agregar Integrante (y a todo lo que FALTE)
+[Menu Principal > Ver personal > *Roles*] FUNCIONA MAL, verificar inputs,se rompe con vacios, se estqa convirtiendo a "int"
+
+ver integrantes NO tiene un input despues de mostrar la lista.
 
 SOLUCIONAR falta de INPUTS en TODOS los MODULOS
 - Crear poryecto necestia un INPUT final msotrando mensaje "Proyecto creado exitosamente"
 
 Agregar el CRUD de Tareas dentro de seleccionar Proyecto (agregar mismas validaciones y fixes de los demas modulos)
 
-Agregar lambdas (min 2)
+Agregar lambdas (min 2) 
 
 Agergar LOGIN y USERS (minimo 2 lvls, user y superUser) [Invitado?, Integrante, Manager, SuperUser/Developer/Admin]
 

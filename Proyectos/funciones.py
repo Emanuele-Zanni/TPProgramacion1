@@ -2,49 +2,92 @@ from General.clearConsole import *
 from Tareas.menus import *
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
+def mostrarLista(ListaProyectos):
+        print(f"{'ID':<5}{'Nombre':<20}{'Tareas':<10}{'Inicio':<12}{'Fin':<12}{'Estado':<10}")
+        print("-" * 70)
+        
+        for proyecto in ListaProyectos:
+            id_ = proyecto[0]
+            nombre = proyecto[1]
+            tareas = len(proyecto[2])  # cantidad de tareas en vez de []
+            inicio = proyecto[3]
+            fin = proyecto[4]
+            estado = proyecto[5]
+            
+            print(f"{id_:<5}{nombre:<20}{tareas:<10}{inicio:<12}{fin:<12}{estado:<10}")
+            
+        print("")
+    
+
 def ver_proyectos(ListaProyectos):
     clearConsole()
     print("[Menu Principal > Proyectos > *Ver Proyectos*]")
     print()       
+    
     if len(ListaProyectos) == 0:
         input("No hay proyectos registrados.")
     elif len(ListaProyectos) > 0:
-        for proyecto in ListaProyectos:
-            print(proyecto)
-        print("")
+        mostrarLista(ListaProyectos)
         input("Ingrese cualquier opcion para continuar...")
 
 
 def seleccionar_proyecto(ListaProyectos):
-    clearConsole()
-    print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
-    print()
-
-    isProjectReal = False
-    proyectoSeleccionado = ""
-    if len(ListaProyectos) == 0:
-        input("No hay proyectos registrados.")
-    else:
-        id = int(input("ingrese el ID del proyecto a seleccionar: "))
-        for proyecto in ListaProyectos:
-            if proyecto[0] == id:   
-                isProjectReal = True
-
-        if isProjectReal:
+        isProjectReal = False
+        if len(ListaProyectos) == 0:
             clearConsole()
-            print("[Menu principal > Proyectos > *Proyecto Seleccionado*]")
-            print() 
-            print(f"=== {proyecto[1]} ===")
-            print(f"ID: {proyecto[0]} | Status: {proyecto[5]} | Fecha Inicio/Final: {proyecto[3]} - {proyecto[4]}")
-            print("")
-            for tarea in proyecto[2]:
-                print(tarea)
-            print("---")
-
-            imprimirMenuTareas(proyecto[2])
+            print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
+            print()
+            input("No hay proyectos registrados.")
         else:
-            print("")
-            input("[ERROR] El ID ingresado no pertenece a ningun proyecto")
+            clearConsole()
+            print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
+            print()
+            id = input("ingrese el ID del proyecto a seleccionar: ")
+            if id.isdigit():
+                id = int(id)
+                for project in ListaProyectos:
+                    if project[0] == id:   
+                        isProjectReal = True
+                        proyecto = project
+            elif id == "":
+                print("")
+                input("[ERROR] El id no puede estar vacio")
+                return
+            else:
+                print("")
+                input("[ERROR] El ID ingresado debe ser un numero")
+                return
+            if isProjectReal:
+                on = True
+                while on:
+                    clearConsole()
+                    print("[Menu principal > Proyectos > *Proyecto Seleccionado*]")
+                    print() 
+                    print(f"=== {proyecto[1]} ===")
+                    print(f"ID: {proyecto[0]} | Status: {proyecto[5]} | Fecha Inicio/Final: {proyecto[3]} - {proyecto[4]}")
+                    print("")
+
+                    print("1. Ver tarea")
+                    print("2. Crear tarea")
+                    print("3. Editar tarea")
+                    print("4. Eliminar tarea")
+                    print("0. Volver atras")
+                    opcion=input("Seleccione una opcion: ")
+                    if opcion=="1":
+                        ver_tareas(proyecto[2])
+                    elif opcion=="2":
+                        crear_tarea(proyecto[2])
+                    elif opcion=="3":
+                        editar_tarea(proyecto[2])
+                    elif opcion=="4":
+                        eliminar_tarea(proyecto[2])
+                    elif opcion=="0":
+                        on=False
+                    else:
+                        input("Opcion invalida. Intente nuevamente.")
+            else:
+                print("")
+                input("[ERROR] El ID ingresado no pertenece a ningun proyecto")
 
         
 
@@ -63,7 +106,7 @@ def crear_proyecto(ListaProyectos):
         clearConsole()
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
-        nombreProyecto=input("Ingrese el nombre del proyecto: ")  
+        nombreProyecto=input("• Ingrese el nombre del proyecto: ")  
         if nombreProyecto == "":
             print("")
             input("[ERROR] El nombre ingresado no puede estar vacio") 
@@ -76,7 +119,7 @@ def crear_proyecto(ListaProyectos):
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
-        FechaInicio=input("Ingrese la fecha de inicio del proyecto: ")
+        FechaInicio=input("• Ingrese la fecha de inicio del proyecto: ")
         if FechaInicio == "":
             print("")
             input("[ERROR] La fecha ingresada no puede estar vacia") 
@@ -93,7 +136,7 @@ def crear_proyecto(ListaProyectos):
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
         print(f"Fecha de Inicio: {FechaInicio}")
-        FechaFinal=input("Ingrese la fecha de finalizacion del proyecto: ")
+        FechaFinal=input("• Ingrese la fecha de finalizacion del proyecto: ")
         if FechaFinal == "":
             print("")
             input("[ERROR] La fecha ingresada no puede estar vacia") 
@@ -109,7 +152,13 @@ def crear_proyecto(ListaProyectos):
         nuevo_proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
         
         ListaProyectos.append(nuevo_proyecto)
-        print("")
+        clearConsole()
+        print("[Menu Principal > Proyectos > *Crear Proyectos*]")
+        print()
+        print(f"Nombre del Proyecto: {nombreProyecto}")
+        print(f"Fecha de Inicio: {FechaInicio}")
+        print(f"Fecha de Inicio: {FechaFinal}")
+        print()
         input("[EXITO] Proyecto creado exitosamente.")
 
 #no basico
@@ -123,6 +172,8 @@ def editar_proyecto(ListaProyectos):
     else:
         #* Que proyecto? [POSICION]
         isProjectReal = False
+        mostrarLista(ListaProyectos)
+        print()
         project_id = int(input("Ingrese ID del proyecto a editar: "))
         for item in ListaProyectos:
                 if item[0] == project_id:
@@ -176,10 +227,8 @@ def eliminar_proyecto(ListaProyectos):
         for item in ListaProyectos:
             if item[0] == id:
                 isProjectReal = True
+                ListaProyectos.remove(item)
+                input(f"'{item}' eliminado exitosamente")
 
-        if isProjectReal:
-            del ListaProyectos[id-1]
-            #* Aca falta funcion para reacomodar el ID de TODOS los elementos de la lista para que no haya saltos
-            #* (Es opcional esto) 
-        else:
+        if isProjectReal == False:
             input("[ERROR] El proyecto con el ID ingresado no existe")      

@@ -2,7 +2,7 @@ from General.clearConsole import *
 from Proyectos.funciones import *
 from Tareas.funciones import *
 from Tareas.menus import *
-from Database.dataBase import *
+from Database.usuarios import *
 
 
 def imprimirMenuProyectos(ListaProyectos, basico):
@@ -11,7 +11,7 @@ def imprimirMenuProyectos(ListaProyectos, basico):
         clearConsole()
         print("[Menu Principal > *Proyectos*]")
         print("")
-        if basico==False:
+        if basico==True:
 
             print("1. Ver proyectos")
             print("2. Selecciona Proyecto")
@@ -55,37 +55,34 @@ def imprimirMenuProyectos(ListaProyectos, basico):
 
 
 
-
-
 def imprimirMenuSeleccionarProyecto(proyecto): 
-    clearConsole()
-    print("[Menu principal > Proyectos > *Proyecto Seleccionado*]")
-    print() 
-    print(f"=== {proyecto[1]} ===")
-    print(f"ID: {proyecto[0]} | Status: {proyecto[5]} | Fecha Inicio/Final: {proyecto[3]} - {proyecto[4]}")
-    print("")
-    for tarea in proyecto[2]:
-        print(tarea)
-    print("---")
+    activo=True
+    while activo:
+        clearConsole()
+        print("[Menu principal > Proyectos > *Proyecto Seleccionado*]")
+        print() 
+        print(f"=== {proyecto[1]} ===")
+        print(f"ID: {proyecto[0]} | Status: {proyecto[5]} | Fecha Inicio/Final: {proyecto[3]} - {proyecto[4]}")
+        print("")
 
-    imprimirMenuTareas(ListaTareas)
-    # print("1. Ver tareas en LISTA (debug)")
-    # print("2. Crear Tarea")
-    # print("3. Editar Tarea")
-    # print("4. Eliminar Tarea")
-    # print("0. Volver Atras")
+        for tarea in proyecto[2]:
+            print(tarea)
 
-    # opcion=input("Seleccione una opcion: ")
-    # if opcion=="1":
-    #     ver_tareas(ListaTareas)
-    # elif opcion=="2":
-    #     crear_tarea(ListaTareas)
-    # elif opcion=="3":
-    #     editar_tarea(ListaTareas)
-    # elif opcion=="4":
-    #     eliminar_tarea(ListaTareas)
-    # elif opcion=="0":
-    #     activo=False
-    # else:
-    #     print("Opcion invalida. Intente nuevamente.")
-    
+        print("1. Ver tarea")
+        print("2. Crear tarea")
+        print("3. Editar tarea")
+        print("4. Eliminar tarea")
+        print("0. Volver atras")
+        opcion=input("Seleccione una opcion: ")
+        if opcion=="1":
+            ver_tareas(proyecto[2])
+        elif opcion=="2":
+            crear_tarea(proyecto[2])
+        elif opcion=="3":
+            editar_tarea(proyecto[2])
+        elif opcion=="4":
+            eliminar_tarea(proyecto[2])
+        elif opcion=="0":
+            activo=False
+        else:
+            print("Opcion invalida. Intente nuevamente.")
