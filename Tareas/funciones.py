@@ -17,7 +17,10 @@ def crear_tarea(ListaTareas):
     clearConsole()
     print("[Menu Tareas > Crear Tareas]")
     print()
-    id = len(ListaTareas) + 1
+    if len(ListaTareas) == 0:
+        id = 1
+    else:    
+        id = ListaTareas[len(ListaTareas)-1][0]+1
     p1,p2,p3= True,False,False
 
     inProgress = True
@@ -76,7 +79,8 @@ def crear_tarea(ListaTareas):
         ListaTareas.append(nueva_tarea)
         print("")
         input("[EXITO] Tarea creada exitosamente.")
-    
+    else:
+        input("Operacion cancelada.")
 
 
 def editar_tarea(ListaTareas):
@@ -92,40 +96,48 @@ def editar_tarea(ListaTareas):
         #* Que_tarea? [POSICION]
         posicion = 0
         isTaskReal = False
-        task_id = int(input("Ingrese ID de la tarea a editar: "))
-        for item in ListaTareas:
-                if item[0] == task_id:
-                    posicion = task_id - 1
-                    isTaskReal = True
+        task_id = input("Ingrese ID de la tarea a editar: ")
+        if task_id == "":
+            print()
+            input("[ERROR] El id no puede estar vacio")
+        elif task_id.isdigit() == False:
+            print()
+            input("[ERROR] El id debe ser un numero")
+        elif task_id.isdigit() == True and task_id != "":
+            task_id = int(task_id)
+            for item in ListaTareas:
+                    if item[0] == task_id:
+                        posicion = task_id - 1
+                        isTaskReal = True
 
-        if isTaskReal:
-            #* Menu con variables de ESA tarea (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado de la tarea)
-            print("1. Cambiar Nombre")
-            print("2. Cambiar fecha de inicio")
-            print("3. Cambiar fecha final")
-            print("4. Cambiar el estado de la tarea")
-            print("")
-            opcion = input("Seleccione una opcion")
-            
-            if opcion == "1":
-                editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
-                ListaTareas[posicion][1] = editarNombre
-            elif opcion == "2":
-                editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
-                ListaTareas[posicion][3] = editarFechaInicio
-            elif opcion == "3":
-                editarFechaFinal=input("Ingrese la nueva fecha final: ")
-                ListaTareas[posicion][4] = editarFechaFinal
-            elif opcion == "4": 
-                editarEstado=input("Ingrese el nuevo estado de la tarea: ")
-                ListaTareas[posicion][5] = editarEstado
+            if isTaskReal:
+                #* Menu con variables de ESA tarea (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado de la tarea)
+                print("1. Cambiar Nombre")
+                print("2. Cambiar fecha de inicio")
+                print("3. Cambiar fecha final")
+                print("4. Cambiar el estado de la tarea")
+                print("")
+                opcion = input("Seleccione una opcion")
+                
+                if opcion == "1":
+                    editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+                    ListaTareas[posicion][1] = editarNombre
+                elif opcion == "2":
+                    editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
+                    ListaTareas[posicion][3] = editarFechaInicio
+                elif opcion == "3":
+                    editarFechaFinal=input("Ingrese la nueva fecha final: ")
+                    ListaTareas[posicion][4] = editarFechaFinal
+                elif opcion == "4": 
+                    editarEstado=input("Ingrese el nuevo estado de la tarea: ")
+                    ListaTareas[posicion][5] = editarEstado
+                else:
+                    input("[ERROR] Número inválido")
+
+                # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
+
             else:
-                input("[ERROR] Número inválido")
-
-            # tarea_editada = [id,nombreTarea,tareas,FechaInicio,FechaFinal,Estado]
-
-        else:
-            input("[ERROR] La tarea ingresada no existe")
+                input("[ERROR] La tarea ingresada no existe")
 
 
 def eliminar_tarea(ListaTareas):

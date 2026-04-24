@@ -98,7 +98,10 @@ def crear_proyecto(ListaProyectos):
     #* Variables para inicializar las flags para persistencia de inputs + validaciones
     inProgress = True
     p1,p2,p3 = True,False,False
-    id = len(ListaProyectos) + 1
+    if len(ListaProyectos) == 0:
+        id = 1
+    else:    
+        id = ListaProyectos[len(ListaProyectos)-1][0]+1
     tareas = []
     Estado = "Activo?" #* Hacer enum!
 

@@ -52,7 +52,10 @@ def imprimirMenuRoles(ListaRoles, basico):
 
 def crear_roles(ListaRoles):
     clearConsole()
-    id = len(ListaRoles) + 1
+    if len(ListaRoles) == 0:
+        id = 1
+    else:    
+        id = ListaRoles[len(ListaRoles)-1][0]+1
     nuevo_rol=input("Ingrese el nombre del nuevo rol: ")
     nuevo_rol = [ id, nuevo_rol, []]
     ListaRoles.append(nuevo_rol)
