@@ -1,38 +1,62 @@
 from General.clearConsole import*
 
+subHeaders = ["password","clearance"]
+listaNombres = ["Candela","Emanuele"]
+listaContraseñas = ["1234","5555"]
+listaNivelesAcceso = [3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
+
+#* Menuda diccionario por comprension chaval
+#* Explicacion de esta lista... (agregar)
+usuarios = {
+    nombre: dict(zip(subHeaders, [contraseña, acceso]))
+    for nombre, contraseña, acceso in zip(listaNombres, listaContraseñas, listaNivelesAcceso)
+}
+
 
 def login():
-    inicio=False
-    superUsuarios = {"Candela": "1234", "Sofia": "2345"}
-    basicoUsuarios = {"Federico":"1234"}
+    on=True
+    p1,p2 = True,False
 
-    while inicio==False:
-        usuario=input("Ingrese el nombre de usuario: ")
-        contraseña=input("Ingrese la contraseña: ")
+    while on:
+        isPasswordCorrect = False
+        isUserReal = False
+        # user = ""
+        # password = ""
+        clearConsole()
+        print("[Menu de Login]")
+        print()
 
-        if usuario in superUsuarios:
+        user=input("• Ingrese nombre de usuario: ")
 
-            if superUsuarios[usuario] == contraseña:
-                input("¡Bienvenido! ")
-                inicio=True
-                return False        # Devuelve False para indicar que no es un usuario básico
-                clearConsole()
-            
-            else:
-                input("Contraseña incorrecta ")
-                clearConsole()
+        if user in usuarios:
+            isUserReal = True
+        # if usuarios.get(user) is not None:
+        #     isUserReal = True
+        #     print(isUserReal)
 
-        elif usuario in basicoUsuarios:
+        clearConsole()
+        print("[Menu de Login]")
+        print()
+        print(f"Usuario: {user}")
+        password=input("• Ingrese contraseña: ")
 
-            if basicoUsuarios[usuario] == contraseña:
-                input("¡Bienvenido! ")
-                inicio=True
-                return True
-                
-            else:
-                input("Contraseña incorrecta ")
-                clearConsole()
-                
-        else:
-            input("El usuario ingresado no existe ")
+        if usuarios.get(user, {}).get("password") == password:
+            isPasswordCorrect = True
+
+        if isUserReal and isPasswordCorrect:
             clearConsole()
+            print("[Menu de Login]")
+            print()
+            print(f"Usuario: {user}")
+            print(f"Contraseña: {password}")
+            print()
+            input(f"Sesion iniciada correctamente. ¡Bienvenid@ {user}!")
+
+            inicio=True
+            return True   
+        elif isUserReal and isPasswordCorrect == False:  
+                print()
+                input("[ERROR] Contraseña incorrecta ") 
+        else:
+                print()
+                input("[ERROR] El usuario ingresado no existe")

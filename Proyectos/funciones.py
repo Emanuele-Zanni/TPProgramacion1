@@ -209,10 +209,8 @@ def eliminar_proyecto(ListaProyectos):
         for item in ListaProyectos:
             if item[0] == id:
                 isProjectReal = True
+                ListaProyectos.remove(item)
+                input(f"'{item}' eliminado exitosamente")
 
-        if isProjectReal:
-            del ListaProyectos[id-1]
-            #* Aca falta funcion para reacomodar el ID de TODOS los elementos de la lista para que no haya saltos
-            #* (Es opcional esto) 
-        else:
+        if isProjectReal == False:
             input("[ERROR] El proyecto con el ID ingresado no existe")      
