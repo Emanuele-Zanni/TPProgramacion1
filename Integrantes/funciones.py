@@ -1,5 +1,18 @@
 from General.clearConsole import *
 
+def mostrarListaIntegrantes(ListaIntegrantes):
+     # Encabezados
+        print(f"{'ID':<5}{'Nombre':<20}{'Rol':<15}{'Tareas':<10}")
+        print("-" * 50)
+
+        for integrante in ListaIntegrantes:
+            id_ = integrante[0]
+            nombre = integrante[1]
+            rol = integrante[2]
+            tareas = len(integrante[3])  # cantidad de tareas asignadas
+
+            print(f"{id_:<5}{nombre:<20}{rol:<15}{tareas:<10}")
+
 
 def ver_integrantes(ListaIntegrantes):
     clearConsole()
@@ -8,8 +21,7 @@ def ver_integrantes(ListaIntegrantes):
     if len(ListaIntegrantes) == 0:
         input("No hay integrantes registrados")
     elif len(ListaIntegrantes) > 0:
-        for integrante in ListaIntegrantes:
-            print(integrante)
+        mostrarListaIntegrantes(ListaIntegrantes)
         input("\nPresione cualquier tecla para continuar...")
     
 
@@ -87,6 +99,8 @@ def editar_integrante(ListaIntegrantes):
     else:
         posicion = 0
         isMemberReal = False
+        mostrarListaIntegrantes(ListaIntegrantes)
+        print()
         member_id = int(input("• Ingrese ID del integrante a editar: "))
         for item in ListaIntegrantes:
                 if item[0] == member_id:
@@ -99,10 +113,10 @@ def editar_integrante(ListaIntegrantes):
             opcion = input("Seleccione una opcion")
             
             if opcion == "1":
-                editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+                editarNombre=input("Ingrese el nuevo nombre del integrante: ")
                 ListaIntegrantes[posicion][1] = editarNombre
             elif opcion == "2":
-                editarRol=input("Ingrese la nueva fecha de inicio: ")
+                editarRol=input("Ingrese el nuevo rol: ")
                 ListaIntegrantes[posicion][2] = editarRol
             else:
                 print("Número inválido")

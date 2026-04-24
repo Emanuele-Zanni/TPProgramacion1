@@ -35,7 +35,10 @@ mainMenuVar=True
 
 
 #* Datos Mockeados
-ListaProyectos = [[1, 'Proyecto 1', [], '1', '1', 'Activo?'],[2, 'Proyecto 2', [], '1', '1', 'Activo?'],[3, 'Proyecto 3', [], '1', '1', 'Activo?'],[4, 'Proyecto 4', [], '1', '1', 'Activo?']]
+ListaProyectos = [[1, 'Proyecto 1', [], '1', '15', 'Activo'],
+                  [2, 'Proyecto 2', [], '1', '20', 'Activo'],
+                  [3, 'Proyecto 3', [], '1', '1', 'Activo'],
+                  [4, 'Proyecto 4', [], '1', '13', 'Activo']]
 ListaTareas = []
 ListaIntegrantes= [[1,"Emanuele","rol","TareasAsignadas"]]
 ListaRoles=[]

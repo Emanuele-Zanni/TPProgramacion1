@@ -55,8 +55,6 @@ def imprimirMenuProyectos(ListaProyectos, basico):
 
 
 
-
-
 def imprimirMenuSeleccionarProyecto(proyecto): 
     activo=True
     while activo:

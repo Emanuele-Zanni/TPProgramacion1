@@ -4,7 +4,6 @@ from Integrantes.funciones import *
 from Integrantes.roles import*
 
 
-
 def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
     activo=True
     while activo:
