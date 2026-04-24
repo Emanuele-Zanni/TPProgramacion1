@@ -88,6 +88,20 @@ def eliminar_rol(ListaRoles):
                 ListaRoles.pop(i)
                 input(ListaRoles)
 
+
+def mostrarListaRoles(ListaRoles):
+    print(f"{'ID':<5}{'Nombre del rol':<30}")
+    print("-" * 20)
+    
+    for rol in ListaRoles:
+        id_ = rol[0]
+        nombre = rol[1]     
+        print(f"{id_:<5}{nombre:<30}")
+    
+    print()
+
+
+
 def ver_roles(ListaRoles):
     clearConsole()
     print("[Menu Principal > Integrantes > *Ver Roles*]")
@@ -97,7 +111,8 @@ def ver_roles(ListaRoles):
         input("No hay roles asignados ")
         return
     elif len(ListaRoles) > 0:
-          input()
+        mostrarListaRoles(ListaRoles)
+        input("\nPresione cualquier tecla para continuar...")
   
 
 
