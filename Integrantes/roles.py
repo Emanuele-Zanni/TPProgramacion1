@@ -7,9 +7,9 @@ def imprimirMenuRoles(ListaRoles, basico):
         clearConsole()
         print("[Menu Principal > Ver personal > *Roles*]")
         print()  
-        if basico==False:
-            print("1. Crear rol: ")
-            print("2. Editar rol: ")  
+        if basico==True:
+            print("1. Crear rol ")
+            print("2. Editar rol ")  
             print("3. Eliminar rol")  
             print("4. Ver roles")
             print("0. Volver")
