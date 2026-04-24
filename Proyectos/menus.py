@@ -11,7 +11,7 @@ def imprimirMenuProyectos(ListaProyectos, basico):
         clearConsole()
         print("[Menu Principal > *Proyectos*]")
         print("")
-        if basico==False:
+        if basico==True:
 
             print("1. Ver proyectos")
             print("2. Selecciona Proyecto")

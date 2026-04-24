@@ -11,7 +11,7 @@ def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
         clearConsole()
         print("[Menu Principal > *Integrantes*]")
         print()
-        if basico==False:
+        if basico==True:
             print("1. Ver integrantes")
             print("2. Agregar integrante")
             print("3. Editar integrante")
