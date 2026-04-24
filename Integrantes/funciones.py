@@ -1,4 +1,5 @@
 from General.clearConsole import *
+from Integrantes.roles import*
 
 def mostrarListaIntegrantes(ListaIntegrantes):
      # Encabezados
@@ -69,14 +70,12 @@ def agregar_integrante(ListaIntegrantes, ListaRoles):
             input("No hay roles existentes, por favor agregue un rol")
             return
         elif len(ListaRoles)>0:
-            print(ListaRoles)
+            mostrarListaRoles(ListaRoles)
             rol = int(input("Asignele el id del rol al nuevo integrante: "))
             for i in range(len(ListaRoles)):
                 if ListaRoles[i][0]==rol:
-                    ListaRoles[i][2].append(nombre_integrante)
-
-            nuevo_integrante = [id,nombre_integrante,rol]
-            ListaIntegrantes.append(nuevo_integrante)
+                    nuevo_integrante = [id,nombre_integrante,rol]
+                    ListaIntegrantes.append(nuevo_integrante)
             
             p2 = False
 
@@ -84,7 +83,7 @@ def agregar_integrante(ListaIntegrantes, ListaRoles):
             print("Nuevo integrante añadido con éxito ")
             print("ID del integrante:",nuevo_integrante[0])
             print("Nombre:",nuevo_integrante[1])
-            print("ID del Rol:",nuevo_integrante[2])
+            print("Rol:",nuevo_integrante[2])
             input("Presione enter para continuar...")
 
 def editar_integrante(ListaIntegrantes):
@@ -132,6 +131,8 @@ def eliminar_integrante(ListaIntegrantes):
     if len(ListaIntegrantes) == 0:
         input("No hay integrantes registrados")
     else:
+        mostrarListaIntegrantes(ListaIntegrantes)
+        print()
         idIngresado = input("Ingrese el ID del integrante a eliminar: ")
         isMemberReal = False
         for integrante in ListaIntegrantes:
