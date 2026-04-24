@@ -28,7 +28,7 @@ def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
             elif opcion=="4":
                 eliminar_integrante(ListaIntegrantes)
             elif opcion=="5":
-                imprimirMenuRoles(ListaRoles)
+                imprimirMenuRoles(ListaRoles,basico)
             elif opcion == "0":
                 activo=False
             else:

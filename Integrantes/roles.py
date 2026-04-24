@@ -91,7 +91,7 @@ def ver_roles(ListaRoles):
     print()
 
     if len(ListaRoles) == 0:
-        input("No hay roles asignados")
+        input("No hay roles asignados ")
         return
     elif len(ListaRoles) > 0:
           input()

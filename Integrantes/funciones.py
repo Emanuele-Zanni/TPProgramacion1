@@ -67,12 +67,12 @@ def agregar_integrante(ListaIntegrantes, ListaRoles):
             ListaIntegrantes.append(nuevo_integrante)
             
             p2 = False
-            registroFechaIntegrantes=input("Ingrese la fecha de hoy: ")
+
             print("")
             print("Nuevo integrante añadido con éxito ")
-            print("ID:",nuevo_integrante[0])
+            print("ID del integrante:",nuevo_integrante[0])
             print("Nombre:",nuevo_integrante[1])
-            print("Rol:",nuevo_integrante[2])
+            print("ID del Rol:",nuevo_integrante[2])
             input("Presione enter para continuar...")
 
 def editar_integrante(ListaIntegrantes):
@@ -86,7 +86,7 @@ def editar_integrante(ListaIntegrantes):
     else:
         posicion = 0
         isMemberReal = False
-        member_id = int(input("Ingrese ID de la tarea a editar: "))
+        member_id = int(input("Ingrese ID del integrante a editar: "))
         for item in ListaIntegrantes:
                 if item[0] == member_id:
                     posicion = member_id - 1
@@ -95,13 +95,13 @@ def editar_integrante(ListaIntegrantes):
             print("1. Cambiar Nombre")
             print("2. Cambiar rol")
             print("")
-            opcion = input("Seleccione una opcion")
+            opcion = input("Seleccione una opcion: ")
             
             if opcion == "1":
-                editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+                editarNombre=input("Ingrese el nuevo nombre del integrante: ")
                 ListaIntegrantes[posicion][1] = editarNombre
             elif opcion == "2":
-                editarRol=input("Ingrese la nueva fecha de inicio: ")
+                editarRol=input("Ingrese el nuevo nombre del rol: ")
                 ListaIntegrantes[posicion][2] = editarRol
             else:
                 print("Número inválido")
