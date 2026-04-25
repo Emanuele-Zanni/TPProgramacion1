@@ -152,11 +152,17 @@ def eliminar_tarea(ListaTareas):
         print()
         id = int(input("Ingrese el ID de la tarea a eliminar: "))
         isTaskReal = False
-
-        for item in ListaTareas:
-            if item[0] == id:
-                isTaskReal = True
-        if isTaskReal:
-            del ListaTareas[id-1]
-        else:
-            input("[ERROR] La tarea con el ID ingresado no existe")  
+        if id == "":
+            print()
+            input("[ERROR] El id no puede estar vacio")
+        elif id.isdigit() == False:
+            print()
+            input("[ERROR] El id debe ser un numero")
+        elif id.isdigit() == True and id != "":
+            for item in ListaTareas:
+                if item[0] == id:
+                    isTaskReal = True
+            if isTaskReal:
+                del ListaTareas[id-1]
+            else:
+                input("[ERROR] La tarea con el ID ingresado no existe")  
