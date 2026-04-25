@@ -150,7 +150,7 @@ def eliminar_tarea(ListaTareas):
         clearConsole()
         print("[Menu Tareas > *Eliminar Tareas*]")
         print()
-        id = int(input("Ingrese el ID de la tarea a eliminar: "))
+        id = input("Ingrese el ID de la tarea a eliminar: ")
         isTaskReal = False
         if id == "":
             print()
@@ -159,6 +159,7 @@ def eliminar_tarea(ListaTareas):
             print()
             input("[ERROR] El id debe ser un numero")
         elif id.isdigit() == True and id != "":
+            id = int(id)
             for item in ListaTareas:
                 if item[0] == id:
                     isTaskReal = True
