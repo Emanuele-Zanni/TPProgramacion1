@@ -23,7 +23,7 @@ def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
             elif opcion=="2":
                 agregar_integrante(ListaIntegrantes, ListaRoles)
             elif opcion=="3":
-                editar_integrante(ListaIntegrantes)
+                editar_integrante(ListaIntegrantes,ListaRoles)
             elif opcion=="4":
                 eliminar_integrante(ListaIntegrantes)
             elif opcion=="5":

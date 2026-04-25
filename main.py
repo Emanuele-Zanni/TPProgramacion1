@@ -43,10 +43,14 @@ ListaProyectos = [[1, 'Proyecto 1', [], '1', '15', 'Activo'],
 
 ListaTareas = []
 
-ListaIntegrantes= [[1,"Emanuele","rol",[]]]
+ListaIntegrantes= [[1,"Emanuele","Desarrollador",[]],
+                   [2,"Ezequiel","QA",[]],
+                   [3,"Rodolfo","QA",[]],
+                   [4,"Candela","Desarrollador",[]],
+                   [5,"Francisco","QA",[]]]
 
 ListaRoles= [[1, "Desarrollador"],
-            [2, "Tester"]]
+            [2, "QA"]]
 
 # ListaProyectos = []
 # ListaTareas = []

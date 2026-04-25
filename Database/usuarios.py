@@ -1,9 +1,9 @@
 from General.clearConsole import*
 
 subHeaders = ["password","clearance"]
-listaNombres = ["candela","emanuele"]
-listaContraseñas = ["1234","5555"]
-listaNivelesAcceso = [3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
+listaNombres = ["candela","emanuele","eze"]
+listaContraseñas = ["1234","5555","123"]
+listaNivelesAcceso = [3,3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
 
 #* Menuda diccionario por comprension chaval
 #* Explicacion de esta lista... (agregar)
