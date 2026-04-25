@@ -111,10 +111,7 @@ def editar_tarea(ListaTareas):
                         isTaskReal = True
 
             if isTaskReal:
-                editarNombre = ListaTareas[posicion][1]
-                editarFechaInicio = ListaTareas[posicion][3]
-                editarFechaFinal = ListaTareas[posicion][4]
-                editarEstado = ListaTareas[posicion][5]
+                
                 #* Menu con variables de ESA tarea (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado de la tarea)
                 print("1. Cambiar Nombre")
                 print("2. Cambiar fecha de inicio")
@@ -138,8 +135,8 @@ def editar_tarea(ListaTareas):
                 else:
                     input("[ERROR] Número inválido")
 
-                tarea_editada = [id,editarNombre,editarFechaInicio,editarFechaFinal,editarEstado]
-                ListaTareas.append(tarea_editada)
+                #tarea_editada = [id,editarNombre,editarFechaInicio,editarFechaFinal,editarEstado]
+                #ListaTareas.append(tarea_editada)
             else:
                 input("[ERROR] La tarea ingresada no existe")
 
