@@ -220,15 +220,6 @@ Existe como modulo auxiliar para validacion de fechas, pero hoy esta incompleto 
 - Hay funciones con comportamiento parcial o en proceso de refactor.
 - La gestion de permisos existe conceptualmente mediante `clearance`, pero su uso todavia no esta completamente consolidado en toda la aplicacion.
 
-## Proximos pasos recomendados
-
-- conectar `inputFecha.py` al alta y edicion de proyectos y tareas
-- unificar validaciones de inputs
-- mejorar el uso de roles y niveles de acceso
-- agregar persistencia en archivo o base de datos
-- completar estadisticas
-- normalizar estructuras de datos de proyectos, tareas, integrantes y roles
-
 ## Archivos de apoyo
 
 - `todo.md`: lista de pendientes funcionales y tecnicos
