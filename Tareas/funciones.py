@@ -1,5 +1,19 @@
 from General.clearConsole import *
 
+def mostrarListaTareas(ListaTareas):
+    print(f"{'ID':<5}{'Nombre':<20}{'Fecha Inicio':<15}{'Fecha Final':<15}")
+    print("-" * 55)
+    
+    for tarea in ListaTareas:
+        id_ = tarea[0]
+        nombre = tarea[1]
+        fecha_inicio = tarea[2]
+        fecha_final = tarea[3]
+        
+        print(f"{id_:<5}{nombre:<20}{fecha_inicio:<15}{fecha_final:<15}")
+        
+    print("")
+
 def ver_tareas(ListaTareas):
     clearConsole()
     print("[Menu Tareas > Ver Tareas]")
@@ -8,9 +22,7 @@ def ver_tareas(ListaTareas):
         print()
         input("No hay tareas registradas.")
     else:
-        for tarea in ListaTareas:
-            print(tarea)
-        print()
+        mostrarListaTareas(ListaTareas)
         input("Ingrese cualquier opcion para continuar" )
 
 def crear_tarea(ListaTareas):
@@ -92,7 +104,7 @@ def editar_tarea(ListaTareas):
     else:
         clearConsole()
         print("[Menu Tareas > Editar *Tareas*]")
-        print()
+        mostrarListaTareas(ListaTareas)
         #* Que_tarea? [POSICION]
         posicion = 0
         isTaskReal = False
@@ -111,8 +123,10 @@ def editar_tarea(ListaTareas):
                         isTaskReal = True
 
             if isTaskReal:
-                
                 #* Menu con variables de ESA tarea (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado de la tarea)
+                clearConsole()
+                print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]")
+                print()
                 print("1. Cambiar Nombre")
                 print("2. Cambiar fecha de inicio")
                 print("3. Cambiar fecha final")
@@ -121,15 +135,19 @@ def editar_tarea(ListaTareas):
                 opcion = input("Seleccione una opcion")
                 
                 if opcion == "1":
-                    editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+                    clearConsole()
+                    editarNombre=input("Ingrese el nuevo nombre de la tarea: ")
                     ListaTareas[posicion][1] = editarNombre
                 elif opcion == "2":
+                    clearConsole()
                     editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
                     ListaTareas[posicion][3] = editarFechaInicio
                 elif opcion == "3":
+                    clearConsole()
                     editarFechaFinal=input("Ingrese la nueva fecha final: ")
                     ListaTareas[posicion][4] = editarFechaFinal
                 elif opcion == "4": 
+                    clearConsole()
                     editarEstado=input("Ingrese el nuevo estado de la tarea: ")
                     ListaTareas[posicion][5] = editarEstado
                 else:

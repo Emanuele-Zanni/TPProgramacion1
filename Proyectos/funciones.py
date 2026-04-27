@@ -2,7 +2,7 @@ from General.clearConsole import *
 from Tareas.menus import *
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
-def mostrarLista(ListaProyectos):
+def mostrarListaProyectos(ListaProyectos):
         print(f"{'ID':<5}{'Nombre':<20}{'Tareas':<10}{'Inicio':<12}{'Fin':<12}{'Estado':<10}")
         print("-" * 70)
         
@@ -27,7 +27,7 @@ def ver_proyectos(ListaProyectos):
     if len(ListaProyectos) == 0:
         input("No hay proyectos registrados.")
     elif len(ListaProyectos) > 0:
-        mostrarLista(ListaProyectos)
+        mostrarListaProyectos(ListaProyectos)
         input("Ingrese cualquier opcion para continuar...")
 
 
@@ -42,6 +42,7 @@ def seleccionar_proyecto(ListaProyectos):
             clearConsole()
             print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
             print()
+            mostrarListaProyectos(ListaProyectos)
             id = input("ingrese el ID del proyecto a seleccionar: ")
             if id.isdigit():
                 id = int(id)
@@ -175,7 +176,7 @@ def editar_proyecto(ListaProyectos):
     else:
         #* Que proyecto? [POSICION]
         isProjectReal = False
-        mostrarLista(ListaProyectos)
+        mostrarListaProyectos(ListaProyectos)
         print()
         project_id = int(input("Ingrese ID del proyecto a editar: "))
         for item in ListaProyectos:
