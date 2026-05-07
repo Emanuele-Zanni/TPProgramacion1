@@ -2,16 +2,32 @@ from General.clearConsole import *
 from Tareas.menus import *
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
+def mostrarListaProyectos(ListaProyectos):
+        print(f"{'ID':<5}{'Nombre':<20}{'Tareas':<10}{'Inicio':<12}{'Fin':<12}{'Estado':<10}")
+        print("-" * 70)
+        
+        for proyecto in ListaProyectos:
+            id_ = proyecto[0]
+            nombre = proyecto[1]
+            tareas = len(proyecto[2])  # cantidad de tareas en vez de []
+            inicio = proyecto[3]
+            fin = proyecto[4]
+            estado = proyecto[5]
+            
+            print(f"{id_:<5}{nombre:<20}{tareas:<10}{inicio:<12}{fin:<12}{estado:<10}")
+            
+        print("")
+    
+
 def ver_proyectos(ListaProyectos):
     clearConsole()
     print("[Menu Principal > Proyectos > *Ver Proyectos*]")
     print()       
+    
     if len(ListaProyectos) == 0:
         input("No hay proyectos registrados.")
     elif len(ListaProyectos) > 0:
-        for proyecto in ListaProyectos:
-            print(proyecto)
-        print("")
+        mostrarListaProyectos(ListaProyectos)
         input("Ingrese cualquier opcion para continuar...")
 
 
@@ -26,6 +42,7 @@ def seleccionar_proyecto(ListaProyectos):
             clearConsole()
             print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
             print()
+            mostrarListaProyectos(ListaProyectos)
             id = input("ingrese el ID del proyecto a seleccionar: ")
             if id.isdigit():
                 id = int(id)
@@ -82,7 +99,10 @@ def crear_proyecto(ListaProyectos):
     #* Variables para inicializar las flags para persistencia de inputs + validaciones
     inProgress = True
     p1,p2,p3 = True,False,False
-    id = len(ListaProyectos) + 1
+    if len(ListaProyectos) == 0:
+        id = 1
+    else:    
+        id = ListaProyectos[len(ListaProyectos)-1][0]+1
     tareas = []
     Estado = "Activo?" #* Hacer enum!
 
@@ -156,6 +176,8 @@ def editar_proyecto(ListaProyectos):
     else:
         #* Que proyecto? [POSICION]
         isProjectReal = False
+        mostrarListaProyectos(ListaProyectos)
+        print()
         project_id = int(input("Ingrese ID del proyecto a editar: "))
         for item in ListaProyectos:
                 if item[0] == project_id:

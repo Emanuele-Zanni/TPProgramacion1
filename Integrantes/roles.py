@@ -7,9 +7,9 @@ def imprimirMenuRoles(ListaRoles, basico):
         clearConsole()
         print("[Menu Principal > Ver personal > *Roles*]")
         print()  
-        if basico==False:
-            print("1. Crear rol: ")
-            print("2. Editar rol: ")  
+        if basico==True:
+            print("1. Crear rol ")
+            print("2. Editar rol ")  
             print("3. Eliminar rol")  
             print("4. Ver roles")
             print("0. Volver")
@@ -52,7 +52,10 @@ def imprimirMenuRoles(ListaRoles, basico):
 
 def crear_roles(ListaRoles):
     clearConsole()
-    id = len(ListaRoles) + 1
+    if len(ListaRoles) == 0:
+        id = 1
+    else:    
+        id = ListaRoles[len(ListaRoles)-1][0]+1
     nuevo_rol=input("Ingrese el nombre del nuevo rol: ")
     nuevo_rol = [ id, nuevo_rol, []]
     ListaRoles.append(nuevo_rol)
@@ -85,16 +88,31 @@ def eliminar_rol(ListaRoles):
                 ListaRoles.pop(i)
                 input(ListaRoles)
 
+
+def mostrarListaRoles(ListaRoles):
+    print(f"{'ID':<5}{'Nombre del rol':<30}")
+    print("-" * 20)
+    
+    for rol in ListaRoles:
+        id_ = rol[0]
+        nombre = rol[1]     
+        print(f"{id_:<5}{nombre:<30}")
+    
+    print()
+
+
+
 def ver_roles(ListaRoles):
     clearConsole()
     print("[Menu Principal > Integrantes > *Ver Roles*]")
     print()
 
     if len(ListaRoles) == 0:
-        input("No hay roles asignados")
+        input("No hay roles asignados ")
         return
     elif len(ListaRoles) > 0:
-          input()
+        mostrarListaRoles(ListaRoles)
+        input("\nPresione cualquier tecla para continuar...")
   
 
 

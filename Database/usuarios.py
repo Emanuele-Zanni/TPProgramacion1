@@ -1,9 +1,9 @@
 from General.clearConsole import*
 
 subHeaders = ["password","clearance"]
-listaNombres = ["Candela","Emanuele"]
-listaContraseñas = ["1234","5555"]
-listaNivelesAcceso = [3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
+listaNombres = ["candela","emanuele","eze"]
+listaContraseñas = ["1234","5555","123"]
+listaNivelesAcceso = [3,3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
 
 #* Menuda diccionario por comprension chaval
 #* Explicacion de esta lista... (agregar)
@@ -26,7 +26,7 @@ def login():
         print("[Menu de Login]")
         print()
 
-        user=input("• Ingrese nombre de usuario: ")
+        user=input("• Ingrese nombre de usuario: ").lower()
 
         if user in usuarios:
             isUserReal = True

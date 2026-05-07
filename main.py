@@ -7,6 +7,7 @@ from Tareas.funciones import *
 from Proyectos.funciones import *
 from Integrantes.funciones import *
 from Integrantes.menus import *
+from Integrantes.roles import *
 from Tareas.menus import *
 from Proyectos.menus import *
 from Integrantes.roles import*
@@ -35,10 +36,21 @@ mainMenuVar=True
 
 
 #* Datos Mockeados
-ListaProyectos = [[1, 'Proyecto 1', [], '1', '1', 'Activo?'],[2, 'Proyecto 2', [], '1', '1', 'Activo?'],[3, 'Proyecto 3', [], '1', '1', 'Activo?'],[4, 'Proyecto 4', [], '1', '1', 'Activo?']]
-ListaTareas = []
-ListaIntegrantes= [[1,"Emanuele","rol","TareasAsignadas"]]
-ListaRoles=[]
+ListaProyectos = [[1, 'Proyecto 1', [], '1', '15', 'Activo'],
+                  [2, 'Proyecto 2', [], '1', '20', 'Activo'],
+                  [3, 'Proyecto 3', [], '1', '1', 'Activo'],
+                  [4, 'Proyecto 4', [], '1', '13', 'Activo']]
+
+#ListaTareas = []
+
+ListaIntegrantes= [[1,"Emanuele","Desarrollador",[]],
+                   [2,"Ezequiel","QA",[]],
+                   [3,"Rodolfo","QA",[]],
+                   [4,"Candela","Desarrollador",[]],
+                   [5,"Francisco","QA",[]]]
+
+ListaRoles= [[1, "Desarrollador"],
+            [2, "QA"]]
 
 # ListaProyectos = []
 # ListaTareas = []
@@ -53,8 +65,8 @@ while app:
         clearConsole()
         print("[*Menu Principal*]")
         print("")
-        print("1. Ver Proyectos")
-        print("2. Ver Personal")
+        print("1. Proyectos")
+        print("2. Personal")
         print("3. Stats (WIP)")
         print("4. Cerrar sesión")
         print("0. Cerrar Programa")

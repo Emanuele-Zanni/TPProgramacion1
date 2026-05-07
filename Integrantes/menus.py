@@ -4,14 +4,13 @@ from Integrantes.funciones import *
 from Integrantes.roles import*
 
 
-
 def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
     activo=True
     while activo:
         clearConsole()
         print("[Menu Principal > *Integrantes*]")
         print()
-        if basico==False:
+        if basico==True:
             print("1. Ver integrantes")
             print("2. Agregar integrante")
             print("3. Editar integrante")
@@ -24,11 +23,11 @@ def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
             elif opcion=="2":
                 agregar_integrante(ListaIntegrantes, ListaRoles)
             elif opcion=="3":
-                editar_integrante(ListaIntegrantes)
+                editar_integrante(ListaIntegrantes,ListaRoles)
             elif opcion=="4":
                 eliminar_integrante(ListaIntegrantes)
             elif opcion=="5":
-                imprimirMenuRoles(ListaRoles)
+                imprimirMenuRoles(ListaRoles,basico)
             elif opcion == "0":
                 activo=False
             else:
