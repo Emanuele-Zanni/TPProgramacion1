@@ -34,7 +34,7 @@ def imprimirMenuProyectos(ListaProyectos, basico):
             elif opcion=="0":
                 activo=False
             else:
-                print("Opcion invalida. Intente nuevamente.")
+                input("Opcion invalida. Intente nuevamente.")
         
         else:
             clearConsole()
@@ -51,7 +51,7 @@ def imprimirMenuProyectos(ListaProyectos, basico):
             elif opcion=="0":
                 activo=False
             else:
-                print("Opcion invalida. Intente nuevamente.")
+                input("Opcion invalida. Intente nuevamente.")
 
 
 
@@ -85,4 +85,4 @@ def imprimirMenuSeleccionarProyecto(proyecto):
         elif opcion=="0":
             activo=False
         else:
-            print("Opcion invalida. Intente nuevamente.")
+            input("Opcion invalida. Intente nuevamente.")

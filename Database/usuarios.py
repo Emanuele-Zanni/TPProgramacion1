@@ -16,10 +16,11 @@ usuarios = {
 def login():
     on=True
     p1,p2 = True,False
+    isPasswordCorrect = False
+    isUserReal = False
 
-    while on:
-        isPasswordCorrect = False
-        isUserReal = False
+    while p1 and on:
+       
         # user = ""
         # password = ""
         clearConsole()
@@ -30,10 +31,17 @@ def login():
 
         if user in usuarios:
             isUserReal = True
+            p1=False
+            p2=True
         # if usuarios.get(user) is not None:
         #     isUserReal = True
         #     print(isUserReal)
+        else:
+            print()
+            input("[ERROR] El usuario ingresado no existe")
 
+    while p2 and on:
+        
         clearConsole()
         print("[Menu de Login]")
         print()
@@ -52,11 +60,9 @@ def login():
             print()
             input(f"Sesion iniciada correctamente. ¡Bienvenid@ {user}!")
 
-            inicio=True
-            return True   
+            on = False
+               
         elif isUserReal and isPasswordCorrect == False:  
                 print()
                 input("[ERROR] Contraseña incorrecta ") 
-        else:
-                print()
-                input("[ERROR] El usuario ingresado no existe")
+        

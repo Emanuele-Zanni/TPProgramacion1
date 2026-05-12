@@ -33,31 +33,48 @@ def ver_proyectos(ListaProyectos):
 
 def seleccionar_proyecto(ListaProyectos):
         isProjectReal = False
+        p1 = True
+        inProgress = True
+
         if len(ListaProyectos) == 0:
             clearConsole()
             print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
             print()
             input("No hay proyectos registrados.")
         else:
-            clearConsole()
-            print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
-            print()
-            mostrarListaProyectos(ListaProyectos)
-            id = input("ingrese el ID del proyecto a seleccionar: ")
-            if id.isdigit():
-                id = int(id)
-                for project in ListaProyectos:
-                    if project[0] == id:   
-                        isProjectReal = True
-                        proyecto = project
-            elif id == "":
-                print("")
-                input("[ERROR] El id no puede estar vacio")
-                return
-            else:
-                print("")
-                input("[ERROR] El ID ingresado debe ser un numero")
-                return
+            while p1 and inProgress:
+                clearConsole()
+                print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
+                print()
+                mostrarListaProyectos(ListaProyectos)
+                id = input("ingrese el ID del proyecto a seleccionar \ningrese 0 para cancelar: ")
+                if id.isdigit():
+                    if id == "0":
+                        inProgress = False
+                        print()
+                        print("Operacion cancelada")
+                        input("Ingrese enter para continuar...")
+                    else:    
+                        id = int(id)
+                        for project in ListaProyectos:
+                            if project[0] == id:   
+                                isProjectReal = True
+                                proyecto = project
+                                p1 = False
+                        if not isProjectReal:
+                            print()
+                            input("[ERROR] El ID ingresado no pertenece a ningun proyecto")
+               
+                elif id == "":
+                    print("")
+                    print("[ERROR] El id no puede estar vacio")
+                    input("Ingrese enter para continuar...")
+
+                else:
+                    print("")
+                    print("[ERROR] El ID ingresado debe ser un numero")
+                    input("Ingrese enter para continuar...")
+                        
             if isProjectReal:
                 on = True
                 while on:
@@ -86,11 +103,7 @@ def seleccionar_proyecto(ListaProyectos):
                         on=False
                     else:
                         input("Opcion invalida. Intente nuevamente.")
-            else:
-                print("")
-                input("[ERROR] El ID ingresado no pertenece a ningun proyecto")
-
-        
+    
 
 def crear_proyecto(ListaProyectos):
     clearConsole()

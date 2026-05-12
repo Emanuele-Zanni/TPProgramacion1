@@ -13,39 +13,46 @@ def imprimirMenuRoles(ListaRoles, basico):
             print("3. Eliminar rol")  
             print("4. Ver roles")
             print("0. Volver")
-            opcion_rol=int(input("Ingrese la opción deseada: "))
+            opcion_rol=input("Ingrese la opción deseada: ")
 
-            if opcion_rol ==1:
+            if opcion_rol == "1":
                 crear_roles(ListaRoles)
                 
-            elif opcion_rol==2:
+            elif opcion_rol== "2":
                 editar_rol(ListaRoles)
             
-            elif opcion_rol==3:
+            elif opcion_rol== "3":
                 eliminar_rol(ListaRoles)
             
-            elif opcion_rol==4:
+            elif opcion_rol== "4":
                 ver_roles(ListaRoles)
 
-            elif opcion_rol==0: 
+            elif opcion_rol== "0": 
                 activo=False
             
+            elif opcion_rol=="":
+                print()
+                input("Opcion inválida")
             else:
-                print("Número inválido")
+                print()
+                input("Número inválido")
 
         else:
             print("4. Ver roles")
             print("0. Volver")
-            opcion_rol=int(input("Ingrese la opción deseada: "))
+            opcion_rol=input("Ingrese la opción deseada: ")
             
-            if opcion_rol==4:
+            if opcion_rol== "4":
                 ver_roles(ListaRoles)
 
-            elif opcion_rol==0: 
+            elif opcion_rol== "0": 
                 activo=False
-            
+            elif opcion_rol=="":
+                print()
+                input("Opcion inválida")
             else:
-                print("Número inválido")
+                print()
+                input("Número inválido")
 
             
      
