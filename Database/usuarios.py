@@ -18,7 +18,8 @@ def login():
     p1,p2 = True,False
     isPasswordCorrect = False
     isUserReal = False
-
+    basico = False
+   
     while p1 and on:
        
         # user = ""
@@ -28,8 +29,10 @@ def login():
         print()
 
         user=input("• Ingrese nombre de usuario: ").lower()
-
-        if user in usuarios:
+        if user == "":
+            print()
+            input("[ERROR] El nombre de usuario no puede estar vacio")
+        elif user in usuarios:
             isUserReal = True
             p1=False
             p2=True
@@ -51,18 +54,31 @@ def login():
         if usuarios.get(user, {}).get("password") == password:
             isPasswordCorrect = True
 
-        if isUserReal and isPasswordCorrect:
-            clearConsole()
-            print("[Menu de Login]")
-            print()
-            print(f"Usuario: {user}")
-            print(f"Contraseña: {password}")
-            print()
-            input(f"Sesion iniciada correctamente. ¡Bienvenid@ {user}!")
-
-            on = False
-               
-        elif isUserReal and isPasswordCorrect == False:  
+            if isUserReal and isPasswordCorrect:
+                clearConsole()
+                print("[Menu de Login]")
                 print()
-                input("[ERROR] Contraseña incorrecta ") 
-        
+                print(f"Usuario: {user}")
+                print(f"Contraseña: {password}")
+                print()
+                input(f"Sesion iniciada correctamente. ¡Bienvenid@ {user}!")
+                
+                on = False
+                
+                for usuario in usuarios:
+                    if usuarios[usuario]["clearance"] == 3:
+                        return True
+                    else:
+                        return False
+                
+            elif isUserReal and isPasswordCorrect == False:  
+                    print()
+                    input("[ERROR] Contraseña incorrecta ") 
+        elif password == "":
+            print()
+            input("[ERROR] La contraseña no puede estar vacia")
+
+    
+
+
+

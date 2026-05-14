@@ -3,8 +3,8 @@ from Tareas.menus import *
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
 def mostrarListaProyectos(ListaProyectos):
-        print(f"{'ID':<5}{'Nombre':<20}{'Tareas':<10}{'Inicio':<12}{'Fin':<12}{'Estado':<10}")
-        print("-" * 70)
+        print(f"{'ID':<5}{'Nombre':<25}{'Tareas':<15}{'Inicio':<12}{'Fin':<12}{'Estado':<10}")
+        print("-" * 75)
         
         for proyecto in ListaProyectos:
             id_ = proyecto[0]
@@ -14,8 +14,17 @@ def mostrarListaProyectos(ListaProyectos):
             fin = proyecto[4]
             estado = proyecto[5]
             
-            print(f"{id_:<5}{nombre:<20}{tareas:<10}{inicio:<12}{fin:<12}{estado:<10}")
+            if len(nombre) > 20 and len(str(tareas)) > 10:
+                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas)[:10]+ '...':<15}{inicio:<12}{fin:<12}{estado:<10}")
+           
+            elif  len(str(tareas)) > 10:
+                print(f"{id_:<5}{nombre:<25}{str(tareas)[:10]+ '...':<15}{inicio:<12}{fin:<12}{estado:<10}")
             
+            elif len(nombre) > 20:
+                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas):<15}{inicio:<12}{fin:<12}{estado:<10}")
+           
+            else:
+                print(f"{id_:<5}{nombre:<25}{str(tareas):<15}{inicio:<12}{fin:<12}{estado:<10}")
         print("")
     
 
@@ -123,10 +132,15 @@ def crear_proyecto(ListaProyectos):
         clearConsole()
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
-        nombreProyecto=input("• Ingrese el nombre del proyecto: ")  
+        nombreProyecto=input("• Ingrese el nombre del proyecto\n• Ingrese 0 para cancelar: ")  
         if nombreProyecto == "":
             print("")
             input("[ERROR] El nombre ingresado no puede estar vacio") 
+        elif nombreProyecto == "0":
+            inProgress = False
+            print()
+            print("Operacion cancelada")
+            input("Ingrese enter para continuar...")
         else:
             p1 = False
             p2 = True
@@ -136,13 +150,19 @@ def crear_proyecto(ListaProyectos):
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
-        FechaInicio=input("• Ingrese la fecha de inicio del proyecto: ")
+        FechaInicio=input("• Ingrese la fecha de inicio del proyecto\n• Ingrese 0 para cancelar: ")
+        
         if FechaInicio == "":
             print("")
             input("[ERROR] La fecha ingresada no puede estar vacia") 
         elif FechaInicio.isdigit() == False:
             print("")
             input("[ERROR] La fecha ingresada debe ser un numero") 
+        elif FechaInicio == "0":
+            inProgress = False
+            print()
+            print("Operacion cancelada")
+            input("Ingrese enter para continuar...")
         else:
             p2 = False
             p3 = True
@@ -152,15 +172,21 @@ def crear_proyecto(ListaProyectos):
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
-        print(f"Fecha de Inicio: {FechaInicio}")
-        FechaFinal=input("• Ingrese la fecha de finalizacion del proyecto: ")
+        print(f"Fecha de Inicio: {FechaInicio}")        
+        FechaFinal = input("• Ingrese la fecha de finalizacion del proyecto\n• Ingrese 0 para cancelar: ")
         if FechaFinal == "":
             print("")
             input("[ERROR] La fecha ingresada no puede estar vacia") 
-        elif FechaInicio.isdigit() == False:
+        elif FechaFinal.isdigit() == False:
             print("")
             input("[ERROR] La fecha ingresada debe ser un numero") 
+        elif FechaFinal == "0":
+            inProgress = False
+            print()
+            print("Operacion cancelada")
+            input("Ingrese enter para continuar...")
         else:
+            Estado = "Activo"
             p3 = False
 
     if inProgress:
@@ -172,9 +198,10 @@ def crear_proyecto(ListaProyectos):
         clearConsole()
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
+        print(f"ID: {id}")
         print(f"Nombre del Proyecto: {nombreProyecto}")
         print(f"Fecha de Inicio: {FechaInicio}")
-        print(f"Fecha de Inicio: {FechaFinal}")
+        print(f"Fecha de Finalizacion: {FechaFinal}")
         print()
         input("[EXITO] Proyecto creado exitosamente.")
 
@@ -230,22 +257,41 @@ def editar_proyecto(ListaProyectos):
 
 #no basico
 def eliminar_proyecto(ListaProyectos):
-    clearConsole()
-    print("[Menu principal > Proyectos > *Eliminar Proyectos*]")
-    print()
+    on = True
+    while on:    
+        clearConsole()
+        print("[Menu principal > Proyectos > *Eliminar Proyectos*]")
+        print()
+        if len(ListaProyectos) == 0:
+            input("No hay proyectos registrados.")
+        
+        else:
+        
+            #* Aca falta agregar validacion de input NO numerico para que no rompa (y conversor de texto a num)
+            id = input("Ingrese el ID del proyecto a eliminar\ningrese 0 para cancelar: ")
+            isProjectReal = False
 
-    if len(ListaProyectos) == 0:
-        input("No hay proyectos registrados.")
-    else:
-        #* Aca falta agregar validacion de input NO numerico para que no rompa (y conversor de texto a num)
-        id = int(input("Ingrese el ID del proyecto a eliminar: "))
-        isProjectReal = False
-
-        for item in ListaProyectos:
-            if item[0] == id:
-                isProjectReal = True
-                ListaProyectos.remove(item)
-                input(f"'{item}' eliminado exitosamente")
-
-        if isProjectReal == False:
-            input("[ERROR] El proyecto con el ID ingresado no existe")      
+            if id == "":
+                print()
+                print("[ERROR] El id no puede estar vacio")
+                input("Ingrese enter para continuar...")
+            elif id == "0":
+                on = False
+                print()
+                print("Operacion cancelada")
+                input("Ingrese enter para continuar...")
+            else:
+                id = int(id)
+                for item in ListaProyectos:
+                    if item[0] == id:
+                        isProjectReal = True
+                        ListaProyectos.remove(item)
+                        input(f"'{item}' eliminado exitosamente")
+                        on = False
+                
+                if isProjectReal == False:
+                    print()
+                    print("[ERROR] El proyecto con el ID ingresado no existe")  
+                    input("Ingrese enter para continuar...")
+        
+        
