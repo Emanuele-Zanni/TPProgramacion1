@@ -1,4 +1,5 @@
 from General.clearConsole import *
+from main import ListaProyectos
 
 def mostrarListaTareas(ListaTareas):
     print(f"{'ID':<5}{'Nombre':<20}{'Fecha Inicio':<15}{'Fecha Final':<15}")
@@ -140,7 +141,8 @@ def editar_tarea(ListaTareas):
                     editarNombre = ListaTareas[posicion][1]
                     editarFechaInicio = ListaTareas[posicion][2]
                     editarFechaFinal = ListaTareas[posicion][3]
-
+                    editarEstado = ListaTareas[posicion][4]
+                   
                     clearConsole()
                     print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]")
                     print()
@@ -170,10 +172,29 @@ def editar_tarea(ListaTareas):
                         p1 = False
                         p2 = True
                     
-                    #elif opcion == "4": 
-                    #    clearConsole()
-                    #   editarEstado=input("Ingrese el nuevo estado de la tarea: ")
-                    #   ListaTareas[posicion][5] = editarEstado
+                    elif opcion == "4": 
+                        clearConsole()
+                        p4 = True
+                        while p4:
+                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]")
+                            print("1. Activo")
+                            print("2. Inactivo")
+                            editarEstado=input("Ingrese el nuevo estado de la tarea: ")
+                            ListaTareas[posicion][4] = editarEstado
+                            if editarEstado == "1":
+                                editarEstado = "Activo"
+                                ListaTareas[posicion][4] = editarEstado
+                                p4 = False
+                            elif editarEstado == "2":
+                                editarEstado = "Inactivo"
+                                ListaTareas[posicion][4] = editarEstado
+                                p4 = False
+                            elif opcion == "":
+                                print("Opcion invalida. Intente nuevamente.")
+                                input("Ingrese cualquier opcion para continuar...")
+                            else:
+                                print("Opcion invalida. Intente nuevamente.")
+                                input("Ingrese cualquier opcion para continuar...")
                     elif opcion == "0":
                         p1 = False
                         print("cancelando operacion...")
@@ -181,7 +202,7 @@ def editar_tarea(ListaTareas):
                     else:
                         input("[ERROR] Número inválido")
 
-                    tarea_editada = [id,editarNombre,editarFechaInicio,editarFechaFinal]
+                    tarea_editada = [id,editarNombre,editarFechaInicio,editarFechaFinal,editarEstado]
                    
 
                 while p2 and isTaskReal:

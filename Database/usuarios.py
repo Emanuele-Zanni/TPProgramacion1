@@ -28,7 +28,7 @@ def login():
         print("[Menu de Login]")
         print()
 
-        user=input("• Ingrese nombre de usuario: ").lower()
+        user=input("• Ingrese nombre de usuario: ").lower().strip()
         if user == "":
             print()
             input("[ERROR] El nombre de usuario no puede estar vacio")
@@ -49,7 +49,7 @@ def login():
         print("[Menu de Login]")
         print()
         print(f"Usuario: {user}")
-        password=input("• Ingrese contraseña: ")
+        password=input("• Ingrese contraseña: ").strip()
 
         if usuarios.get(user, {}).get("password") == password:
             isPasswordCorrect = True

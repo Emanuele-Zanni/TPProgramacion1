@@ -207,54 +207,141 @@ def crear_proyecto(ListaProyectos):
 
 #no basico
 def editar_proyecto(ListaProyectos):
-    clearConsole()
-    print("[Menu principal > Proyectos > *Editar Proyectos*]")
-    print()
-
+    on = True
+    
     if len(ListaProyectos) == 0:
+        clearConsole()
+        print("[Menu Proyectos > *Editar Proyectos*]")
+        print()
         input("No hay proyectos registrados.")
     else:
-        #* Que proyecto? [POSICION]
-        isProjectReal = False
-        mostrarListaProyectos(ListaProyectos)
-        print()
-        project_id = int(input("Ingrese ID del proyecto a editar: "))
-        for item in ListaProyectos:
-                if item[0] == project_id:
-                    posicion = project_id - 1
-                    isProjectReal = True
+        while on:   
+            p1 = True
+            p2 = False
+            clearConsole()
+            print("[Menu Proyectos > Editar *Proyectos*]")
+            mostrarListaProyectos(ListaProyectos)
+            #* Que_proyecto? [POSICION]
+            posicion = 0
+            isProjectReal = False
+            project_id = input("Ingrese ID del proyecto a editar\nIngrese 0 para vover atras: ")
+            if project_id == "":
+                print()
+                input("[ERROR] El id no puede estar vacio")
+            elif project_id.isdigit() == False:
+                print()
+                input("[ERROR] El id debe ser un numero")
+            elif project_id == "0":
+                on = False
+                print()
+                print("Volviendo al menu")
+                input("Ingrese enter para continuar...")
+            elif project_id.isdigit() == True and project_id != "":
+                project_id = int(project_id)
+                for item in ListaProyectos:
+                        if item[0] == project_id:
+                            posicion = project_id - 1
+                            isProjectReal = True
+                            p1 = True
 
-        if isProjectReal:
-            #* Menu con variables de ESE proyecto (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado del proyecto)
-            print("1. Cambiar Nombre")
-            print("2. Cambiar fecha de inicio")
-            print("3. Cambiar fecha final")
-            print("4. Cambiar el estado del proyecto")
-            print("")
-            opcion = input("Seleccione una opcion")
-            
-            if opcion == "1":
-                editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
-                ListaProyectos[posicion][1] = editarNombre
-            elif opcion == "2":
-                editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
-                ListaProyectos[posicion][3] = editarFechaInicio
-            elif opcion == "3":
-                editarFechaFinal=input("Ingrese la nueva fecha final: ")
-                ListaProyectos[posicion][4] = editarFechaFinal
-            elif opcion == "4": 
-                editarEstado=input("Ingrese el nuevo estado del proyecto: ")
-                ListaProyectos[posicion][5] = editarEstado
+                while p1 and isProjectReal:
+                    #* Menu con variables de ESA tarea (1. Cambiar Nombre - 2. Cambiar fecha de inicio - 3. Cambiar fecha final - 4. Nuevo estado de la tarea)
+                    id = ListaProyectos[posicion][0]
+                    editarNombre = ListaProyectos[posicion][1]
+                    editarFechaInicio = ListaProyectos[posicion][3]
+                    editarFechaFinal = ListaProyectos[posicion][4]
+                    editarEstado = ListaProyectos[posicion][5]
+
+                    clearConsole()
+                    print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos*]")
+                    print()
+                    print("1. Cambiar Nombre")
+                    print("2. Cambiar fecha de inicio")
+                    print("3. Cambiar fecha final")
+                    print("4. Cambiar el estado del proyecto")
+                    print("0. Volver")
+                    print("")
+                    opcion = input("Seleccione una opcion")
+                    
+                    if opcion == "1":
+                        clearConsole()
+                        editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
+                        p1 = False
+                        p2 = True
+
+                    elif opcion == "2":
+                        clearConsole()
+                        editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
+                        p1 = False
+                        p2 = True
+
+                    elif opcion == "3":
+                        clearConsole()
+                        editarFechaFinal=input("Ingrese la nueva fecha final: ")
+                        p1 = False
+                        p2 = True
+                    
+                    elif opcion == "4": 
+                        clearConsole()
+                        p4 = True
+                        while p4:
+                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos*]")
+                            print("1. Activo")
+                            print("2. Inactivo")
+                            editarEstado=input("Ingrese el nuevo estado del proyecto: ")
+                            ListaProyectos[posicion][4] = editarEstado
+                            if editarEstado == "1":
+                                editarEstado = "Activo"
+                                ListaProyectos[posicion][5] = editarEstado
+                                p4 = False
+                            elif editarEstado == "2":
+                                editarEstado = "Inactivo"
+                                ListaProyectos[posicion][5] = editarEstado
+                                p4 = False
+                            elif opcion == "":
+                                print("Opcion invalida. Intente nuevamente.")
+                                input("Ingrese cualquier opcion para continuar...")
+                            else:
+                                print("Opcion invalida. Intente nuevamente.")
+                                input("Ingrese cualquier opcion para continuar...")
+                   
+                    else:
+                        input("[ERROR] Número inválido")
+
+                    proyecto_editado = [id,editarNombre,editarFechaInicio,editarFechaFinal,editarEstado]
+
+                while p2 and isProjectReal:
+                    clearConsole()
+                    print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos*]")
+                    print()
+                    print(f"Nombre del proyecto: {editarNombre}")
+                    print(f"Fecha de Inicio: {editarFechaInicio}")
+                    print(f"Fecha Final: {editarFechaFinal}")
+                    #print(f"Estado: {editarEstado}")
+                    print()
+                    opcion = input("¿Desea guardar los cambios?\n si == 1, no == 0: ")
+                    if opcion == "1":
+                        ListaProyectos[posicion] = proyecto_editado
+                        print()
+                        input("Proyecto editado exitosamente. Ingrese cualquier opcion para continuar.")
+                        p2 = False
+                        
+                    elif opcion == "0":
+                        print()
+                        input("Proyecto no guardado. Ingrese cualquier opcion para continuar.")
+                        p2 = False
+
+                    elif opcion == "":
+                        print("opcion invalida")
+                        input("ingrese cualquier opcion para continuar: ")    
+                    else:
+                        print("opcion invalida")
+                        input("ingrese cualquier opcion para continuar: ")  
+
             else:
-                print("")
-                input("[ERROR] Número inválido")
-
-            # proyecto_editado = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
-
-        else:
-            print("")
-            input("[ERROR] El proyecto ingresado no existe")
-
+                input("[ERROR] El proyecto ingresado no existe")
+   
+                                                               
 #no basico
 def eliminar_proyecto(ListaProyectos):
     on = True
