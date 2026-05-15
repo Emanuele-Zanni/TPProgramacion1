@@ -65,12 +65,11 @@ def login():
                 
                 on = False
                 
-                for usuario in usuarios:
-                    if usuarios[usuario]["clearance"] == 3:
-                        return True
-                    else:
-                        return False
-                
+                credencial = {
+                    "user": user,
+                    "clearance": usuarios[user]["clearance"]
+                }
+                return credencial
             elif isUserReal and isPasswordCorrect == False:  
                     print()
                     input("[ERROR] Contraseña incorrecta ") 

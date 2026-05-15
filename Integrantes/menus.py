@@ -4,13 +4,24 @@ from Integrantes.funciones import *
 from Integrantes.roles import*
 
 
-def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
+def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles,credencial):
     activo=True
     while activo:
         clearConsole()
         print("[Menu Principal > *Integrantes*]")
         print()
-        if basico==True:
+        if credencial["clearance"] < 2: 
+            print("1. Ver integrantes")
+            print("0. Volver atras")
+            opcion=input("Seleccione una opcion: ")
+            if opcion=="1":
+                ver_integrantes(ListaIntegrantes)
+            elif opcion == "0":
+                activo=False
+            else:
+                print()
+                input("Opcion invalida. Intente nuevamente.")
+        else:
             print("1. Ver integrantes")
             print("2. Agregar integrante")
             print("3. Editar integrante")
@@ -27,21 +38,7 @@ def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
             elif opcion=="4":
                 eliminar_integrante(ListaIntegrantes)
             elif opcion=="5":
-                imprimirMenuRoles(ListaRoles,basico)
-            elif opcion == "0":
-                activo=False
-            else:
-                print()
-                input("Opcion invalida. Intente nuevamente.")
-        else:
-            print("1. Ver integrantes")
-            print("5. Gestionar roles")
-            print("0. Volver atras")
-            opcion=input("Seleccione una opcion: ")
-            if opcion=="1":
-                ver_integrantes(ListaIntegrantes)
-            elif opcion=="5":
-                imprimirMenuRoles(ListaRoles,basico)
+                imprimirMenuRoles(ListaRoles,credencial)
             elif opcion == "0":
                 activo=False
             else:

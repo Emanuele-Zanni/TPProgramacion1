@@ -5,14 +5,42 @@ from Tareas.menus import *
 from Database.usuarios import *
 
 
-def imprimirMenuProyectos(ListaProyectos, basico):
+def imprimirMenuProyectos(ListaProyectos, credencial):
     activo=True
     while activo:
         clearConsole()
         print("[Menu Principal > *Proyectos*]")
         print("")
-        if basico==True:
 
+        #? ACCESO COMO INVITADO
+        if credencial["clearance"] == 0: 
+            print("1. Ver proyectos")
+            print("0. Volver")
+            opcion=input("Seleccione una opcion: ")
+            if opcion=="1":
+                ver_proyectos(ListaProyectos)
+            elif opcion=="0":
+                activo=False
+            else:
+                input("Opcion invalida. Intente nuevamente.")
+        
+        #? ACCESO COMO MIEMBRO
+        elif credencial["clearance"] == 1:
+            print("1. Ver proyectos")
+            print("2. Selecciona Proyecto")
+            print("0. Volver")
+            opcion=input("Seleccione una opcion: ")
+            if opcion=="1":
+                ver_proyectos(ListaProyectos)
+            elif opcion=="2":
+                seleccionar_proyecto(ListaProyectos,credencial)
+            elif opcion=="0":
+                activo=False
+            else:
+                input("Opcion invalida. Intente nuevamente.")
+
+        #? ACCESO COMO MANAGER / SUPERADMIN
+        else:
             print("1. Ver proyectos")
             print("2. Selecciona Proyecto")
             print("3. Crear Proyecto")
@@ -23,7 +51,7 @@ def imprimirMenuProyectos(ListaProyectos, basico):
             if opcion=="1":
                 ver_proyectos(ListaProyectos)
             elif opcion=="2":
-                seleccionar_proyecto(ListaProyectos)
+                seleccionar_proyecto(ListaProyectos,credencial)
             elif opcion=="3":
                 crear_proyecto(ListaProyectos)
             elif opcion=="4":
@@ -31,23 +59,6 @@ def imprimirMenuProyectos(ListaProyectos, basico):
                 editar_proyecto(ListaProyectos)
             elif opcion=="5":
                 eliminar_proyecto(ListaProyectos)
-            elif opcion=="0":
-                activo=False
-            else:
-                input("Opcion invalida. Intente nuevamente.")
-        
-        else:
-            clearConsole()
-            print("[Menu Principal > *Proyectos*]")
-            print("")
-            print("1. Ver proyectos")
-            print("2. Selecciona Proyecto")
-            print("0. Volver")
-            opcion=input("Seleccione una opcion: ")
-            if opcion=="1":
-                ver_proyectos(ListaProyectos)
-            elif opcion=="2":
-                seleccionar_proyecto(ListaProyectos)
             elif opcion=="0":
                 activo=False
             else:
