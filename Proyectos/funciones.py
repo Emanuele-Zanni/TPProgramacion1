@@ -1,4 +1,5 @@
 from General.clearConsole import *
+from General.inputFecha import *
 from Tareas.menus import *
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
@@ -118,12 +119,12 @@ def crear_proyecto(ListaProyectos):
             p1 = False
             p2 = True
 
-    while p2 and inProgress:
+    while p2 and inProgress: 
         clearConsole()
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
-        FechaInicio=input("• Ingrese la fecha de inicio del proyecto: ")
+        FechaInicio=inputFecha(nombreProyecto,"Inicio")
         if FechaInicio == "":
             print("")
             input("[ERROR] La fecha ingresada no puede estar vacia") 
@@ -140,7 +141,7 @@ def crear_proyecto(ListaProyectos):
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
         print(f"Fecha de Inicio: {FechaInicio}")
-        FechaFinal=input("• Ingrese la fecha de finalizacion del proyecto: ")
+        FechaFinal=inputFecha(nombreProyecto,"Final")
         if FechaFinal == "":
             print("")
             input("[ERROR] La fecha ingresada no puede estar vacia") 

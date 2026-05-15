@@ -1,6 +1,30 @@
 from datetime import datetime
+from General.clearConsole import clearConsole
 
-def inputFecha():
+def inputFecha(nombreProyecto,mode):
     on = True
+    fecha_texto = ""
     while on:
-        input("• Ingrese ")
+        clearConsole()
+        print("[Menu Principal > Proyectos > *Crear Proyectos*]")
+        print()
+        print(f"Nombre del Proyecto: {nombreProyecto}")
+        if mode == "Inicio" or mode == "inicio":
+            fecha_texto = input("• Ingrese la fecha de inicio del proyecto (DD/MM/YYYY): ")
+        elif mode == "Final" or mode == "final":
+            fecha_texto = input("• Ingrese la fecha de finalizacion del proyecto (DD/MM/YYYY): ")
+
+        if fecha_texto == "X" or fecha_texto == "x":
+            on = False
+            input("Cancelando operacion...")
+        else:
+            try:
+                fecha = datetime.strptime(fecha_texto, "%d/%m/%Y")
+
+                print(f"Fecha válida == {fecha}")
+                return fecha
+
+            except ValueError:
+                input("Formato inválido")
+
+        
