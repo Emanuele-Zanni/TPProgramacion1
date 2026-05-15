@@ -155,9 +155,6 @@ def crear_proyecto(ListaProyectos):
         if FechaInicio == "":
             print("")
             input("[ERROR] La fecha ingresada no puede estar vacia") 
-        elif FechaInicio.isdigit() == False:
-            print("")
-            input("[ERROR] La fecha ingresada debe ser un numero") 
         elif FechaInicio == "0":
             inProgress = False
             print()
@@ -168,23 +165,15 @@ def crear_proyecto(ListaProyectos):
             p3 = True
     
     while p3 and inProgress:
-        clearConsole()
+        
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
         print(f"Fecha de Inicio: {FechaInicio}")
-        FechaFinal=inputFecha(nombreProyecto,"Final")
-        if FechaFinal == "":
+        FechaFinal=inputFecha(nombreProyecto,"Final", FechaInicio)
+        if FechaFinal < FechaInicio:
             print("")
-            input("[ERROR] La fecha ingresada no puede estar vacia") 
-        elif FechaFinal.isdigit() == False:
-            print("")
-            input("[ERROR] La fecha ingresada debe ser un numero") 
-        elif FechaFinal == "0":
-            inProgress = False
-            print()
-            print("Operacion cancelada")
-            input("Ingrese enter para continuar...")
+            input("[ERROR] La fecha final no puede ser anterior a la fecha de inicio")
         else:
             Estado = "Activo"
             p3 = False
