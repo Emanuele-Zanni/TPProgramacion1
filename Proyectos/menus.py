@@ -61,7 +61,7 @@ def imprimirMenuSeleccionarProyecto(proyecto):
         clearConsole()
         print("[Menu principal > Proyectos > *Proyecto Seleccionado*]")
         print() 
-        print(f"=== {proyecto[1]} ===")
+        print(f" {""}*14 === {proyecto[1]} ===")
         print(f"ID: {proyecto[0]} | Status: {proyecto[5]} | Fecha Inicio/Final: {proyecto[3]} - {proyecto[4]}")
         print("")
 

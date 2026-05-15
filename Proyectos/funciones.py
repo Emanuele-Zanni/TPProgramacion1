@@ -1,6 +1,6 @@
 from General.clearConsole import *
 from General.inputFecha import *
-from Tareas.menus import *
+from Tareas.funciones import *
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
 def mostrarListaProyectos(ListaProyectos):
@@ -264,47 +264,126 @@ def editar_proyecto(ListaProyectos):
                     opcion = input("Seleccione una opcion")
                     
                     if opcion == "1":
-                        clearConsole()
-                        editarNombre=input("Ingrese el nuevo nombre del proyecto: ")
-                        p1 = False
-                        p2 = True
-
+                        while p4:    
+                            clearConsole()
+                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Nombre)*]")
+                            print()
+                            print(f" ===== Proyecto{id+1} ======") 
+                            print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
+                            print("---------------------------------------------------------------------------------------------------")
+                            print(f"{ListaProyectos[posicion][0]:<5}|{ListaProyectos[posicion][1]:<25}|{ListaProyectos[posicion][3]:<15}|{ListaProyectos[posicion][4]:<15}|{ListaProyectos[posicion][5]:<15}")
+                            print()
+                            editarNombre=input("Ingrese el nuevo nombre del proyecto\nIngrese 0 para cancelar: ")
+                            if editarNombre == "":
+                                print("")
+                                print("[ERROR] El nombre ingresado no puede estar vacio")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarNombre == "0":
+                                p4 = False
+                                print("Operacion cancelada...")
+                                input("Ingrese cualquier opcion para continuar...")
+                            else:
+                                p4 = False   
+                                p1 = False
+                                p2 = True
+                    
                     elif opcion == "2":
-                        clearConsole()
-                        editarFechaInicio=input("Ingrese la nueva fecha de inicio: ")
-                        p1 = False
-                        p2 = True
-
+                        while p4:  
+                            clearConsole()
+                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Fecha de Inicio)*]")
+                            print()
+                            print(f" ===== Proyecto{id+1} ======")  
+                            print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
+                            print("---------------------------------------------------------------------------------------------------")
+                            print(f"{ListaProyectos[posicion][0]:<5}|{ListaProyectos[posicion][1]:<25}|{ListaProyectos[posicion][3]:<15}|{ListaProyectos[posicion][4]:<15}|{ListaProyectos[posicion][5]:<15}")
+                            print()
+                            editarFechaInicio=input("Ingrese la nueva fecha de inicio\nIngrese 0 para cancelar: ")
+                            if editarFechaInicio == "":
+                                print("")
+                                print("[ERROR] La fecha ingresada no puede estar vacia")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarFechaInicio.isdigit() == False:
+                                print("")
+                                print("[ERROR] La fecha ingresada debe ser un numero")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarFechaInicio == "0":
+                                p4 = False
+                                print("Operacion cancelada...")
+                                input("Ingrese cualquier opcion para continuar...")
+                            else:
+                                p4 = False   
+                                p1 = False
+                                p2 = True
+                            
                     elif opcion == "3":
-                        clearConsole()
-                        editarFechaFinal=input("Ingrese la nueva fecha final: ")
-                        p1 = False
-                        p2 = True
+                        while p4:   
+                            clearConsole()
+                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Fecha Final)*]")
+                            print()
+                            print(f" ===== Proyecto{id+1} ======") 
+                            print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
+                            print("---------------------------------------------------------------------------------------------------")
+                            print(f"{ListaProyectos[posicion][0]:<5}|{ListaProyectos[posicion][1]:<25}|{ListaProyectos[posicion][3]:<15}|{ListaProyectos[posicion][4]:<15}|{ListaProyectos[posicion][5]:<15}")
+                            print()
+                            editarFechaFinal=input("Ingrese la nueva fecha final\nIngrese 0 para cancelar: ")
+                            if editarFechaFinal == "":
+                                print("")
+                                print("[ERROR] La fecha ingresada no puede estar vacia")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarFechaFinal.isdigit() == False:
+                                print("")
+                                print("[ERROR] La fecha ingresada debe ser un numero")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarFechaFinal < editarFechaInicio:
+                                print("")
+                                print("[ERROR] La fecha final no puede ser anterior a la fecha de inicio")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarFechaFinal == "0":
+                                p4 = False
+                                print("Operacion cancelada...")
+                                input("Ingrese cualquier opcion para continuar...")
+                            else:
+                                p4 = False   
+                                p1 = False
+                                p2 = True
                     
                     elif opcion == "4": 
                         clearConsole()
-                        p4 = True
                         while p4:
-                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos*]")
+                            clearConsole()
+                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Estado)*]")
+                            print()
+                            print(f" ===== Proyecto{id+1} ======") 
+                            print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
+                            print("---------------------------------------------------------------------------------------------------")
+                            print(f"{ListaProyectos[posicion][0]:<5}|{ListaProyectos[posicion][1]:<25}|{ListaProyectos[posicion][3]:<15}|{ListaProyectos[posicion][4]:<15}|{ListaProyectos[posicion][5]:<15}")
+                            print()
                             print("1. Activo")
                             print("2. Inactivo")
                             editarEstado=input("Ingrese el nuevo estado del proyecto: ")
                             ListaProyectos[posicion][4] = editarEstado
                             if editarEstado == "1":
                                 editarEstado = "Activo"
-                                ListaProyectos[posicion][5] = editarEstado
+                                ListaProyectos[posicion][4] = editarEstado
                                 p4 = False
+                                p1 = False
+                                p2 = True
                             elif editarEstado == "2":
                                 editarEstado = "Inactivo"
-                                ListaProyectos[posicion][5] = editarEstado
+                                ListaProyectos[posicion][4] = editarEstado
                                 p4 = False
+                                p1 = False
+                                p2 = True
                             elif opcion == "":
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
                             else:
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
-                   
+                    elif opcion == "0":
+                        p1 = False
+                        print("cancelando operacion...")
+                        input("Ingrese enter para continuar...")
                     else:
                         input("[ERROR] Número inválido")
 
@@ -317,9 +396,9 @@ def editar_proyecto(ListaProyectos):
                     print(f"Nombre del proyecto: {editarNombre}")
                     print(f"Fecha de Inicio: {editarFechaInicio}")
                     print(f"Fecha Final: {editarFechaFinal}")
-                    #print(f"Estado: {editarEstado}")
+                    print(f"Estado: {editarEstado}")
                     print()
-                    opcion = input("¿Desea guardar los cambios?\n si == 1, no == 0: ")
+                    opcion = input("¿Desea guardar los cambios?\nsi == 1\nno == 0: ")
                     if opcion == "1":
                         ListaProyectos[posicion] = proyecto_editado
                         print()
