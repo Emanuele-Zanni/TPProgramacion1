@@ -31,7 +31,8 @@ def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
             elif opcion == "0":
                 activo=False
             else:
-                print("Opcion invalida. Intente nuevamente.")
+                print()
+                input("Opcion invalida. Intente nuevamente.")
         else:
             print("1. Ver integrantes")
             print("5. Gestionar roles")
@@ -44,4 +45,5 @@ def imprimirMenuIntegrantes(ListaIntegrantes,ListaRoles, basico):
             elif opcion == "0":
                 activo=False
             else:
-                print("Opcion invalida. Intente nuevamente.")
+                print()
+                input("Opcion invalida. Intente nuevamente.")

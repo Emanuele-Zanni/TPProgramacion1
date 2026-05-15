@@ -23,4 +23,4 @@ def imprimirMenuTareas(ListaTareas):
         elif opcion=="0":
             activo=False
         else:
-            print("Opcion invalida. Intente nuevamente.")
+            input("Opcion invalida. Intente nuevamente.")

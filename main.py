@@ -26,7 +26,7 @@ Proyecto ()
 #! Variables --------------------
 
 app=True
-mainMenuVar=True
+mainMenu=True
 
 #? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
@@ -61,7 +61,7 @@ ListaRoles= [[1, "Desarrollador"],
 while app:
     basico= login()
     clearConsole()
-    while mainMenuVar:
+    while mainMenu:
         clearConsole()
         print("[*Menu Principal*]")
         print("")
@@ -79,7 +79,7 @@ while app:
             input("WIP...")
         elif Opcion=="0": #* Cerrar el programa
             app=False
-            mainMenuVar=False
+            mainMenu=False
         elif Opcion=="4":
             clearConsole()
             basico= login()
