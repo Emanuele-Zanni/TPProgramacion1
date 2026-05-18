@@ -60,7 +60,7 @@ ListaRoles= [[1, "Desarrollador"],
 #! Main  ----------------------
 while app:
     #? Descomentar credencial hardcodeada y comentar credencial con "login()" para MODO DEV
-    credencial = {'user': 'ADMIN', 'clearance': 1}
+    credencial = {'user': 'ADMIN', 'clearance': 4}
     # credencial = login()
 
  

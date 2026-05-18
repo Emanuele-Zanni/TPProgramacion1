@@ -19,13 +19,13 @@ def inputFecha(nombreProyecto,mode, FechaInicio=None):
             fecha_texto = input("• Ingrese la fecha de finalizacion del proyecto (DD/MM/YYYY): ")
 
         if fecha_texto == "X" or fecha_texto == "x":
-            on = False
-            input("Cancelando operacion...")
+            on = False 
+            return fecha_texto
         else:
             try:
-                fecha = datetime.strptime(fecha_texto, "%d/%m/%Y")
+                fecha = datetime.strptime(fecha_texto, "%d/%m/%Y").strftime("%d/%m/%Y")
+                input(f"Fecha válida == {fecha}")
 
-                print(f"Fecha válida == {fecha}")
                 return fecha
 
             except ValueError:
