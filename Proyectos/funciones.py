@@ -58,13 +58,12 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                 print("[Menu principal > Proyectos > *Seleccionar Proyectos*]")
                 print()
                 mostrarListaProyectos(ListaProyectos)
-                id = input("ingrese el ID del proyecto a seleccionar \ningrese 0 para cancelar: ")
+                id = input("ingrese el ID del proyecto a seleccionar (0 para cancelar): ")
                 if id.isdigit():
                     if id == "0":
                         inProgress = False
                         print()
-                        print("Operacion cancelada")
-                        input("Ingrese enter para continuar...")
+                        input("Operacion cancelada")
                     else:    
                         id = int(id)
                         for project in ListaProyectos:
@@ -78,13 +77,11 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                
                 elif id == "":
                     print("")
-                    print("[ERROR] El id no puede estar vacio")
-                    input("Ingrese enter para continuar...")
+                    input("[ERROR] El id no puede estar vacio")
 
                 else:
                     print("")
-                    print("[ERROR] El ID ingresado debe ser un numero")
-                    input("Ingrese enter para continuar...")
+                    input("[ERROR] El ID ingresado debe ser un numero")
                         
             if isProjectReal:
                 on = True
@@ -146,7 +143,7 @@ def crear_proyecto(ListaProyectos):
         clearConsole()
         print("[Menu Principal > Proyectos > *Crear Proyectos*]")
         print()
-        nombreProyecto=input("• Ingrese el nombre del proyecto\n• Ingrese 0 para cancelar: ")  
+        nombreProyecto=input("• Ingrese el nombre del proyecto (0 para cancelar): ")  
         if nombreProyecto == "":
             print("")
             input("[ERROR] El nombre ingresado no puede estar vacio") 
@@ -283,15 +280,13 @@ def editar_proyecto(ListaProyectos):
                             else:   
                                 print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1]:<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
                             print()
-                            editarNombre=input("Ingrese el nuevo nombre del proyecto\nIngrese 0 para cancelar: ")
+                            editarNombre=input("Ingrese el nuevo nombre del proyecto (0 para cancelar): ")
                             if editarNombre == "":
                                 print("")
-                                print("[ERROR] El nombre ingresado no puede estar vacio")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("[ERROR] El nombre ingresado no puede estar vacio")
                             elif editarNombre == "0":
                                 p4 = False
-                                print("Operacion cancelada...")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("Operacion cancelada...")
                             else:
                                 p4 = False   
                                 p1 = False
@@ -310,19 +305,16 @@ def editar_proyecto(ListaProyectos):
                             else:   
                                 print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1]:<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
                             print()
-                            editarFechaInicio=input("Ingrese la nueva fecha de inicio\nIngrese 0 para cancelar: ")
+                            editarFechaInicio=input("Ingrese la nueva fecha de inicio (0 para cancelar): ")
                             if editarFechaInicio == "":
                                 print("")
-                                print("[ERROR] La fecha ingresada no puede estar vacia")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("[ERROR] La fecha ingresada no puede estar vacia")
                             elif editarFechaInicio.isdigit() == False:
                                 print("")
-                                print("[ERROR] La fecha ingresada debe ser un numero")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("[ERROR] La fecha ingresada debe ser un numero")
                             elif editarFechaInicio == "0":
                                 p4 = False
-                                print("Operacion cancelada...")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("Operacion cancelada...")
                             else:
                                 p4 = False   
                                 p1 = False
@@ -341,23 +333,19 @@ def editar_proyecto(ListaProyectos):
                             else:   
                                 print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1]:<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
                             print()
-                            editarFechaFinal=input("Ingrese la nueva fecha final\nIngrese 0 para cancelar: ")
+                            editarFechaFinal=input("Ingrese la nueva fecha final (0 para cancelar): ")
                             if editarFechaFinal == "":
                                 print("")
-                                print("[ERROR] La fecha ingresada no puede estar vacia")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("[ERROR] La fecha ingresada no puede estar vacia")
                             elif editarFechaFinal.isdigit() == False:
                                 print("")
-                                print("[ERROR] La fecha ingresada debe ser un numero")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("[ERROR] La fecha ingresada debe ser un numero")
                             elif editarFechaFinal < editarFechaInicio:
                                 print("")
-                                print("[ERROR] La fecha final no puede ser anterior a la fecha de inicio")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("[ERROR] La fecha final no puede ser anterior a la fecha de inicio")
                             elif editarFechaFinal == "0":
                                 p4 = False
-                                print("Operacion cancelada...")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("Operacion cancelada...")
                             else:
                                 p4 = False   
                                 p1 = False
