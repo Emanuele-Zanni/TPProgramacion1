@@ -59,8 +59,12 @@ ListaRoles= [[1, "Desarrollador"],
 
 #! Main  ----------------------
 while app:
-    basico= login()
-    clearConsole()
+    #? Descomentar credencial hardcodeada y comentar credencial con "login()" para MODO DEV
+    credencial = {'user': 'ADMIN', 'clearance': 1}
+    # credencial = login()
+
+ 
+    mainMenu = True
     while mainMenu:
         clearConsole()
         print("[*Menu Principal*]")
@@ -72,18 +76,16 @@ while app:
         print("0. Cerrar Programa")
         Opcion=input("Selecione una opcion: ")
         if Opcion=="1": #* Ver Proyectos
-            imprimirMenuProyectos(ListaProyectos, basico)            
+            imprimirMenuProyectos(ListaProyectos, credencial)            
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles, basico)            
+            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles, credencial)            
         elif Opcion=="3": #* Stats
             input("WIP...")
+        elif Opcion=="4":
+            mainMenu = False
         elif Opcion=="0": #* Cerrar el programa
             app=False
             mainMenu=False
-        elif Opcion=="4":
-            clearConsole()
-            basico= login()
-
         else: 
             print("")
             input("[ERROR] Opcion invalida. Intente nuevamente.")
