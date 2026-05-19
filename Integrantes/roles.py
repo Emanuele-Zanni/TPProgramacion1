@@ -5,7 +5,7 @@ def imprimirMenuRoles(ListaRoles, basico):
     activo=True
     while activo:
         clearConsole()
-        print("[Menu Principal > Ver personal > *Roles*]")
+        print("\033[33m[Menu Principal > Ver personal > *Roles*]\033[0m")
         print()  
         if basico==True:
             print("1. Ver roles")
@@ -112,7 +112,7 @@ def mostrarListaRoles(ListaRoles):
 
 def ver_roles(ListaRoles):
     clearConsole()
-    print("[Menu Principal > Integrantes > *Ver Roles*]")
+    print("\033[33m[Menu Principal > Integrantes > *Ver Roles*]\033[0m")
     print()
 
     if len(ListaRoles) == 0:
@@ -127,7 +127,7 @@ def ver_roles(ListaRoles):
 """
 def crear_roles(ListaRoles):
     clearConsole()
-    print("[Menu Principal > Integrantes > *Crear Rol*]")
+    print("\033[33m[Menu Principal > Integrantes > *Crear Rol*]\033[0m")
     print()
     id = len(ListaRoles) + 1
     rol=input("Ingrese el nombre del rol: ")
@@ -141,14 +141,14 @@ def crear_roles(ListaRoles):
 
 def editar_rol(ListaRoles):
     clearConsole()
-    print("[Menu principal > Integrantes > *Editar Rol*]")
+    print("\033[33m[Menu principal > Integrantes > *Editar Rol*]\033[0m")
     print()
     #isRolReal = False
     #rol=int(input("Ingrese el rol a editar: "))
 
 def eliminar_rol(ListaRoles): 
     clearConsole()
-    print("[Menu principal > Integrantes > *Eliminar Rol*]")
+    print("\033[33m[Menu principal > Integrantes > *Eliminar Rol*]\033[0m")
     print()
     if len(ListaRoles) == 0:
         print("No hay roles asignados.")

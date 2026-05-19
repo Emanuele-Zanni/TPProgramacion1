@@ -6,7 +6,7 @@ def inputFecha(nombreProyecto,mode, FechaInicio=None):
     fecha_texto = ""
     while on:
         clearConsole()
-        print("[Menu Principal > Proyectos > *Crear Proyectos*]")
+        print("\033[33m[Menu Principal > Proyectos > *Crear Proyectos*]\033[0m")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
 

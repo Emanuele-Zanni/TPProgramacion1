@@ -25,7 +25,7 @@ def seleccionar_tarea():
 
 def ver_tareas(ListaTareas):
     clearConsole()
-    print("[Menu principal > Proyectos > Proyecto Seleccionado > *Ver Tareas*]")
+    print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Ver Tareas*]\033[0m")
     print()
     if len(ListaTareas) == 0:
         input("No hay tareas registradas.")
@@ -47,12 +47,12 @@ def crear_tarea(ListaTareas):
 
     while p1 and inProgress:
         clearConsole()
-        print("[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]")
+        print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print()
         nombreTarea=input("Ingrese el nombre de la tarea: ")
         if nombreTarea == "":
             print("")
-            input("[ERROR] El nombre de la tarea no puede estar vacio")
+            input("\033[31m[ERROR] El nombre de la tarea no puede estar vacio.\033[0m")
         elif nombreTarea == "0" or nombreTarea == "X" or nombreTarea == "x":
             p1 = False
             inProgress = False
@@ -64,17 +64,17 @@ def crear_tarea(ListaTareas):
 
     while p2 and inProgress:
         clearConsole()
-        print("[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]")
+        print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print()
         print(f"Nombre de la tarea: {nombreTarea}")
         print()
         FechaInicio=inputFecha(nombreTarea,"Inicio")
         if FechaInicio == "":
             print("")
-            input("[ERROR] La fecha ingresada no puede estar vacia") 
+            input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m") 
         if FechaInicio == "":
             print("")
-            input("[ERROR] La fecha ingresada no puede estar vacia")
+            input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
         elif FechaInicio == "0" or FechaInicio == "X" or FechaInicio == "x":
             p2 = False
             inProgress = False
@@ -86,7 +86,7 @@ def crear_tarea(ListaTareas):
     
     while p3 and inProgress:
         clearConsole()
-        print("[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]")
+        print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print()
         print(f"Nombre de la tarea: {nombreTarea}")
         print(f"Fecha de Inicio: {FechaInicio}")
@@ -99,10 +99,10 @@ def crear_tarea(ListaTareas):
             input("Operacion cancelada...")
         elif FechaFinal == "":
             print("")
-            input("[ERROR] La fecha ingresada no puede estar vacia")
+            input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
         elif FechaFinal < FechaInicio:
             print("")
-            input("[ERROR] La fecha final no puede ser anterior a la fecha de inicio")
+            input("\033[31m[ERROR] La fecha final no puede ser anterior a la fecha de inicio.\033[0m")
         else:
             p3 = False
             EstadoTarea = "Activo"
@@ -141,10 +141,10 @@ def editar_tarea(ListaTareas):
             task_id = input("Ingrese ID de la tarea a editar\nIngrese 0 para vover atras: ")
             if task_id == "":
                 print()
-                input("[ERROR] El id no puede estar vacio")
+                input("\033[31m[ERROR] El id no puede estar vacio.\033[0m")
             elif task_id.isdigit() == False:
                 print()
-                input("[ERROR] El id debe ser un numero")
+                input("\033[31m[ERROR] El id debe ser un numero.\033[0m")
             elif task_id == "0":
                 on = False
                 print()
@@ -168,7 +168,7 @@ def editar_tarea(ListaTareas):
                     editarEstado = ListaTareas[posicion][4]
                    
                     clearConsole()
-                    print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]")
+                    print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]\033[0m")
                     print()
                     print("1. Cambiar Nombre")
                     print("2. Cambiar fecha de inicio")
@@ -181,7 +181,7 @@ def editar_tarea(ListaTareas):
                     if opcion == "1":
                         while p4:    
                             clearConsole()
-                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Nombre)*]")
+                            print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Nombre)*]\033[0m")
                             print()
                             print(f"{" "}*27 ===== Tarea{id+1} ======") 
                             print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
@@ -191,7 +191,7 @@ def editar_tarea(ListaTareas):
                             editarNombre=input("Ingrese el nuevo nombre de la tarea\nIngrese 0 para cancelar: ")
                             if editarNombre == "":
                                 print("")
-                                print("[ERROR] El nombre ingresado no puede estar vacio")
+                                print("\033[31m[ERROR] El nombre ingresado no puede estar vacio\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarNombre == "0":
                                 p4 = False
@@ -205,7 +205,7 @@ def editar_tarea(ListaTareas):
                     elif opcion == "2":
                         while p4:  
                             clearConsole()
-                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Fecha de Inicio)*]")
+                            print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Fecha de Inicio)*]\033[0m")
                             print()
                             print(f" ===== Tarea {id+1} ======") 
                             print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
@@ -215,11 +215,11 @@ def editar_tarea(ListaTareas):
                             editarFechaInicio=input("Ingrese la nueva fecha de inicio\nIngrese 0 para cancelar: ")
                             if editarFechaInicio == "":
                                 print("")
-                                print("[ERROR] La fecha ingresada no puede estar vacia")
+                                print("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaInicio.isdigit() == False:
                                 print("")
-                                print("[ERROR] La fecha ingresada debe ser un numero")
+                                print("\033[31m[ERROR] La fecha ingresada debe ser un numero.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaInicio == "0":
                                 p4 = False
@@ -233,7 +233,7 @@ def editar_tarea(ListaTareas):
                     elif opcion == "3":
                         while p4:   
                             clearConsole()
-                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Fecha Final)*]")
+                            print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Fecha Final)*]\033[0m")
                             print()
                             print(f" ===== Tarea {id+1} ======") 
                             print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
@@ -243,15 +243,15 @@ def editar_tarea(ListaTareas):
                             editarFechaFinal=input("Ingrese la nueva fecha final\nIngrese 0 para cancelar: ")
                             if editarFechaFinal == "":
                                 print("")
-                                print("[ERROR] La fecha ingresada no puede estar vacia")
+                                print("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaFinal.isdigit() == False:
                                 print("")
-                                print("[ERROR] La fecha ingresada debe ser un numero")
+                                print("\033[31m[ERROR] La fecha ingresada debe ser un numero.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaFinal < editarFechaInicio:
                                 print("")
-                                print("[ERROR] La fecha final no puede ser anterior a la fecha de inicio")
+                                print("\033[31m[ERROR] La fecha final no puede ser anterior a la fecha de inicio.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaFinal == "0":
                                 p4 = False
@@ -266,7 +266,7 @@ def editar_tarea(ListaTareas):
                         clearConsole()
                         while p4:
                             clearConsole()
-                            print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Estado)*]")
+                            print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Estado)*]\033[0m")
                             print()
                             print(f" ===== Tarea {id+1} ======") 
                             print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
@@ -300,14 +300,14 @@ def editar_tarea(ListaTareas):
                         print("cancelando operacion...")
                         input("Ingrese enter para continuar...")
                     else:
-                        input("[ERROR] Número inválido")
+                        input("\033[31m[ERROR] Número inválido.\033[0m")
 
                     tarea_editada = [id,editarNombre,editarFechaInicio,editarFechaFinal,editarEstado]
                    
 
                 while p2 and isTaskReal:
                     clearConsole()
-                    print("[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]")
+                    print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]\033[0m")
                     print()
                     print(f"Nombre de la tarea: {editarNombre}")
                     print(f"Fecha de Inicio: {editarFechaInicio}")
@@ -334,7 +334,7 @@ def editar_tarea(ListaTareas):
                         input("ingrese cualquier opcion para continuar: ")  
 
             else:
-                input("[ERROR] La tarea ingresada no existe")
+                input("\033[31m[ERROR] La tarea ingresada no existe.\033[0m")
 
 
 def eliminar_tarea(ListaTareas):
@@ -350,10 +350,10 @@ def eliminar_tarea(ListaTareas):
             isTaskReal = False
             if id == "":
                 print()
-                input("[ERROR] El id no puede estar vacio")
+                input("\033[31m[ERROR] El id no puede estar vacio.\033[0m")
             elif id.isdigit() == False:
                 print()
-                input("[ERROR] El id debe ser un numero") 
+                input("\033[31m[ERROR] El id debe ser un numero.\033[0m") 
             elif id == "0":
                 on = False
                 print()
@@ -371,4 +371,4 @@ def eliminar_tarea(ListaTareas):
                     print("Tarea eliminada exitosamente. Ingrese cualquier opcion para continuar.")
                     input("Ingrese cualquier opcion para continuar...")
                 else:
-                    input("[ERROR] La tarea con el ID ingresado no existe") 
+                    input("\033[31m[ERROR] La tarea con el ID ingresado no existe.\033[0m") 

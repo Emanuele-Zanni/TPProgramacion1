@@ -9,7 +9,7 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
     activo=True
     while activo:
         clearConsole()
-        print("[Menu Principal > *Proyectos*]")
+        print("\033[33m[Menu Principal > *Proyectos*]\033[0m")
         print("")
 
         #? ACCESO COMO INVITADO
@@ -22,7 +22,7 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             elif opcion=="0":
                 activo=False
             else:
-                input("[ERROR] Opcion invalida. Intente nuevamente.")
+                input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
         
         #? ACCESO COMO MIEMBRO
         elif credencial["clearance"] == 1:
@@ -37,7 +37,7 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             elif opcion=="0":
                 activo=False
             else:
-                input("[ERROR] Opcion invalida. Intente nuevamente.")
+                input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
 
         #? ACCESO COMO MANAGER / SUPERADMIN
         else:
@@ -62,7 +62,7 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             elif opcion=="0":
                 activo=False
             else:
-                input("[ERROR] Opcion invalida. Intente nuevamente.")
+                input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
 
 
 
@@ -70,7 +70,7 @@ def imprimirMenuSeleccionarProyecto(proyecto):
     activo=True
     while activo:
         clearConsole()
-        print("[Menu principal > Proyectos > *Proyecto Seleccionado*]")
+        print("\033[33m[Menu principal > Proyectos > *Proyecto Seleccionado*]\033[0m")
         print() 
         print(f" {""}*14 === {proyecto[1]} ===")
         print(f"ID: {proyecto[0]} | Status: {proyecto[5]} | Fecha Inicio/Final: {proyecto[3]} - {proyecto[4]}")
@@ -96,4 +96,4 @@ def imprimirMenuSeleccionarProyecto(proyecto):
         elif opcion=="0":
             activo=False
         else:
-            input("[ERROR] Opcion invalida. Intente nuevamente.")
+            input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")

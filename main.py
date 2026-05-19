@@ -89,7 +89,7 @@ while app:
     mainMenu = True
     while mainMenu:
         clearConsole()
-        print("[*Menu Principal*]")
+        print("\033[33m[*Menu Principal*]\033[0m")
         print("")
         print("1. Proyectos")
         print("2. Personal")
@@ -110,4 +110,4 @@ while app:
             mainMenu=False
         else: 
             print("")
-            input("[ERROR] Opcion invalida. Intente nuevamente.")
+            input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
