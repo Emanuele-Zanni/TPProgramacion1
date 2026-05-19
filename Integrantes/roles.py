@@ -8,24 +8,25 @@ def imprimirMenuRoles(ListaRoles, basico):
         print("[Menu Principal > Ver personal > *Roles*]")
         print()  
         if basico==True:
-            print("1. Crear rol ")
-            print("2. Editar rol ")  
-            print("3. Eliminar rol")  
-            print("4. Ver roles")
+            print("1. Ver roles")
+            print("2. Crear rol ")
+            print("3. Editar rol ")  
+            print("4. Eliminar rol")  
             print("0. Volver")
             opcion_rol=input("Ingrese la opción deseada: ")
 
-            if opcion_rol == "1":
+            if opcion_rol== "1":
+                ver_roles(ListaRoles)
+            
+            elif opcion_rol == "2":
                 crear_roles(ListaRoles)
                 
-            elif opcion_rol== "2":
+            elif opcion_rol== "3":
                 editar_rol(ListaRoles)
             
-            elif opcion_rol== "3":
+            elif opcion_rol== "4":
                 eliminar_rol(ListaRoles)
             
-            elif opcion_rol== "4":
-                ver_roles(ListaRoles)
 
             elif opcion_rol== "0": 
                 activo=False

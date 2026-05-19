@@ -22,7 +22,7 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             elif opcion=="0":
                 activo=False
             else:
-                input("Opcion invalida. Intente nuevamente.")
+                input("[ERROR] Opcion invalida. Intente nuevamente.")
         
         #? ACCESO COMO MIEMBRO
         elif credencial["clearance"] == 1:
@@ -37,7 +37,7 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             elif opcion=="0":
                 activo=False
             else:
-                input("Opcion invalida. Intente nuevamente.")
+                input("[ERROR] Opcion invalida. Intente nuevamente.")
 
         #? ACCESO COMO MANAGER / SUPERADMIN
         else:
@@ -62,7 +62,7 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             elif opcion=="0":
                 activo=False
             else:
-                input("Opcion invalida. Intente nuevamente.")
+                input("[ERROR] Opcion invalida. Intente nuevamente.")
 
 
 
@@ -96,4 +96,4 @@ def imprimirMenuSeleccionarProyecto(proyecto):
         elif opcion=="0":
             activo=False
         else:
-            input("Opcion invalida. Intente nuevamente.")
+            input("[ERROR] Opcion invalida. Intente nuevamente.")

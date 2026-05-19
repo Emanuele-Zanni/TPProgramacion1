@@ -30,12 +30,34 @@ mainMenu=True
 
 #? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
+
+#! ListaTareas Version 2.0
+#! ListaTareas = ["id","titulo","descripcion","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
+
 #? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
 #? ListaRoles= [["id","rol"]]
 #? ListaUsuarios= ["Usuario", "Contraseña"]
 
 
 #* Datos Mockeados
+subHeaders = ["password","clearance","rol","tareas"]
+listaNombres = ["candela","emanuele","eze"]
+listaContraseñas = ["1234","5555","123"]
+listaNivelesAcceso = [3,3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
+listaRolesUsuarios = ["Desarrollador","Desarrollador","QA"]
+listaTareasAsignadas = [[],[],[]]
+
+#* Menuda diccionario por comprension chaval
+#* Explicacion de esta lista... (agregar)
+ListaUsuarios = {
+    nombre: dict(zip(subHeaders, [contraseña, acceso]))
+    for nombre, contraseña, acceso in zip(listaNombres, listaContraseñas, listaNivelesAcceso)
+}
+
+for usuario, rol, tareas in zip(listaNombres, listaRolesUsuarios, listaTareasAsignadas):
+    ListaUsuarios[usuario]["rol"] = rol
+    ListaUsuarios[usuario]["tareas"] = tareas
+
 ListaProyectos = [[1, 'Proyecto 1', [], '1', '15', 'Activo'],
                   [2, 'Proyecto 2', [], '1', '20', 'Activo'],
                   [3, 'Proyecto 3', [], '1', '1', 'Activo'],
@@ -43,11 +65,11 @@ ListaProyectos = [[1, 'Proyecto 1', [], '1', '15', 'Activo'],
 
 #ListaTareas = []
 
-ListaIntegrantes= [[1,"Emanuele","Desarrollador",[]],
-                   [2,"Ezequiel","QA",[]],
-                   [3,"Rodolfo","QA",[]],
-                   [4,"Candela","Desarrollador",[]],
-                   [5,"Francisco","QA",[]]]
+# ListaIntegrantes= [[1,"Emanuele","Desarrollador",[]],
+#                    [2,"Ezequiel","QA",[]],
+#                    [3,"Rodolfo","QA",[]],
+#                    [4,"Candela","Desarrollador",[]],
+#                    [5,"Francisco","QA",[]]]
 
 ListaRoles= [[1, "Desarrollador"],
             [2, "QA"]]
@@ -60,8 +82,8 @@ ListaRoles= [[1, "Desarrollador"],
 #! Main  ----------------------
 while app:
     #? Descomentar credencial hardcodeada y comentar credencial con "login()" para MODO DEV
-    credencial = {'user': 'ADMIN', 'clearance': 4}
-    # credencial = login()
+    credencial = {'user': 'ADMIN', 'clearance': 2}
+    # credencial = menuAcceso(ListaUsuarios,ListaRoles)
 
  
     mainMenu = True
@@ -78,7 +100,7 @@ while app:
         if Opcion=="1": #* Ver Proyectos
             imprimirMenuProyectos(ListaProyectos, credencial)            
         elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles, credencial)            
+            imprimirMenuIntegrantes(ListaUsuarios, ListaRoles, credencial)
         elif Opcion=="3": #* Stats
             input("WIP...")
         elif Opcion=="4":

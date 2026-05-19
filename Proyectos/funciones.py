@@ -103,7 +103,7 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                         elif opcion=="0":
                             on=False
                         else:
-                            input("Opcion invalida. Intente nuevamente.")
+                            input("[ERROR] Opcion invalida. Intente nuevamente.")
                     else:
                         print("1. Ver tarea")
                         print("2. Crear tarea")
@@ -122,7 +122,7 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                         elif opcion=="0":
                             on=False
                         else:
-                            input("Opcion invalida. Intente nuevamente.")
+                            input("[ERROR] Opcion invalida. Intente nuevamente.")
     
 
 def crear_proyecto(ListaProyectos):

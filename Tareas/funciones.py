@@ -20,12 +20,14 @@ def mostrarListaTareas(ListaTareas):
 
     print("")
 
+def seleccionar_tarea():
+    pass
+
 def ver_tareas(ListaTareas):
     clearConsole()
     print("[Menu principal > Proyectos > Proyecto Seleccionado > *Ver Tareas*]")
     print()
     if len(ListaTareas) == 0:
-        print()
         input("No hay tareas registradas.")
     else:
         mostrarListaTareas(ListaTareas)
@@ -336,16 +338,14 @@ def editar_tarea(ListaTareas):
 
 
 def eliminar_tarea(ListaTareas):
+    clearConsole()
+    print("[Menu Tareas > *Eliminar Tareas*]")
+    print()
     if len(ListaTareas) == 0:
-        clearConsole()
-        print("[Menu Tareas > *Eliminar Tareas*]")
         input("No hay tareas registradas.")
     else:
         on = True
         while on:
-            clearConsole()
-            print("[Menu Tareas > *Eliminar Tareas*]")
-            print()
             id = input("Ingrese el ID de la tarea a eliminar: ")
             isTaskReal = False
             if id == "":
