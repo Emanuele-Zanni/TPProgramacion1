@@ -75,6 +75,8 @@ def crear_tarea(ListaTareas):
         if FechaInicio == "":
             print("")
             input("[ERROR] La fecha ingresada no puede estar vacia")
+        elif FechaInicio == "0":
+            input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
         elif FechaInicio == "0" or FechaInicio == "X" or FechaInicio == "x":
             p2 = False
             inProgress = False
