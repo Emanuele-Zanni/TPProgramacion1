@@ -1,10 +1,5 @@
 # Corto Plazo -----
 
-Opcion Seleccionar Proyecto NO se debe poder realizar si listaProyectos es 0
-- Lo mismo con Editar Proyectos
-- Lo mismo con Eliminar Proyectos
-- Agregar la solucion a los demas MODULOS (a los CRUDs)
-
 LOGICA DE ROLES ESTA MAL (no consume ListaRoles, esta hardcodeado)
 
 [Menu Principal > Ver personal > *Roles*] FUNCIONA MAL, verificar inputs,se rompe con vacios, se estqa convirtiendo a "int"
@@ -29,8 +24,6 @@ Extraer archivo de checklist (en carpeta TPO)
 Clase posterior a 6/4 Profesor "revela" formato/modalidad del parcial
 
 # Largo Plazo ----
-
-Implementar libreria de Date (reemplazar el sistema casero y agregar VALIDACIONES de ser necesario)
 
 Sistema de reordenamiento automatico de IDs al eliminar algun elemento de alguna lista (Probablemente no hace falta)
 
