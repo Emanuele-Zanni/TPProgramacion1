@@ -161,7 +161,7 @@ def crear_proyecto(ListaProyectos):
         print("\033[33m[Menu Principal > Proyectos > *Crear Proyectos*]\033[0m")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
-        FechaInicio=inputFecha(nombreProyecto,"Inicio")
+        FechaInicio=inputFecha("Inicio")
         if FechaInicio == "":
             print("")
             input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m") 
@@ -179,8 +179,8 @@ def crear_proyecto(ListaProyectos):
         print("\033[33m[Menu Principal > Proyectos > *Crear Proyectos*]\033[0m")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
-        print(f"Fecha de Inicio: {FechaInicio}")
-        FechaFinal=inputFecha(nombreProyecto,"Final", FechaInicio)
+        print(f"Fecha de Inicio: {FechaInicio.strftime('%d/%m/%Y')}")
+        FechaFinal=inputFecha("Final")
         if FechaFinal < FechaInicio:
             print("")
             input("\033[31m[ERROR] La fecha final no puede ser anterior a la fecha de inicio.\033[0m")
@@ -204,8 +204,8 @@ def crear_proyecto(ListaProyectos):
         print()
         print(f"ID: {id}")
         print(f"Nombre del Proyecto: {nombreProyecto}")
-        print(f"Fecha de Inicio: {FechaInicio}")
-        print(f"Fecha de Finalizacion: {FechaFinal}")
+        print(f"Fecha de Inicio: {FechaInicio.strftime('%d/%m/%Y')}")
+        print(f"Fecha de Finalizacion: {FechaFinal.strftime('%d/%m/%Y')}")
         print()
         input("[EXITO] Proyecto creado exitosamente.")
 
@@ -266,20 +266,14 @@ def editar_proyecto(ListaProyectos):
                     print("0. Volver")
                     print("")
                     opcion = input("Seleccione una opcion")
-                    
+                    p4 = True
+
                     if opcion == "1":
                         while p4:    
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Nombre)*]\033[0m")
                             print()
-                            print(f" ===== Proyecto{id+1} ======") 
-                            print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
-                            print("---------------------------------------------------------------------------------")
-                            if len(ListaProyectos[posicion][1]) > 20:
-                                print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1][:20]+ '...':<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
-                            else:   
-                                print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1]:<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
-                            print()
+                            mostrarProyecto_Tarea("proyecto",ListaProyectos,posicion,id)
                             editarNombre=input("Ingrese el nuevo nombre del proyecto (0 para cancelar): ")
                             if editarNombre == "":
                                 print("")
@@ -297,14 +291,7 @@ def editar_proyecto(ListaProyectos):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Fecha de Inicio)*]\033[0m")
                             print()
-                            print(f" ===== Proyecto{id+1} ======")  
-                            print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
-                            print("---------------------------------------------------------------------------------")
-                            if len(ListaProyectos[posicion][1]) > 20:
-                                print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1][:20]+ '...':<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
-                            else:   
-                                print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1]:<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
-                            print()
+                            mostrarProyecto_Tarea("proyecto",ListaProyectos,posicion,id)
                             editarFechaInicio=input("Ingrese la nueva fecha de inicio (0 para cancelar): ")
                             if editarFechaInicio == "":
                                 print("")
@@ -325,14 +312,7 @@ def editar_proyecto(ListaProyectos):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Fecha Final)*]\033[0m")
                             print()
-                            print(f" ===== Proyecto{id+1} ======") 
-                            print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
-                            print("---------------------------------------------------------------------------------")
-                            if len(ListaProyectos[posicion][1]) > 20:
-                                print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1][:20]+ '...':<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
-                            else:   
-                                print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1]:<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
-                            print()
+                            mostrarProyecto_Tarea("proyecto",ListaProyectos,posicion,id)
                             editarFechaFinal=input("Ingrese la nueva fecha final (0 para cancelar): ")
                             if editarFechaFinal == "":
                                 print("")
@@ -357,14 +337,7 @@ def editar_proyecto(ListaProyectos):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Estado)*]\033[0m")
                             print()
-                            print(f" ===== Proyecto{id+1} ======") 
-                            print(f"{"ID": <5}{"Nombre": <25}|{"Fecha de Inicio": <15}|{"Fecha Final": <15}|{"Estado": <15}")
-                            print("---------------------------------------------------------------------------------")
-                            if len(ListaProyectos[posicion][1]) > 20:
-                                print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1][:20]+ '...':<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
-                            else:   
-                                print(f"{ListaProyectos[posicion][0]:<5}{ListaProyectos[posicion][1]:<25}{ListaProyectos[posicion][3]:<15}{ListaProyectos[posicion][4]:<15}{ListaProyectos[posicion][5]:<15}")
-                            print()
+                            mostrarProyecto_Tarea("proyecto",ListaProyectos,posicion,id)
                             print("1. Activo")
                             print("2. Inactivo")
                             editarEstado=input("Ingrese el nuevo estado del proyecto: ")
@@ -466,5 +439,5 @@ def eliminar_proyecto(ListaProyectos):
                     print()
                     print("\033[31m[ERROR] El proyecto con el ID ingresado no existe.\033[0m")  
                     input("Ingrese enter para continuar...")
-        
-        
+                    
+    

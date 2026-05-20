@@ -39,24 +39,7 @@ mainMenu=True
 #? ListaUsuarios= ["Usuario", "Contraseña"]
 
 
-#* Datos Mockeados
-subHeaders = ["password","clearance","rol","tareas"]
-listaNombres = ["candela","emanuele","eze"]
-listaContraseñas = ["1234","5555","123"]
-listaNivelesAcceso = [3,3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
-listaRolesUsuarios = ["Desarrollador","Desarrollador","QA"]
-listaTareasAsignadas = [[],[],[]]
 
-#* Menuda diccionario por comprension chaval
-#* Explicacion de esta lista... (agregar)
-ListaUsuarios = {
-    nombre: dict(zip(subHeaders, [contraseña, acceso]))
-    for nombre, contraseña, acceso in zip(listaNombres, listaContraseñas, listaNivelesAcceso)
-}
-
-for usuario, rol, tareas in zip(listaNombres, listaRolesUsuarios, listaTareasAsignadas):
-    ListaUsuarios[usuario]["rol"] = rol
-    ListaUsuarios[usuario]["tareas"] = tareas
 
 ListaProyectos = [[1, 'Proyecto 1', [], '1', '15', 'Activo'],
                   [2, 'Proyecto 2', [], '1', '20', 'Activo'],
