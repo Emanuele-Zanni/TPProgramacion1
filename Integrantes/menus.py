@@ -8,7 +8,7 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
     activo=True
     while activo:
         clearConsole()
-        print("[Menu Principal > *Personal*]")
+        print("\033[33m[Menu Principal > *Personal*]\033[0m")
         print()
         if credencial["clearance"] < 2: 
             print("1. Ver integrantes")
@@ -21,7 +21,7 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
                 activo=False
             else:
                 print()
-                input("[ERROR] Opcion invalida. Intente nuevamente.")
+                input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
         elif credencial["clearance"] < 3:
             print("1. Ver integrantes")
             print("2. Editar integrante")
@@ -39,7 +39,7 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
                 activo=False
             else:
                 print()
-                input("[ERROR] Opcion invalida. Intente nuevamente.")
+                input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
         else:
             print("1. Ver integrantes")
             print("2. Editar integrante")
@@ -63,4 +63,4 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
                 activo=False
             else:
                 print()
-                input("[ERROR] Opcion invalida. Intente nuevamente.")
+                input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")

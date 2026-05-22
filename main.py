@@ -12,6 +12,9 @@ from Tareas.menus import *
 from Proyectos.menus import *
 from Integrantes.roles import*
 from Database.usuarios import*
+from Stats.menu import*
+from Stats.funciones import*
+
 
 """Tareas (Crear tareas, eliminar tareas
 asignar tareas, actualizar su estado (pendiente
@@ -59,10 +62,12 @@ for usuario, rol, tareas in zip(listaNombres, listaRolesUsuarios, listaTareasAsi
     ListaUsuarios[usuario]["rol"] = rol
     ListaUsuarios[usuario]["tareas"] = tareas
 
-ListaProyectos = [[1, 'Proyecto 1', [], '1', '15', 'Activo'],
-                  [2, 'Proyecto 2', [], '1', '20', 'Activo'],
-                  [3, 'Proyecto 3', [], '1', '1', 'Activo'],
-                  [4, 'Proyecto 4', [], '1', '13', 'Activo']]
+date = datetime.now()
+
+ListaProyectos = [[1, 'Proyecto 1', [], date, date, 'Activo'],
+                  [2, 'Proyecto 2', [], date, date, 'Activo'],
+                  [3, 'Proyecto 3', [], date, date, 'Activo'],
+                  [4, 'Proyecto 4', [], date, date, 'Activo']]
 
 #ListaTareas = []
 
@@ -74,6 +79,9 @@ ListaProyectos = [[1, 'Proyecto 1', [], '1', '15', 'Activo'],
 
 ListaRoles= [[1, "Desarrollador"],
             [2, "QA"]]
+
+ListaStats= []
+
 
 # ListaProyectos = []
 # ListaTareas = []
@@ -89,7 +97,7 @@ while app:
     mainMenu = True
     while mainMenu:
         clearConsole()
-        print("[*Menu Principal*]")
+        print("\033[33m[*Menu Principal*]\033[0m")
         print("")
         print("1. Proyectos")
         print("2. Personal")
@@ -102,7 +110,7 @@ while app:
         elif Opcion=="2": #* Ver Personal
             imprimirMenuIntegrantes(ListaUsuarios, ListaRoles, credencial)
         elif Opcion=="3": #* Stats
-            input("WIP...")
+            imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles)
         elif Opcion=="4":
             mainMenu = False
         elif Opcion=="0": #* Cerrar el programa
@@ -110,4 +118,4 @@ while app:
             mainMenu=False
         else: 
             print("")
-            input("[ERROR] Opcion invalida. Intente nuevamente.")
+            input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")

@@ -16,7 +16,7 @@ def menuAcceso(usuarios, listaRoles):
         elif choice == "2":
             return signUp(usuarios, listaRoles)
         else:
-            input("[ERROR] Opcion invalida. Intente nuevamente.")
+            input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
 
 
 def login(usuarios):
@@ -33,14 +33,14 @@ def login(usuarios):
         user = input("Ingrese nombre de usuario: ").lower().strip()
         if user == "":
             print()
-            input("[ERROR] El nombre de usuario no puede estar vacio")
+            input("\033[31m[ERROR] El nombre de usuario no puede estar vacio.\033[0m")
         elif user in usuarios:
             isUserReal = True
             p1 = False
             p2 = True
         else:
             print()
-            input("[ERROR] El usuario ingresado no existe")
+            input("\033[31m[ERROR] El usuario ingresado no existe.\033[0m")
 
     while p2 and on:
         clearConsole()
@@ -70,10 +70,10 @@ def login(usuarios):
                 return credencial
         elif password == "":
             print()
-            input("[ERROR] La contrasena no puede estar vacia")
+            input("\033[31m[ERROR] La contrasena no puede estar vacia.\033[0m")
         else:
             print()
-            input("[ERROR] Contrasena incorrecta")
+            input("\033[31m[ERROR] Contrasena incorrecta.\033[0m")
 
 
 def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
@@ -89,13 +89,13 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
 
         if user == "":
             print()
-            input("[ERROR] El nombre de usuario no puede estar vacio")
+            input("\033[31m[ERROR] El nombre de usuario no puede estar vacio.\033[0m")
         elif user in usuarios:
             print()
-            input("[ERROR] El usuario ingresado ya existe")
+            input("\033[31m[ERROR] El usuario ingresado ya existe.\033[0m")
         elif user[0].isdigit():
             print()
-            input("[ERROR] El usuario no puede empezar con un numero")
+            input("\033[31m[ERROR] El usuario no puede empezar con un numero.\033[0m")
         else:
             p1 = False
             p2 = True
@@ -109,7 +109,7 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
 
         if password == "":
             print()
-            input("[ERROR] La contraseña no puede estar vacia")
+            input("\033[31m[ERROR] La contraseña no puede estar vacia.\033[0m")
         else:
             p2 = False
             p3 = True
@@ -123,10 +123,10 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
 
         if password == "":
             print()
-            input("[ERROR] La contraseña no puede estar vacia")
+            input("\033[31m[ERROR] La contraseña no puede estar vacia.\033[0m")
         elif confirmPassword != password:
             print()
-            input("[ERROR] Las contraseñas no coinciden")
+            input("\033[31m[ERROR] Las contraseñas no coinciden.\033[0m")
         else:
             p3 = False
             p4 = True
@@ -143,10 +143,10 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
 
         if rol == "":
             print()
-            input("[ERROR] El rol no puede estar vacio")
+            input("\033[31m[ERROR] El rol no puede estar vacio.\033[0m")
         elif rol.isdigit() == False:
             print()
-            input("[ERROR] El rol debe ser un numero")
+            input("\033[31m[ERROR] El rol debe ser un numero.\033[0m")
         else:
             rol = int(rol)
             rolEncontrado = False
@@ -163,7 +163,7 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
                     p5 = True
             else:
                 print()
-                input("[ERROR] El rol ingresado no existe")
+                input("\033[31m[ERROR] El rol ingresado no existe.\033[0m")
     while p5 and inProgress:
         clearConsole()
         print("[Menu de Acceso > *Registrarse*]")

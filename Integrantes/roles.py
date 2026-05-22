@@ -5,7 +5,7 @@ def imprimirMenuRoles(ListaRoles, credencial):
     activo=True
     while activo:
         clearConsole()
-        print("[Menu Principal > Personal > *Roles*]")
+        print("\033[33m[Menu Principal > Personal > *Roles*]\033[0m")
         print()  
         if credencial["clearance"] < 2:
             print("1. Ver roles")
@@ -162,7 +162,7 @@ def mostrarListaRoles(ListaRoles):
 
 def ver_roles(ListaRoles,mode=True):
     clearConsole()
-    print("[Menu Principal > Personal > Roles > *Ver Roles*]")
+    print("\033[33m[Menu Principal > Personal > Roles > *Ver Roles*]\033[0m")
     print()
 
     if len(ListaRoles) == 0:
