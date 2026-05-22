@@ -76,9 +76,10 @@ def login(usuarios):
             input("[ERROR] Contrasena incorrecta")
 
 
-def signUp(usuarios, listaRoles):
+def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
+    clearance = 1
     inProgress = True
-    p1, p2, p3, p4 = True, False, False, False
+    p1, p2, p3, p4, p5 = True, False, False, False, False
 
     while p1 and inProgress:
         clearConsole()
@@ -153,25 +154,51 @@ def signUp(usuarios, listaRoles):
             for rol_item in roles_disponibles:
                 if rol_item[0] == rol:
                     rolEncontrado = True
-                    usuarios[user] = {
-                        "password": password,
-                        "clearance": 1,
-                        "rol": rol_item[1],
-                        "tareas": []
-                    }
+                    rol = rol_item[1]
+                    break
 
             if rolEncontrado:
                 p4 = False
+                if isAdmin:
+                    p5 = True
             else:
                 print()
                 input("[ERROR] El rol ingresado no existe")
+    while p5 and inProgress:
+        clearConsole()
+        print("[Menu de Acceso > *Registrarse*]")
+        print()
+        print(f"Usuario: {user}")
+        print(f"Rol: {rol}")
+        print()
+        clearance = input("• Ingrese el nivel de acceso del usuario: ")
+        if clearance == "":
+            print()
+            input("[ERROR] El rol no puede estar vacio")
+        elif clearance.isdigit() == False:
+            print()
+            input("[ERROR] El rol debe ser un numero")
+        else:
+            clearance = int(clearance)
+            p5 = False
 
-    print()
-    input("[EXITO] Usuario registrado correctamente.")
-    return {
-        "user": user,
-        "clearance": usuarios[user]["clearance"]
-    }
+    if inProgress:
+        print()
+        input("[EXITO] Usuario registrado correctamente.")
+        usuarios[user] = {
+            "password": password,
+            "clearance": clearance,
+            "rol": rol,
+            "tareas": []
+        }
+
+        if menuLoop:
+            menuAcceso(usuarios,listaRoles)
+        else:
+            return {
+                "user": user,
+                "clearance": usuarios[user]["clearance"]
+            }
 
 
 # def singUp(usuarios, listaRoles):

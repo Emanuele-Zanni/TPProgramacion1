@@ -36,7 +36,8 @@ mainMenu=True
 
 #? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
 #? ListaRoles= [["id","rol"]]
-#? ListaUsuarios= ["Usuario", "Contraseña"]
+#? ListaUsuarios= [usuario, password, clearance, rol, tareas]
+
 
 
 #* Datos Mockeados
@@ -82,10 +83,9 @@ ListaRoles= [[1, "Desarrollador"],
 #! Main  ----------------------
 while app:
     #? Descomentar credencial hardcodeada y comentar credencial con "login()" para MODO DEV
-    credencial = {'user': 'ADMIN', 'clearance': 2}
+    credencial = {'user': 'ADMIN', 'clearance': 4}
     # credencial = menuAcceso(ListaUsuarios,ListaRoles)
 
- 
     mainMenu = True
     while mainMenu:
         clearConsole()

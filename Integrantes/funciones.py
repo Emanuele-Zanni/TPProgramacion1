@@ -16,7 +16,7 @@ def mostrarListaIntegrantes(ListaUsuarios):
 
 def ver_integrantes(ListaUsuarios):
     clearConsole()
-    print("[Menu Principal > Integrantes > *Ver Integrantes*]")
+    print("[Menu Principal > Personal > *Ver Integrantes*]")
     print()
     if len(ListaUsuarios) == 0:
         input("No hay integrantes registrados")
@@ -31,7 +31,7 @@ def ver_integrantes(ListaUsuarios):
 
 def editar_integrante(ListaUsuarios, ListaRoles):
     clearConsole()
-    print("[Menu Principal > Integrantes > *Editar Integrantes*]")
+    print("[Menu Principal > Personal > *Editar Integrantes*]")
     print()
 
     if len(ListaUsuarios) == 0:
@@ -111,7 +111,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
 
 def eliminar_integrante(ListaUsuarios):
     clearConsole()
-    print("[Menu Principal > Integrantes > *Eliminar Integrante*]")
+    print("[Menu Principal > Personal > *Eliminar Integrante*]")
     print()
 
     if len(ListaUsuarios) == 0:

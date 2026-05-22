@@ -34,7 +34,7 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
             elif opcion=="2":
                 editar_integrante(ListaUsuarios,ListaRoles)
             elif opcion=="3":
-                imprimirMenuRoles(ListaRoles, credencial["clearance"] >= 2)
+                imprimirMenuRoles(ListaRoles, credencial)
             elif opcion == "0":
                 activo=False
             else:
@@ -45,7 +45,7 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
             print("2. Editar integrante")
             print("3. Eliminar integrante")
             print("4. Gestionar roles")
-            print("5. Registrar nuevo usuario")
+            print("5. Registrar nuevo usuario (Sing Up)")
             print("0. Volver atras")
             print()
             opcion=input("• Seleccione una opcion: ")
@@ -56,9 +56,9 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
             elif opcion=="3":
                 eliminar_integrante(ListaUsuarios)
             elif opcion=="4":
-                imprimirMenuRoles(ListaRoles, credencial["clearance"] >= 2)
+                imprimirMenuRoles(ListaRoles, credencial)
             elif opcion=="5":
-                signUp(ListaUsuarios, ListaRoles)
+                signUp(ListaUsuarios, ListaRoles,True,False)
             elif opcion == "0":
                 activo=False
             else:
