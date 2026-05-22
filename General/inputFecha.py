@@ -10,8 +10,9 @@ def inputFecha(mode):
     if fecha_texto == "0":
          
         return fecha_texto
+    
     elif fecha_texto == "":
-        print("")
+        
         return fecha_texto
     else:
         try:
@@ -20,6 +21,7 @@ def inputFecha(mode):
             return fecha
 
         except ValueError:
-            input("Formato inválido ")
+            
+            return None
 
         

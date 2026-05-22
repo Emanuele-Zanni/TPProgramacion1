@@ -16,16 +16,16 @@ def mostrarListaProyectos(ListaProyectos):
             estado = proyecto[5]
             
             if len(nombre) > 20 and len(str(tareas)) > 10:
-                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas)[:10]+ '...':<15}{inicio:<12}{fin:<12}{estado:<10}")
+                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas)[:10]+ '...':<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
            
             elif  len(str(tareas)) > 10:
-                print(f"{id_:<5}{nombre:<25}{str(tareas)[:10]+ '...':<15}{inicio:<12}{fin:<12}{estado:<10}")
+                print(f"{id_:<5}{nombre:<25}{str(tareas)[:10]+ '...':<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
             
             elif len(nombre) > 20:
-                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas):<15}{inicio:<12}{fin:<12}{estado:<10}")
+                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas):<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
            
             else:
-                print(f"{id_:<5}{nombre:<25}{str(tareas):<15}{inicio:<12}{fin:<12}{estado:<10}")
+                print(f"{id_:<5}{nombre:<25}{str(tareas):<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
         print("")
     
 
@@ -89,8 +89,7 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                     clearConsole()
                     print("\033[33m[Menu principal > Proyectos > *Proyecto Seleccionado*]\033[0m")
                     print() 
-                    print(f"=== {proyecto[1]} ===")
-                    print(f"ID: {proyecto[0]} | Status: {proyecto[5]} | Fecha Inicio/Final: {proyecto[3]} - {proyecto[4]}")
+                    mostrar_tarea_proyecto("proyecto", proyecto)
                     print("")
 
                     if credencial["clearance"] == 1:
@@ -170,18 +169,24 @@ def crear_proyecto(ListaProyectos):
             print()
             print("Operacion cancelada")
             input("Ingrese enter para continuar...")
+        elif FechaInicio == None:
+            print("")
+            input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
         else:
             p2 = False
             p3 = True
     
     while p3 and inProgress:
-        
+        clearConsole()
         print("\033[33m[Menu Principal > Proyectos > *Crear Proyectos*]\033[0m")
         print()
         print(f"Nombre del Proyecto: {nombreProyecto}")
         print(f"Fecha de Inicio: {FechaInicio.strftime('%d/%m/%Y')}")
         FechaFinal=inputFecha("Final")
-        if FechaFinal < FechaInicio:
+        if FechaFinal == None:
+            print("")
+            input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
+        elif FechaFinal < FechaInicio:
             print("")
             input("\033[31m[ERROR] La fecha final no puede ser anterior a la fecha de inicio.\033[0m")
         elif FechaFinal == "0":
@@ -273,7 +278,7 @@ def editar_proyecto(ListaProyectos):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Nombre)*]\033[0m")
                             print()
-                            mostrarProyecto_Tarea("proyecto",ListaProyectos,posicion,id)
+                            mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
                             editarNombre=input("Ingrese el nuevo nombre del proyecto (0 para cancelar): ")
                             if editarNombre == "":
                                 print("")
@@ -291,17 +296,20 @@ def editar_proyecto(ListaProyectos):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Fecha de Inicio)*]\033[0m")
                             print()
-                            mostrarProyecto_Tarea("proyecto",ListaProyectos,posicion,id)
-                            editarFechaInicio=input("Ingrese la nueva fecha de inicio (0 para cancelar): ")
+                            mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
+                            editarFechaInicio=inputFecha("Inicio")
                             if editarFechaInicio == "":
                                 print("")
                                 input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
-                            elif editarFechaInicio.isdigit() == False:
+                            elif editarFechaInicio == None:
                                 print("")
-                                input("\033[31m[ERROR] La fecha ingresada debe ser un numero.\033[0m")
+                                input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
                             elif editarFechaInicio == "0":
                                 p4 = False
                                 input("Operacion cancelada...")
+                            elif editarFechaInicio > editarFechaFinal:
+                                print("")
+                                input("\033[31m[ERROR] La fecha de inicio no puede ser posterior a la fecha final.\033[0m")
                             else:
                                 p4 = False   
                                 p1 = False
@@ -312,20 +320,20 @@ def editar_proyecto(ListaProyectos):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Fecha Final)*]\033[0m")
                             print()
-                            mostrarProyecto_Tarea("proyecto",ListaProyectos,posicion,id)
-                            editarFechaFinal=input("Ingrese la nueva fecha final (0 para cancelar): ")
+                            mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
+                            editarFechaFinal=inputFecha("Final")
                             if editarFechaFinal == "":
                                 print("")
                                 input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
-                            elif editarFechaFinal.isdigit() == False:
-                                print("")
-                                input("\033[31m[ERROR] La fecha ingresada debe ser un numero.\033[0m")
-                            elif editarFechaFinal < editarFechaInicio:
-                                print("")
-                                input("\033[31m[ERROR] La fecha final no puede ser anterior a la fecha de inicio.\033[0m")
                             elif editarFechaFinal == "0":
                                 p4 = False
                                 input("Operacion cancelada...")
+                            elif editarFechaFinal == None:
+                                print("")
+                                input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
+                            elif editarFechaFinal < editarFechaInicio:
+                                print("")
+                                input("\033[31m[ERROR] La fecha final no puede ser anterior a la fecha de inicio.\033[0m")
                             else:
                                 p4 = False   
                                 p1 = False
@@ -337,7 +345,7 @@ def editar_proyecto(ListaProyectos):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Estado)*]\033[0m")
                             print()
-                            mostrarProyecto_Tarea("proyecto",ListaProyectos,posicion,id)
+                            mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
                             print("1. Activo")
                             print("2. Inactivo")
                             editarEstado=input("Ingrese el nuevo estado del proyecto: ")
@@ -374,8 +382,8 @@ def editar_proyecto(ListaProyectos):
                     print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos*]\033[0m")
                     print()
                     print(f"Nombre del proyecto: {editarNombre}")
-                    print(f"Fecha de Inicio: {editarFechaInicio}")
-                    print(f"Fecha Final: {editarFechaFinal}")
+                    print(f"Fecha de Inicio: {editarFechaInicio.strftime('%d/%m/%Y')}")
+                    print(f"Fecha Final: {editarFechaFinal.strftime('%d/%m/%Y')}")
                     print(f"Estado: {editarEstado}")
                     print()
                     opcion = input("¿Desea guardar los cambios?\nsi == 1\nno == 0: ")
@@ -431,10 +439,29 @@ def eliminar_proyecto(ListaProyectos):
                 for item in ListaProyectos:
                     if item[0] == id:
                         isProjectReal = True
-                        ListaProyectos.remove(item)
-                        input(f"'{item}' eliminado exitosamente")
-                        on = False
-                
+                        p1 = True
+                        while p1: 
+                            clearConsole()
+                            print("\033[33m[Menu principal > Proyectos > *Eliminar Proyectos*]\033[0m")
+                            print()  
+                            mostrar_tarea_proyecto("proyecto", item)
+                            print("¿Desea eliminar este proyecto?\nsi == 1\nno == 0")
+                            opcion = input("ingrese la opcion: ")
+                            if opcion == "1":
+                                ListaProyectos.remove(item)
+                                input(f"'{item}' eliminado exitosamente")
+                                p1 = False
+                                on = False
+                            elif opcion == "0":
+                                p1 = False
+                                on = False
+                                print()
+                                print("Operacion cancelada")
+                                input("Ingrese enter para continuar...")
+                            else:
+                                print()
+                                input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
+
                 if isProjectReal == False:
                     print()
                     print("\033[31m[ERROR] El proyecto con el ID ingresado no existe.\033[0m")  

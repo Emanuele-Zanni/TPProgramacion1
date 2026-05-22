@@ -14,9 +14,9 @@ def mostrarListaTareas(ListaTareas):
         estado = tarea[4]
 
         if len(nombre) > 20:
-            print(f"{str(id_tarea):<5}{str(nombre)[0:20]+'...':<25}{str(fecha_inicio):<15}{str(fecha_final):<15}{str(estado):<15}")
+            print(f"{str(id_tarea):<5}{str(nombre)[0:20]+'...':<25}{(fecha_inicio).strftime('%d/%m/%Y'):<15}{(fecha_final).strftime('%d/%m/%Y'):<15}{str(estado):<15}")
         else:
-            print(f"{str(id_tarea):<5}{str(nombre):<25}{str(fecha_inicio):<15}{str(fecha_final):<15}{str(estado):<15}")
+            print(f"{str(id_tarea):<5}{str(nombre):<25}{(fecha_inicio).strftime('%d/%m/%Y'):<15}{(fecha_final).strftime('%d/%m/%Y'):<15}{str(estado):<15}")
 
     print("")
 
@@ -49,11 +49,11 @@ def crear_tarea(ListaTareas):
         clearConsole()
         print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print()
-        nombreTarea=input("Ingrese el nombre de la tarea: ")
+        nombreTarea=input("• Ingrese el nombre de la tarea\n• Ingrese 0 para cancelar: ")
         if nombreTarea == "":
             print("")
             input("\033[31m[ERROR] El nombre de la tarea no puede estar vacio.\033[0m")
-        elif nombreTarea == "0" or nombreTarea == "X" or nombreTarea == "x":
+        elif nombreTarea == "0":
             p1 = False
             inProgress = False
             print("")
@@ -72,12 +72,10 @@ def crear_tarea(ListaTareas):
         if FechaInicio == "":
             print("")
             input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m") 
-        if FechaInicio == "":
+        elif FechaInicio == None:
             print("")
-            input("[ERROR] La fecha ingresada no puede estar vacia")
+            input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
         elif FechaInicio == "0":
-            input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
-        elif FechaInicio == "0" or FechaInicio == "X" or FechaInicio == "x":
             p2 = False
             inProgress = False
             print("")
@@ -102,6 +100,9 @@ def crear_tarea(ListaTareas):
         elif FechaFinal == "":
             print("")
             input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
+        elif FechaFinal == None:
+            print("")
+            input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
         elif FechaFinal < FechaInicio:
             print("")
             input("\033[31m[ERROR] La fecha final no puede ser anterior a la fecha de inicio.\033[0m")
@@ -114,8 +115,14 @@ def crear_tarea(ListaTareas):
         nueva_tarea = [id,nombreTarea,FechaInicio,FechaFinal,EstadoTarea]
         
         ListaTareas.append(nueva_tarea)
+        clearConsole()
+        print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print("")
-        print(nueva_tarea)
+        print(f"Nombre de la tarea: {nombreTarea}")
+        print(f"Fecha de Inicio: {FechaInicio.strftime('%d/%m/%Y')}")
+        print(f"Fecha de Finalizacion: {FechaFinal.strftime('%d/%m/%Y')}")
+        print(f"Estado: {EstadoTarea}")
+        print()
         input("[EXITO] Tarea creada exitosamente.")
     else:
         # input("Operacion cancelada.")
@@ -136,6 +143,7 @@ def editar_tarea(ListaTareas):
             p2 = False
             clearConsole()
             print("[Menu Tareas > Editar *Tareas*]")
+            print()
             mostrarListaTareas(ListaTareas)
             #* Que_tarea? [POSICION]
             posicion = 0
@@ -172,6 +180,7 @@ def editar_tarea(ListaTareas):
                     clearConsole()
                     print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]\033[0m")
                     print()
+                    mostrar_tarea_proyecto("tarea", ListaTareas[posicion])
                     print("1. Cambiar Nombre")
                     print("2. Cambiar fecha de inicio")
                     print("3. Cambiar fecha final")
@@ -185,7 +194,7 @@ def editar_tarea(ListaTareas):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Nombre)*]\033[0m")
                             print()
-                            mostrarListaTareas(ListaTareas)
+                            mostrar_tarea_proyecto("tarea", ListaTareas[posicion])
                             editarNombre=input("Ingrese el nuevo nombre de la tarea\nIngrese 0 para cancelar: ")
                             if editarNombre == "":
                                 print("")
@@ -205,19 +214,23 @@ def editar_tarea(ListaTareas):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Fecha de Inicio)*]\033[0m")
                             print()
-                            mostrarListaTareas(ListaTareas)
+                            mostrar_tarea_proyecto("tarea", ListaTareas[posicion])
                             editarFechaInicio=inputFecha("Inicio")
                             if editarFechaInicio == "":
                                 print("")
                                 print("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
-                            elif editarFechaInicio.isdigit() == False:
-                                print("")
-                                print("\033[31m[ERROR] La fecha ingresada debe ser un numero.\033[0m")
-                                input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaInicio == "0":
                                 p4 = False
                                 print("Operacion cancelada...")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarFechaInicio == None:
+                                print("")
+                                print("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarFechaInicio > editarFechaFinal:
+                                print("")
+                                print("\033[31m[ERROR] La fecha de inicio no puede ser posterior a la fecha final.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
                             else:
                                 p4 = False   
@@ -229,23 +242,23 @@ def editar_tarea(ListaTareas):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Fecha Final)*]\033[0m")
                             print()
-                            mostrarListaTareas(ListaTareas)
+                            mostrar_tarea_proyecto("tarea", ListaTareas[posicion])
                             editarFechaFinal=inputFecha("Final")
                             if editarFechaFinal == "":
                                 print("")
                                 print("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
-                            elif editarFechaFinal.isdigit() == False:
+                            elif editarFechaFinal == "0":
+                                p4 = False
+                                print("Operacion cancelada...")
+                                input("Ingrese cualquier opcion para continuar...")
+                            elif editarFechaFinal == None:
                                 print("")
-                                print("\033[31m[ERROR] La fecha ingresada debe ser un numero.\033[0m")
+                                print("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaFinal < editarFechaInicio:
                                 print("")
                                 print("\033[31m[ERROR] La fecha final no puede ser anterior a la fecha de inicio.\033[0m")
-                                input("Ingrese cualquier opcion para continuar...")
-                            elif editarFechaFinal == "0":
-                                p4 = False
-                                print("Operacion cancelada...")
                                 input("Ingrese cualquier opcion para continuar...")
                             else:
                                 p4 = False   
@@ -258,7 +271,7 @@ def editar_tarea(ListaTareas):
                             clearConsole()
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas(Estado)*]\033[0m")
                             print()
-                            mostrarListaTareas(ListaTareas)
+                            mostrar_tarea_proyecto("tarea", ListaTareas[posicion])
                             print("1. Activo")
                             print("2. Inactivo")
                             editarEstado=input("Ingrese el nuevo estado de la tarea: ")
@@ -295,8 +308,7 @@ def editar_tarea(ListaTareas):
                     clearConsole()
                     print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]\033[0m")
                     print()
-                    print(f"Nombre de la tarea: {editarNombre}")
-                    print(f"Fecha de Inicio: {editarFechaInicio.strftime('%d/%m/%Y')}")
+                    print(f"Nombre: {editarNombre}")
                     print(f"Fecha Final: {editarFechaFinal.strftime('%d/%m/%Y')}")
                     print(f"Estado: {editarEstado}")
                     print()
