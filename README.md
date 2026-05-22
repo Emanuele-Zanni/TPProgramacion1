@@ -218,7 +218,7 @@ Existe como modulo auxiliar para validacion de fechas, pero hoy esta incompleto 
 - La opcion de estadisticas todavia esta en `WIP`.
 - La validacion de fechas todavia es basica y en varios casos solo verifica si el input es numerico.
 - Hay funciones con comportamiento parcial o en proceso de refactor.
-- La gestion de permisos existe conceptualmente mediante `clearance`, pero su uso todavia no esta completamente consolidado en toda la aplicacion.
+- La gestion de permisos/accesos existe conceptualmente mediante `clearance`, pero su uso todavia no esta completamente consolidado en toda la aplicacion.
 
 ## Archivos de apoyo
 
