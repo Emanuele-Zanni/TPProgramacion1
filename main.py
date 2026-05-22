@@ -89,8 +89,8 @@ ListaStats= []
 #! Main  ----------------------
 while app:
     #? Descomentar credencial hardcodeada y comentar credencial con "login()" para MODO DEV
-    credencial = {'user': 'ADMIN', 'clearance': 2}
-    # credencial = menuAcceso(ListaUsuarios,ListaRoles)
+    #credencial = {'user': 'ADMIN', 'clearance': 2}
+    credencial = menuAcceso(ListaUsuarios,ListaRoles)
 
  
     mainMenu = True
@@ -109,7 +109,7 @@ while app:
         elif Opcion=="2": #* Ver Personal
             imprimirMenuIntegrantes(ListaUsuarios, ListaRoles, credencial)
         elif Opcion=="3": #* Stats
-            imprimirMenuStats(ListaProyectos, ListaIntegrantes, ListaRoles)
+            imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles)
         elif Opcion=="4":
             mainMenu = False
         elif Opcion=="0": #* Cerrar el programa

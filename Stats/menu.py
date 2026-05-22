@@ -2,7 +2,7 @@ from General.clearConsole import*
 from Stats.funciones import*
 
 
-def imprimirMenuStats(ListaProyectos, ListaIntegrantes, ListaRoles):
+def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
     activo=True
     while activo:
         clearConsole()
@@ -19,7 +19,7 @@ def imprimirMenuStats(ListaProyectos, ListaIntegrantes, ListaRoles):
             input(f"Cantidad de proyectos: {ver_StatsProyectos(ListaProyectos)}")
 
         elif opcion == "2":
-            input(f"Cantidad de integrantes: {ver_StatsIntegrantes(ListaIntegrantes)}")
+            input(f"Cantidad de integrantes: {ver_StatsIntegrantes(ListaUsuarios)}")
 
         elif opcion == "3":
             input(f"Cantidad de roles: {ver_StatsRoles(ListaRoles)}")
