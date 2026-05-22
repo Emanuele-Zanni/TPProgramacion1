@@ -11,19 +11,31 @@ def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
         print("1. Ver Stats de proyectos")
         print("2. Ver Stats de integrantes")
         print("3. Ver Stats de roles")
+        print("4. Ver todas las stats")
         print("0. Volver al menu principal")
         
         opcion=input("Selecione una opcion: ")
-        
         if opcion == "1":
-            input(f"Cantidad de proyectos: {ver_StatsProyectos(ListaProyectos)}")
+            clearConsole()
+            ver_StatsProyectos(ListaProyectos)
+            input("Presione enter para continuar...")
 
         elif opcion == "2":
-            input(f"Cantidad de integrantes: {ver_StatsIntegrantes(ListaUsuarios)}")
-
+            clearConsole()
+            ver_StatsIntegrantes(ListaUsuarios)
+            input("Presione enter para continuar...")
+        
         elif opcion == "3":
-            input(f"Cantidad de roles: {ver_StatsRoles(ListaRoles)}")
-
+            clearConsole()
+            ver_StatsRoles(ListaRoles)
+            input("Presione enter para continuar...")
+        
+        elif opcion == "4":
+            clearConsole()
+            ver_StatsTotal(ListaProyectos, ListaUsuarios, ListaRoles)
+            print()
+            input("Presione enter para continuar...")
+                    
         elif opcion == "0":
                 activo=False
         else:
