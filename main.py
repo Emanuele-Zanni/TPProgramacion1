@@ -12,6 +12,9 @@ from Tareas.menus import *
 from Proyectos.menus import *
 from Integrantes.roles import*
 from Database.usuarios import*
+from Stats.menu import*
+from Stats.funciones import*
+
 
 """Tareas (Crear tareas, eliminar tareas
 asignar tareas, actualizar su estado (pendiente
@@ -52,6 +55,9 @@ ListaIntegrantes= [[1,"Emanuele","Desarrollador",[]],
 ListaRoles= [[1, "Desarrollador"],
             [2, "QA"]]
 
+ListaStats= []
+
+
 # ListaProyectos = []
 # ListaTareas = []
 # ListaIntegrantes= []
@@ -79,7 +85,7 @@ while app:
         elif Opcion=="2": #* Ver Personal
             imprimirMenuIntegrantes(ListaIntegrantes, ListaRoles, credencial)            
         elif Opcion=="3": #* Stats
-            input("WIP...")
+            imprimirMenuStats(ListaProyectos, ListaIntegrantes, ListaRoles)
         elif Opcion=="4":
             mainMenu = False
         elif Opcion=="0": #* Cerrar el programa
