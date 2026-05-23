@@ -158,8 +158,7 @@ def editar_tarea(ListaTareas):
             elif task_id == "0":
                 on = False
                 print()
-                print("Volviendo al menu")
-                input("Ingrese enter para continuar...")
+                input("Operacion cancelada")
             elif task_id.isdigit() == True and task_id != "":
                 task_id = int(task_id)
                 for item in ListaTareas:
@@ -202,8 +201,7 @@ def editar_tarea(ListaTareas):
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarNombre == "0":
                                 p4 = False
-                                print("Operacion cancelada...")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("Operacion cancelada")
                             else:
                                 p4 = False   
                                 p1 = False
@@ -222,8 +220,7 @@ def editar_tarea(ListaTareas):
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaInicio == "0":
                                 p4 = False
-                                print("Operacion cancelada...")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("Operacion cancelada")
                             elif editarFechaInicio == None:
                                 print("")
                                 print("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
@@ -250,8 +247,7 @@ def editar_tarea(ListaTareas):
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaFinal == "0":
                                 p4 = False
-                                print("Operacion cancelada...")
-                                input("Ingrese cualquier opcion para continuar...")
+                                input("Operacion cancelada")
                             elif editarFechaFinal == None:
                                 print("")
                                 print("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
@@ -296,8 +292,7 @@ def editar_tarea(ListaTareas):
                                 input("Ingrese cualquier opcion para continuar...")
                     elif opcion == "0":
                         p1 = False
-                        print("cancelando operacion...")
-                        input("Ingrese enter para continuar...")
+                        input("Operacion cancelada")
                     else:
                         input("\033[31m[ERROR] Número inválido.\033[0m")
 
@@ -355,8 +350,7 @@ def eliminar_tarea(ListaTareas):
             elif id == "0":
                 on = False
                 print()
-                print("Volviendo al menu")
-                input("Ingrese enter para continuar...")
+                input("Operacion cancelada")
             else:
                 id = int(id)
                 for item in ListaTareas:

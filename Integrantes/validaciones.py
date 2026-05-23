@@ -2,26 +2,26 @@ def validacionRoles(ListaRoles,valor):
     try:
         if valor == "":
             print()
-            input("[ERROR] El nombre del rol no puede estar vacio")
+            input("\033[31m[ERROR] El nombre del rol no puede estar vacio.\033[0m")
             return valor,False
         elif valor.lower() in [rol[1].lower() for rol in ListaRoles]:
             print()
-            input("[ERROR] El rol ingresado ya existe")
+            input("\033[31m[ERROR] El rol ingresado ya existe.\033[0m")
             return valor,False
         else:
             return valor,True
     except ValueError:
         if valor == None:
             print()
-            input("[ERROR] El ID ingresado no puede estar vacio")
+            input("\033[31m[ERROR] El ID ingresado no puede estar vacio.\033[0m")
             return valor,False
         elif valor.isdigit() == False:
             print()
-            input("[ERROR] El ID ingresado no es un numero")
+            input("\033[31m[ERROR] El ID ingresado no es un numero.\033[0m")
             return valor,False
         else:
             print()
-            input("[ERROR] El ID ingresado no existe")
+            input("\033[31m[ERROR] El ID ingresado no existe.\033[0m")
             return valor,False
         
 def validacionRolesInt(ListaRoles,valor):
@@ -34,7 +34,7 @@ def validacionRolesInt(ListaRoles,valor):
             return valor,True
         if valor not in ListaRoles[0]:
             print()
-            input("[ERROR] El ID ingresado no existe")
+            input("\033[31m[ERROR] El ID ingresado no existe.\033[0m")
             return valor,False
         else:
             print()

@@ -17,6 +17,7 @@ def imprimirMenuRoles(ListaRoles, credencial):
 
             elif opcion_rol== "0": 
                 activo=False
+                input("Operacion cancelada")
             elif opcion_rol=="":
                 print()
                 input("Opcion inválida")
@@ -51,6 +52,7 @@ def imprimirMenuRoles(ListaRoles, credencial):
 
             elif opcion_rol== "0": 
                 activo=False
+                input("Operacion cancelada")
             
             elif opcion_rol=="":
                 print()
@@ -74,10 +76,10 @@ def crear_roles(ListaRoles):
         nuevo_rol=input("• Ingrese el nombre del nuevo rol: ").strip()
         if nuevo_rol == "":
             print()
-            input("[ERROR] El nombre del rol no puede estar vacio")
+            input("\033[31m[ERROR] El nombre del rol no puede estar vacio.\033[0m")
         elif nuevo_rol.lower() in [rol[1].lower() for rol in ListaRoles]:
             print()
-            input("[ERROR] El rol ingresado ya existe")
+            input("\033[31m[ERROR] El rol ingresado ya existe.\033[0m")
         else:
             p1 = False
 
@@ -119,7 +121,7 @@ def editar_rol(ListaRoles):
                         input("[Exito] Rol actualizado exitosamente")
         except ValueError:
             print()
-            input("[ERROR] El ID ingresado no existe")
+            input("\033[31m[ERROR] El ID ingresado no existe.\033[0m")
         
 def eliminar_rol(ListaRoles):
     clearConsole()
@@ -135,7 +137,7 @@ def eliminar_rol(ListaRoles):
             #! discutir con el profesor la posibilidad de NO USAR TRY/EXCEPT y utilizar al estrategia mas optima correspondiente para este caso
             isValid = False
             print()
-            input("[ERROR] El ID debe ser un numero")
+            input("\033[31m[ERROR] El ID debe ser un numero.\033[0m")
 
         if isValid:
             for i in range(len(ListaRoles)):

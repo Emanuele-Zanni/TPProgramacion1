@@ -174,10 +174,10 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
         clearance = input("• Ingrese el nivel de acceso del usuario: ")
         if clearance == "":
             print()
-            input("[ERROR] El rol no puede estar vacio")
+            input("\033[31m[ERROR] El rol no puede estar vacio.\033[0m")
         elif clearance.isdigit() == False:
             print()
-            input("[ERROR] El rol debe ser un numero")
+            input("\033[31m[ERROR] El rol debe ser un numero.\033[0m")
         else:
             clearance = int(clearance)
             p5 = False

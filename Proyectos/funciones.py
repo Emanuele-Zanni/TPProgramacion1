@@ -149,8 +149,7 @@ def crear_proyecto(ListaProyectos):
         elif nombreProyecto == "0":
             inProgress = False
             print()
-            print("Operacion cancelada")
-            input("Ingrese enter para continuar...")
+            input("Operacion cancelada")
         else:
             p1 = False
             p2 = True
@@ -167,8 +166,7 @@ def crear_proyecto(ListaProyectos):
         elif FechaInicio == "0":
             inProgress = False
             print()
-            print("Operacion cancelada")
-            input("Ingrese enter para continuar...")
+            input("Operacion cancelada")
         elif FechaInicio == None:
             print("")
             input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
@@ -192,8 +190,7 @@ def crear_proyecto(ListaProyectos):
         elif FechaFinal == "0":
             inProgress = False
             print()
-            print("Operacion cancelada")
-            input("Ingrese enter para continuar...")
+            input("Operacion cancelada")
         else:
             Estado = "Activo"
             p3 = False
@@ -228,12 +225,12 @@ def editar_proyecto(ListaProyectos):
             p1 = True
             p2 = False
             clearConsole()
-            print("[Menu Proyectos > Editar *Proyectos*]")
+            print("[Menu Proyectos > *Editar Proyectos*]")
             mostrarListaProyectos(ListaProyectos)
             #* Que_proyecto? [POSICION]
             posicion = 0
             isProjectReal = False
-            project_id = input("Ingrese ID del proyecto a editar\nIngrese 0 para vover atras: ")
+            project_id = input("Ingrese ID del proyecto a editar (0 para vover cancelar): ")
             if project_id == "":
                 print()
                 input("\033[31m[ERROR] El id no puede estar vacio.\033[0m")
@@ -242,9 +239,9 @@ def editar_proyecto(ListaProyectos):
                 input("\033[31m[ERROR] El id debe ser un numero.\033[0m")
             elif project_id == "0":
                 on = False
-                print()
-                print("Volviendo al menu")
-                input("Ingrese enter para continuar...")
+                # print()
+                # input("Volviendo al menu...")
+                input("Operacion cancelada")
             elif project_id.isdigit() == True and project_id != "":
                 project_id = int(project_id)
                 for item in ListaProyectos:
@@ -370,8 +367,7 @@ def editar_proyecto(ListaProyectos):
                                 input("Ingrese cualquier opcion para continuar...")
                     elif opcion == "0":
                         p1 = False
-                        print("cancelando operacion...")
-                        input("Ingrese enter para continuar...")
+                        input("Operacion Cancelada...")
                     else:
                         input("\033[31m[ERROR] Número inválido.\033[0m")
 
@@ -427,13 +423,11 @@ def eliminar_proyecto(ListaProyectos):
 
             if id == "":
                 print()
-                print("\033[31m[ERROR] El id no puede estar vacio.\033[0m")
-                input("Ingrese enter para continuar...")
+                input("\033[31m[ERROR] El id no puede estar vacio.\033[0m")
             elif id == "0":
                 on = False
                 print()
-                print("Operacion cancelada")
-                input("Ingrese enter para continuar...")
+                input("Operacion cancelada")
             else:
                 id = int(id)
                 for item in ListaProyectos:
@@ -456,15 +450,13 @@ def eliminar_proyecto(ListaProyectos):
                                 p1 = False
                                 on = False
                                 print()
-                                print("Operacion cancelada")
-                                input("Ingrese enter para continuar...")
+                                input("Operacion cancelada")
                             else:
                                 print()
                                 input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
 
                 if isProjectReal == False:
                     print()
-                    print("\033[31m[ERROR] El proyecto con el ID ingresado no existe.\033[0m")  
-                    input("Ingrese enter para continuar...")
+                    input("\033[31m[ERROR] El proyecto con el ID ingresado no existe.\033[0m")  
                     
     
