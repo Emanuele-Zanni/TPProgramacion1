@@ -35,7 +35,7 @@ def ver_tareas(ListaTareas):
 
 def crear_tarea(ListaTareas):
     clearConsole()
-    print("[Menu Tareas > Crear Tareas]")
+    print("\033[33m[Menu Tareas > Crear Tareas]\033[0m")
     print()
     if len(ListaTareas) == 0:
         id = 1
@@ -134,7 +134,7 @@ def editar_tarea(ListaTareas):
     
     if len(ListaTareas) == 0:
         clearConsole()
-        print("[Menu Tareas > *Editar Tareas*]")
+        print("\033[33m[Menu Tareas > *Editar Tareas*]\033[0m")
         print()
         input("No hay tareas registradas.")
     else:
@@ -142,7 +142,7 @@ def editar_tarea(ListaTareas):
             p1 = True
             p2 = False
             clearConsole()
-            print("[Menu Tareas > Editar *Tareas*]")
+            print("\033[33m[Menu Tareas > Editar *Tareas*]\033[0m")
             print()
             mostrarListaTareas(ListaTareas)
             #* Que_tarea? [POSICION]
@@ -332,7 +332,7 @@ def editar_tarea(ListaTareas):
 
 def eliminar_tarea(ListaTareas):
     clearConsole()
-    print("[Menu Tareas > *Eliminar Tareas*]")
+    print("\033[33m[Menu Tareas > *Eliminar Tareas*]\033[0m")
     print()
     if len(ListaTareas) == 0:
         input("No hay tareas registradas.")
@@ -363,4 +363,4 @@ def eliminar_tarea(ListaTareas):
                     print("Tarea eliminada exitosamente. Ingrese cualquier opcion para continuar.")
                     input("Ingrese cualquier opcion para continuar...")
                 else:
-                    input("\033[31m[ERROR] La tarea con el ID ingresado no existe.\033[0m") 
+                    input("\033[31m[ERROR] La tarea con el ID ingresado no existe.\033[0m")

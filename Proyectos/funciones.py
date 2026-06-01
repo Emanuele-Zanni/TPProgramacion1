@@ -217,7 +217,7 @@ def editar_proyecto(ListaProyectos):
     
     if len(ListaProyectos) == 0:
         clearConsole()
-        print("[Menu Proyectos > *Editar Proyectos*]")
+        print("\033[33m[Menu Proyectos > *Editar Proyectos*]\033[0m")
         print()
         input("No hay proyectos registrados.")
     else:
@@ -225,7 +225,8 @@ def editar_proyecto(ListaProyectos):
             p1 = True
             p2 = False
             clearConsole()
-            print("[Menu Proyectos > *Editar Proyectos*]")
+            print("\033[33m[Menu Proyectos > *Editar Proyectos*]\033[0m")
+            print()
             mostrarListaProyectos(ListaProyectos)
             #* Que_proyecto? [POSICION]
             posicion = 0
@@ -414,11 +415,9 @@ def eliminar_proyecto(ListaProyectos):
         print()
         if len(ListaProyectos) == 0:
             input("No hay proyectos registrados.")
-        
         else:
-        
             #* Aca falta agregar validacion de input NO numerico para que no rompa (y conversor de texto a num)
-            id = input("Ingrese el ID del proyecto a eliminar\ningrese 0 para cancelar: ")
+            id = input("Ingrese el ID del proyecto a eliminar (0 para cancelar): ")
             isProjectReal = False
 
             if id == "":
@@ -457,6 +456,4 @@ def eliminar_proyecto(ListaProyectos):
 
                 if isProjectReal == False:
                     print()
-                    input("\033[31m[ERROR] El proyecto con el ID ingresado no existe.\033[0m")  
-                    
-    
+                    input("\033[31m[ERROR] El proyecto con el ID ingresado no existe.\033[0m")

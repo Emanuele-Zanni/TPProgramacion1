@@ -71,7 +71,7 @@ def crear_roles(ListaRoles):
     p1 = True
     while p1:
         clearConsole()
-        print("[Menu Principal > Personal > Roles > *Crear Rol*]")
+        print("\033[33m[Menu Principal > Personal > Roles > *Crear Rol*]\033[0m")
         print()
         nuevo_rol=input("• Ingrese el nombre del nuevo rol: ").strip()
         if nuevo_rol == "":
@@ -96,7 +96,7 @@ def editar_rol(ListaRoles):
 
     else:
         clearConsole()
-        print("[Menu Principal > Personal > Rol > *Editar Rol*]")
+        print("\033[33m[Menu Principal > Personal > Rol > *Editar Rol*]\033[0m")
         print()
         mostrarListaRoles(ListaRoles)
         try:
@@ -104,7 +104,7 @@ def editar_rol(ListaRoles):
             for i in range(len(ListaRoles)):
                 if ListaRoles[i][0]==rol_id:
                     clearConsole()
-                    print("[Menu Principal > Personal > Rol > *Editar Rol*]")
+                    print("\033[33m[Menu Principal > Personal > Rol > *Editar Rol*]\033[0m")
                     print()
                     # ver_roles([ListaRoles[i]],False)
                     mostrarListaRoles([ListaRoles[i]])
@@ -115,7 +115,7 @@ def editar_rol(ListaRoles):
                     if isValid:
                         ListaRoles[i][1]= nuevo_rol
                         clearConsole()
-                        print("[Menu Principal > Personal > *Crear Rol*]")
+                        print("\033[33m[Menu Principal > Personal > *Crear Rol*]\033[0m")
                         print()
                         ver_roles([ListaRoles[i]],False)
                         input("[Exito] Rol actualizado exitosamente")

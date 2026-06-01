@@ -5,7 +5,7 @@ from Integrantes.roles import *
 def menuAcceso(usuarios, listaRoles):
     while True:
         clearConsole()
-        print("""[*Menu de Acceso*]
+        print("""\033[33m[*Menu de Acceso*]\033[0m
 
 1. Iniciar Sesion
 2. Registrarse
@@ -27,7 +27,7 @@ def login(usuarios):
 
     while p1 and on:
         clearConsole()
-        print("[Menu de Acceso > *Iniciar Sesion*]")
+        print("\033[33m[Menu de Acceso > *Iniciar Sesion*]\033[0m")
         print()
 
         user = input("Ingrese nombre de usuario: ").lower().strip()
@@ -44,7 +44,7 @@ def login(usuarios):
 
     while p2 and on:
         clearConsole()
-        print("[Menu de Acceso > *Iniciar Sesion*]")
+        print("\033[33m[Menu de Acceso > *Iniciar Sesion*]\033[0m")
         print()
         print(f"Usuario: {user}")
         password = input("Ingrese contrasena: ").strip()
@@ -54,7 +54,7 @@ def login(usuarios):
 
             if isUserReal and isPasswordCorrect:
                 clearConsole()
-                print("[Menu de Acceso > *Iniciar Sesion*]")
+                print("\033[33m[Menu de Acceso > *Iniciar Sesion*]\033[0m")
                 print()
                 print(f"Usuario: {user}")
                 print(f"Contrasena: {password}")
@@ -83,9 +83,9 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
 
     while p1 and inProgress:
         clearConsole()
-        print("[Menu de Acceso > *Registrarse*]")
+        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
         print()
-        user = input("Ingrese nombre de usuario: ").lower().strip()
+        user = input("• Ingrese nombre de usuario: ").lower().strip()
 
         if user == "":
             print()
@@ -102,24 +102,28 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
 
     while p2 and inProgress:
         clearConsole()
-        print("[Menu de Acceso > *Registrarse*]")
+        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
         print()
         print(f"Usuario: {user.capitalize()}")
-        password = input("Ingrese contraseña: ").strip()
+        password = input("• Ingrese contraseña: ").strip()
 
         if password == "":
             print()
             input("\033[31m[ERROR] La contraseña no puede estar vacia.\033[0m")
         else:
+            cant = len(password)
+            hiddenPassword = "*" * cant
+
             p2 = False
             p3 = True
 
     while p3 and inProgress:
         clearConsole()
-        print("[Menu de Acceso > *Registrarse*]")
+        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
         print()
         print(f"Usuario: {user.capitalize()}")
-        confirmPassword = input("Confirme contraseña: ").strip()
+        print(f"Contraseña: {hiddenPassword}")
+        confirmPassword = input("• Confirme contraseña: ").strip()
 
         if password == "":
             print()
@@ -132,9 +136,10 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
             p4 = True
     while p4 and inProgress:
         clearConsole()
-        print("[Menu de Acceso > *Registrarse*]")
+        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
         print()
         print(f"Usuario: {user}")
+        print(f"Contraseña: {hiddenPassword}")
         print()
 
         roles_disponibles = [[0, "Ninguno"]] + listaRoles
@@ -166,7 +171,7 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
                 input("\033[31m[ERROR] El rol ingresado no existe.\033[0m")
     while p5 and inProgress:
         clearConsole()
-        print("[Menu de Acceso > *Registrarse*]")
+        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
         print()
         print(f"Usuario: {user}")
         print(f"Rol: {rol}")

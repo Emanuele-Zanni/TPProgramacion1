@@ -6,7 +6,7 @@ def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
     activo=True
     while activo:
         clearConsole()
-        print("[*Menu Stats*]")
+        print("\033[33m[*Menu Stats*]\033[0m")
         print("")
         print("1. Ver Stats de proyectos")
         print("2. Ver Stats de integrantes")
