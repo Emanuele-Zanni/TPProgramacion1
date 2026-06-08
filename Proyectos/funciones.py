@@ -346,7 +346,7 @@ def editar_proyecto(ListaProyectos):
                             mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
                             print("1. Activo")
                             print("2. Inactivo")
-                            editarEstado=input("Ingrese el nuevo estado del proyecto: ")
+                            editarEstado=input("Ingrese el nuevo estado del proyecto(0 para cancelar): ")
                             ListaProyectos[posicion][4] = editarEstado
                             if editarEstado == "1":
                                 editarEstado = "Activo"
@@ -363,6 +363,9 @@ def editar_proyecto(ListaProyectos):
                             elif opcion == "":
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
+                            elif editarEstado == "0":
+                                p4 = False
+                                input("Operacion cancelada...")
                             else:
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
