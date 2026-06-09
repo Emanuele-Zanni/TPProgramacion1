@@ -91,8 +91,8 @@ ListaStats= []
 #! Main  ----------------------
 while app:
     #? Descomentar credencial hardcodeada y comentar credencial con "login()" para MODO DEV
-    credencial = {'user': 'ADMIN', 'clearance': 4}
-    # credencial = menuAcceso(ListaUsuarios,ListaRoles)
+    # credencial = {'user': 'ADMIN', 'clearance': 4}
+    credencial = menuAcceso(ListaUsuarios,ListaRoles)
 
     mainMenu = True
     while mainMenu:
@@ -104,7 +104,8 @@ while app:
         print("3. Stats (WIP)")
         print("4. Cerrar sesión")
         print("0. Cerrar Programa")
-        Opcion=input("Selecione una opcion: ")
+        print()
+        Opcion=input("• Selecione una opcion: ")
         if Opcion=="1": #* Ver Proyectos
             imprimirMenuProyectos(ListaProyectos, credencial)            
         elif Opcion=="2": #* Ver Personal

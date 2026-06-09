@@ -16,7 +16,8 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
         if credencial["clearance"] == 0: 
             print("1. Ver proyectos")
             print("0. Volver")
-            opcion=input("Seleccione una opcion: ")
+            print()
+            opcion=input("• Seleccione una opcion: ")
             if opcion=="1":
                 ver_proyectos(ListaProyectos)
             elif opcion=="0":
@@ -29,7 +30,8 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             print("1. Ver proyectos")
             print("2. Selecciona Proyecto")
             print("0. Volver")
-            opcion=input("Seleccione una opcion: ")
+            print()
+            opcion=input("• Seleccione una opcion: ")
             if opcion=="1":
                 ver_proyectos(ListaProyectos)
             elif opcion=="2":
@@ -47,7 +49,8 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             print("4. Editar Proyecto")
             print("5. Eliminar Proyecto")
             print("0. Volver")
-            opcion=input("Seleccione una opcion: ")
+            print()
+            opcion=input("• Seleccione una opcion: ")
             if opcion=="1":
                 ver_proyectos(ListaProyectos)
             elif opcion=="2":
@@ -84,7 +87,8 @@ def imprimirMenuSeleccionarProyecto(proyecto):
         print("3. Editar tarea")
         print("4. Eliminar tarea")
         print("0. Volver atras")
-        opcion=input("Seleccione una opcion: ")
+        print()
+        opcion=input("• Seleccione una opcion: ")
         if opcion=="1":
             ver_tareas(proyecto[2])
         elif opcion=="2":

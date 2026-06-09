@@ -11,7 +11,8 @@ def imprimirMenuTareas(ListaTareas):
         print("3. Editar tarea")
         print("4. Eliminar tarea")
         print("0. Volver atras")
-        opcion=input("Seleccione una opcion: ")
+        print()
+        opcion=input("• Seleccione una opcion: ")
         if opcion=="1":
             ver_tareas(ListaTareas)
         elif opcion=="2":

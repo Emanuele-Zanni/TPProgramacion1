@@ -35,7 +35,8 @@ def imprimirMenuRoles(ListaRoles, credencial):
             print("3. Editar rol ")  
             print("4. Eliminar rol")  
             print("0. Volver")
-            opcion_rol=input("Ingrese la opción deseada: ")
+            print()
+            opcion_rol=input("• Ingrese una opcion: ")
 
             if opcion_rol== "1":
                 ver_roles(ListaRoles)
@@ -131,7 +132,7 @@ def eliminar_rol(ListaRoles):
         mostrarListaRoles(ListaRoles)
         rol_id = None
         try:
-            rol_id=int(input("Elija el ID del Rol que desea eliminar: "))
+            rol_id=int(input("• Ingrese el ID del Rol que desea eliminar: "))
             rol_id,isValid = validacionRolesInt(ListaRoles,rol_id)
         except ValueError:
             #! discutir con el profesor la posibilidad de NO USAR TRY/EXCEPT y utilizar al estrategia mas optima correspondiente para este caso
@@ -176,4 +177,5 @@ def ver_roles(ListaRoles,mode=True):
         #* mode se usa para determinar si la funcion ver_roles debe detener la ejecucion del codigo con un input o no
         #* True (default) = Lo detiene || {cualquierOtroValor} = No lo detiene
         if mode:
-            input("\nPresione cualquier tecla para continuar...")
+            print()
+            input("Presione cualquier tecla para continuar...")
