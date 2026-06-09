@@ -28,7 +28,24 @@ Agregar el CRUD de Tareas dentro de seleccionar Proyecto (agregar mismas validac
 
 Agregar lambdas (min 2) 
 
+<<<<<<< HEAD
+Agergar LOGIN y USERS (minimo 2 lvls, user y superUser) [Invitado?, Integrante, Manager, SuperUser/Developer/Admin]
+
+- stats de proyectos: 
+    cantidad de proyectos total (en marcha, terminados, cancelados, entre otros)
+    cantidad de tiempo que lleva en proceso el proyecto
+
+- stats de tareas: lo mismo que stats proyectos 
+- stats personal: 
+    cantidad de proyectos y tareas a los que fue asigando
+    cantidad de proyectos y tareas completadas
+    cantidad de tiempo invertido en cada proyecto o tarea
+
+
+# Cosas de Clase -----
+=======
 # Cosas de Clase / CHECKLIST -----
+>>>>>>> 351e6cf65683efd2e620ccc6a46815c0c8c69d29
 
 HACER VIDEO (chequear consignas) ||| Grabar pantalla, uno habla y el otro ejecuta codigo? repartir tiempos y partes
 

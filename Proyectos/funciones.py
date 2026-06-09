@@ -366,6 +366,9 @@ def editar_proyecto(ListaProyectos):
                             elif opcion == "":
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
+                            elif editarEstado == "0":
+                                p4 = False
+                                input("Operacion cancelada...")
                             else:
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
