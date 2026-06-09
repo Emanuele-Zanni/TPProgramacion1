@@ -1,22 +1,90 @@
+from General.clearConsole import clearConsole
+from Proyectos.funciones import mostrarListaProyectos
+
 def ver_StatsProyectos(ListaProyectos):
-    print("=== Stats de Proyectos ===")
-    print()
+    p1 = True
+    while p1:   
+        p2 = True
+        clearConsole()
+        print("Menu > Stats > *Stats de Proyectos*")
+        print()
+        print("=== Stats de Proyectos ===")
+        print()
+        print(f"{'Activos':<10}{'Completados':<15}{'Expirados':<15}{'TareasTotales':<10}")
+        print("-" * 53)
 
-    print(f"{'ID':<5}{'Nombre':<25}{'Inicio':<15}{'Final':<15}{'Estado':<15}{'Tareas':<10}")
-    print("-" * 85)
+        ProyectosActivos = 0
+        ProyectosCompletados = 0
+        ProyectosExpirados = 0
+    
+    
+        for proyecto in ListaProyectos:
+            
+            estado = proyecto[5]
 
-    for proyecto in ListaProyectos:
+            if estado == "Activo":
+                ProyectosActivos += 1
+            elif estado == "Completado":
+                ProyectosCompletados += 1
+            elif estado == "Expirado":
+                ProyectosExpirados += 1
 
-        id_ = proyecto[0]
-        nombre = proyecto[1]
+        print(f"{ProyectosActivos:<10}{ProyectosCompletados:<15}{ProyectosExpirados:<15}{len(proyecto[2]):<10}")
+        print()
+        print("1. Seleccionar proyecto")
+        print("0. Volver")
+        opcion = input("ingrese una opcion para continuar: ")
+        if opcion == "1":
+            while p2:
+                clearConsole()
+                print("Menu > Stats > Stats de Proyectos > *Seleccionar Proyecto*")
+                print()
+                mostrarListaProyectos(ListaProyectos)
+                
+                try:   
+                    id = int(input("Ingrese el ID del proyecto(0 para cancelar): "))
+                    for proyecto in ListaProyectos:    
+                        if id == 0:
+                            input("Operacion cancelada")
+                            p2 = False
 
-        inicio = proyecto[3].strftime("%d/%m/%Y")
-        final = proyecto[4].strftime("%d/%m/%Y")
+                        elif id == proyecto[0]:
+                            clearConsole()
+                            tareasActivas = 0
+                            tareasCompletadas = 0
+                            tareasExpiradas = 0
+                            for tarea in proyecto[2]:
+                                if tarea[4] == "Activo":
+                                    tareasActivas += 1
+                                elif tarea[4] == "Completado":
+                                    tareasCompletadas += 1
+                                elif tarea[4] == "Expirado":
+                                    tareasExpiradas += 1
+                            
 
-        estado = proyecto[5]
-        tareas = len(proyecto[2])
+                            print(f"=== Stats del Proyecto: {proyecto[1]} ===")
+                            print()
+                            print(f"{'Tareas Activas':<17}{'Tareas Completadas':<20}{'Tareas Expiradas':<20}")
+                            print("-" * 51)
+                            print(f"{tareasActivas:<17}{tareasCompletadas:<20}{tareasExpiradas:<20}")
+                            print()
+                            input("Ingrese cualquier opcion para volver...")
+                            p2 = False
 
-        print(f"{id_:<5}{nombre:<25}{inicio:<15}{final:<15}{estado:<15}{tareas:<10}")
+                        elif id != proyecto[0]:
+                            print()
+                            input("ID invalido. Intente nuevamente.")
+                            
+                except ValueError:
+                    print()
+                    input("Opcion invalida. Intente nuevamente.")
+                    
+        elif opcion == "0":
+            input("Operacion cancelada")
+            p1 = False        
+        else:
+            print()
+            input("Opcion invalida. Intente nuevamente.")
 
 def ver_StatsIntegrantes(ListaUsuarios):
     print("=== Stats de Integrantes ===")
@@ -31,6 +99,7 @@ def ver_StatsIntegrantes(ListaUsuarios):
         tareas = len(ListaUsuarios[usuario]["tareas"])
 
         print(f"{usuario:<20}{rol:<20}{nivel:<10}{tareas:<10}")
+    
 
 def ver_StatsRoles(ListaRoles):
     print("=== Stats de Roles ===")

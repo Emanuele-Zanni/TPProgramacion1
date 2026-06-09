@@ -269,7 +269,9 @@ def editar_tarea(ListaTareas):
                             print()
                             mostrar_tarea_proyecto("tarea", ListaTareas[posicion])
                             print("1. Activo")
-                            print("2. Inactivo")
+                            print("2. Completado")
+                            print("3. Expirado")
+                            print("0. Volver")
                             editarEstado=input("Ingrese el nuevo estado de la tarea: ")
                             ListaTareas[posicion][4] = editarEstado
                             if editarEstado == "1":
@@ -279,7 +281,13 @@ def editar_tarea(ListaTareas):
                                 p1 = False
                                 p2 = True
                             elif editarEstado == "2":
-                                editarEstado = "Inactivo"
+                                editarEstado = "Completado"
+                                ListaTareas[posicion][4] = editarEstado
+                                p4 = False
+                                p1 = False
+                                p2 = True
+                            elif editarEstado == "3":
+                                editarEstado = "Expirado"
                                 ListaTareas[posicion][4] = editarEstado
                                 p4 = False
                                 p1 = False
