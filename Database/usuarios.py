@@ -198,7 +198,7 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
         }
 
         if menuLoop:
-            menuAcceso(usuarios,listaRoles)
+            return menuAcceso(usuarios,listaRoles)
         else:
             return {
                 "user": user,
