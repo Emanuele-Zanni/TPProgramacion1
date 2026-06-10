@@ -90,7 +90,6 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                     print("\033[33m[Menu principal > Proyectos > *Proyecto Seleccionado*]\033[0m")
                     print() 
                     mostrar_tarea_proyecto("proyecto", proyecto)
-                    print("")
 
                     if credencial["clearance"] == 1:
                         print("1. Ver tarea")
@@ -109,6 +108,7 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                         print("2. Crear tarea")
                         print("3. Editar tarea")
                         print("4. Eliminar tarea")
+                        print("5. Asignar tarea")
                         print("0. Volver atras")
                         print()
                         opcion=input("• Seleccione una opcion: ")
@@ -120,6 +120,9 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                             editar_tarea(proyecto[2])
                         elif opcion=="4":
                             eliminar_tarea(proyecto[2])
+                        elif opcion=="5":
+                            ListaUsuariosFalsa = [1,2,3]
+                            asignar_tarea_integrante(proyecto[2], ListaUsuariosFalsa)
                         elif opcion=="0":
                             on=False
                         else:

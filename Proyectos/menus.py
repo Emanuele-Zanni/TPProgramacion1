@@ -86,6 +86,7 @@ def imprimirMenuSeleccionarProyecto(proyecto):
         print("2. Crear tarea")
         print("3. Editar tarea")
         print("4. Eliminar tarea")
+        print("5. Asignar tarea")
         print("0. Volver atras")
         print()
         opcion=input("• Seleccione una opcion: ")
@@ -97,6 +98,9 @@ def imprimirMenuSeleccionarProyecto(proyecto):
             editar_tarea(proyecto[2])
         elif opcion=="4":
             eliminar_tarea(proyecto[2])
+        elif opcion=="5":
+            ListaUsuariosFalsa = [1,2,3]
+            asignar_tarea_integrante(proyecto[2], ListaUsuariosFalsa)
         elif opcion=="0":
             activo=False
         else:
