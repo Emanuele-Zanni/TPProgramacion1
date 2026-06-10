@@ -3,9 +3,9 @@ from datetime import datetime
 def inputFecha(mode):
             
     if mode == "Inicio" or mode == "inicio":
-        fecha_texto = input("• Ingrese la fecha de inicio del proyecto (DD/MM/YYYY)\n• Ingrese 0 para cancelar: ")
+        fecha_texto = input("• Ingrese la fecha de inicio del proyecto (DD/MM/YYYY): ")
     elif mode == "Final" or mode == "final":
-        fecha_texto = input("• Ingrese la fecha de finalizacion del proyecto (DD/MM/YYYY)\n• Ingrese 0 para cancelar: ")
+        fecha_texto = input("• Ingrese la fecha de finalizacion del proyecto (DD/MM/YYYY) : ")
 
     if fecha_texto == "0":
          

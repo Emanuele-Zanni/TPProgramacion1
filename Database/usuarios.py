@@ -10,7 +10,7 @@ def menuAcceso(usuarios, listaRoles):
 1. Iniciar Sesion
 2. Registrarse
  """)
-        choice = input("Ingrese una opcion: ")
+        choice = input("• Ingrese una opcion: ")
         if choice == "1":
             return login(usuarios)
         elif choice == "2":
@@ -30,7 +30,7 @@ def login(usuarios):
         print("\033[33m[Menu de Acceso > *Iniciar Sesion*]\033[0m")
         print()
 
-        user = input("Ingrese nombre de usuario: ").lower().strip()
+        user = input("• Ingrese nombre de usuario: ").lower().strip()
         if user == "":
             print()
             input("\033[31m[ERROR] El nombre de usuario no puede estar vacio.\033[0m")
@@ -47,7 +47,8 @@ def login(usuarios):
         print("\033[33m[Menu de Acceso > *Iniciar Sesion*]\033[0m")
         print()
         print(f"Usuario: {user}")
-        password = input("Ingrese contrasena: ").strip()
+        print()
+        password = input("• Ingrese contraseña: ").strip()
 
         if usuarios.get(user, {}).get("password") == password:
             isPasswordCorrect = True
@@ -105,6 +106,7 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
         print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
         print()
         print(f"Usuario: {user.capitalize()}")
+        print()
         password = input("• Ingrese contraseña: ").strip()
 
         if password == "":
@@ -144,7 +146,7 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
 
         roles_disponibles = [[0, "Ninguno"]] + listaRoles
         mostrarListaRoles(roles_disponibles)
-        rol = input("Asignele el id del rol al nuevo usuario: ")
+        rol = input("• Asignele el id del rol al nuevo usuario: ")
 
         if rol == "":
             print()
