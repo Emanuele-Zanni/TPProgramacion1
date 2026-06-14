@@ -39,13 +39,13 @@ def ver_tareas(ListaTareas):
 
 def crear_tarea(ListaTareas):
     clearConsole()
-    print("\033[33m[Menu Tareas > Crear Tareas]\033[0m")
+    print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Crear Tarea*]\033[0m")
     print()
     if len(ListaTareas) == 0:
         id = 1
     else:    
         id = ListaTareas[len(ListaTareas)-1][0]+1
-    p1,p2,p3= True,False,False
+    p1,p2,p3,p4= True,False,False,False
 
     inProgress = True
 
@@ -61,7 +61,7 @@ def crear_tarea(ListaTareas):
             p1 = False
             inProgress = False
             print("")
-            input("Operacion cancelada...")
+            input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         else:
             p1 = False
             p2 = True
@@ -70,7 +70,7 @@ def crear_tarea(ListaTareas):
         clearConsole()
         print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print()
-        print(f"Nombre de la tarea: {nombreTarea}")
+        print(f"\033[36mNombre de la tarea:\033[0m {nombreTarea}")
         print()
         descripcionTarea=input("• Ingrese la descripcion de la tarea (0 para cancelar): ")
         if descripcionTarea == "":
@@ -80,7 +80,7 @@ def crear_tarea(ListaTareas):
             p2 = False
             inProgress = False
             print("")
-            input("Operacion cancelada...")
+            input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         else:
             p2 = False
             p3 = True
@@ -89,8 +89,8 @@ def crear_tarea(ListaTareas):
         clearConsole()
         print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print()
-        print(f"Nombre de la tarea: {nombreTarea}")
-        print(f"Descripcion de la tarea: {formatearDescripcion(descripcionTarea)}")
+        print(f"\033[36mNombre de la tarea:\033[0m {nombreTarea}")
+        print(f"\033[36mDescripcion de la tarea:\033[0m {formatearDescripcion(descripcionTarea)}")
         print()
         FechaInicio=inputFecha("Inicio")
         if FechaInicio == "":
@@ -103,7 +103,7 @@ def crear_tarea(ListaTareas):
             p3 = False
             inProgress = False
             print("")
-            input("Operacion cancelada...")
+            input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         else:
             p3 = False
             p4 = True
@@ -112,16 +112,16 @@ def crear_tarea(ListaTareas):
         clearConsole()
         print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print()
-        print(f"Nombre de la tarea: {nombreTarea}")
-        print(f"Descripcion de la tarea: {formatearDescripcion(descripcionTarea)}")
-        print(f"Fecha de Inicio: {FechaInicio.strftime('%d/%m/%Y')}")
+        print(f"\033[36mNombre de la tarea:\033[0m {nombreTarea}")
+        print(f"\033[36mDescripcion de la tarea:\033[0m {formatearDescripcion(descripcionTarea)}")
+        print(f"\033[36mFecha de Inicio:\033[0m {FechaInicio.strftime('%d/%m/%Y')}")
         print()
         FechaFinal=inputFecha("Final")
         if FechaFinal == "0":
             p4 = False
             inProgress = False
             print("")
-            input("Operacion cancelada...")
+            input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         elif FechaFinal == "":
             print("")
             input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
@@ -143,13 +143,13 @@ def crear_tarea(ListaTareas):
         clearConsole()
         print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > *Crear Tarea*]\033[0m")
         print("")
-        print(f"Nombre de la tarea: {nombreTarea}")
-        print(f"Descripcion de la tarea: {formatearDescripcion(descripcionTarea)}")
-        print(f"Fecha de Inicio: {FechaInicio.strftime('%d/%m/%Y')}")
-        print(f"Fecha de Finalizacion: {FechaFinal.strftime('%d/%m/%Y')}")
-        print(f"Estado: {EstadoTarea}")
+        print(f"\033[36mNombre de la tarea:\033[0m {nombreTarea}")
+        print(f"\033[36mDescripcion de la tarea:\033[0m {formatearDescripcion(descripcionTarea)}")
+        print(f"\033[36mFecha de Inicio:\033[0m {FechaInicio.strftime('%d/%m/%Y')}")
+        print(f"\033[36mFecha de Finalizacion:\033[0m {FechaFinal.strftime('%d/%m/%Y')}")
+        # print(f"Estado: {EstadoTarea}")
         print()
-        input("[EXITO] Tarea creada exitosamente.")
+        input("\033[92m[EXITO] Tarea creada correctamente.\033[0m")
     else:
         # input("Operacion cancelada.")
         pass
@@ -160,7 +160,7 @@ def editar_tarea(ListaTareas):
     
     if len(ListaTareas) == 0:
         clearConsole()
-        print("\033[33m[Menu Tareas > *Editar Tareas*]\033[0m")
+        print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Editar Tareas*]\033[0m")
         print()
         input("No hay tareas registradas.")
     else:
@@ -168,7 +168,7 @@ def editar_tarea(ListaTareas):
             p1 = True
             p2 = False
             clearConsole()
-            print("\033[33m[Menu Tareas > Editar *Tareas*]\033[0m")
+            print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Editar Tareas*]\033[0m")
             print()
             mostrarListaTareas(ListaTareas)
             #* Que_tarea? [POSICION]
@@ -184,7 +184,7 @@ def editar_tarea(ListaTareas):
             elif task_id == "0":
                 on = False
                 print()
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             elif task_id.isdigit() == True and task_id != "":
                 task_id = int(task_id)
                 for item in ListaTareas:
@@ -204,7 +204,7 @@ def editar_tarea(ListaTareas):
                     editarEstado = ListaTareas[posicion][5]
                    
                     clearConsole()
-                    print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]\033[0m")
+                    print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Editar Tareas*]\033[0m")
                     print()
                     mostrar_tarea_proyecto("tarea", ListaTareas[posicion])
                     print("1. Cambiar Nombre")
@@ -228,7 +228,7 @@ def editar_tarea(ListaTareas):
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarNombre == "0":
                                 p4 = False
-                                input("Operacion cancelada")
+                                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                             else:
                                 p4 = False   
                                 p1 = False
@@ -247,7 +247,7 @@ def editar_tarea(ListaTareas):
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaInicio == "0":
                                 p4 = False
-                                input("Operacion cancelada")
+                                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                             elif editarFechaInicio == None:
                                 print("")
                                 print("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
@@ -274,7 +274,7 @@ def editar_tarea(ListaTareas):
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarFechaFinal == "0":
                                 p4 = False
-                                input("Operacion cancelada")
+                                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                             elif editarFechaFinal == None:
                                 print("")
                                 print("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
@@ -320,7 +320,7 @@ def editar_tarea(ListaTareas):
                                 input("Ingrese cualquier opcion para continuar...")
                     elif opcion == "0":
                         p1 = False
-                        input("Operacion cancelada")
+                        input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                     else:
                         input("\033[31m[ERROR] Número inválido.\033[0m")
 
@@ -329,7 +329,7 @@ def editar_tarea(ListaTareas):
 
                 while p2 and isTaskReal:
                     clearConsole()
-                    print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Tareas*]\033[0m")
+                    print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Editar Tareas*]\033[0m")
                     print()
                     print(f"Nombre: {editarNombre}")
                     print(f"Descripcion: {formatearDescripcion(editarDescripcion)}")
@@ -337,38 +337,45 @@ def editar_tarea(ListaTareas):
                     print(f"Fecha Final: {editarFechaFinal.strftime('%d/%m/%Y')}")
                     print(f"Estado: {editarEstado}")
                     print()
-                    opcion = input("¿Desea guardar los cambios? (1 = Si | 0 = No): ")
-                    if opcion == "1":
-                        ListaTareas[posicion] = tarea_editada
-                        print()
-                        input("Tarea editada exitosamente. Ingrese cualquier opcion para continuar.")
-                        p2 = False
-                        
-                    elif opcion == "0":
-                        print()
-                        input("Tarea no guardada. Ingrese cualquier opcion para continuar.")
-                        p2 = False
+                    try:
+                        opcion = int(input("¿Desea guardar los cambios? (1 = Si | 0 = No): "))
+                        if opcion == 1:
+                            ListaTareas[posicion] = tarea_editada
+                            print()
+                            input("[EXITO] Tarea editada exitosamente.")
+                            p2 = False
+                            
+                        elif opcion == 0:
+                            print()
+                            input("\033[93m[CANCELADO] No se realizaron cambios.\033[0m")
+                            p2 = False
 
-                    elif opcion == "":
-                        print("opcion invalida")
-                        input("ingrese cualquier opcion para continuar: ")    
-                    else:
-                        print("opcion invalida")
-                        input("ingrese cualquier opcion para continuar: ")  
+                        elif opcion == "":
+                            input("[ERROR] sdfghjklsdfghjkl")    
+                        else:
+                            input("[ERROR] Opcion Invalida") 
+                    except ValueError:
+                        print()
+                        input("[ERROR] El valor ingresado debe ser un numero ") 
+ 
 
             else:
                 input("\033[31m[ERROR] La tarea ingresada no existe.\033[0m")
 
 
 def eliminar_tarea(ListaTareas):
-    clearConsole()
-    print("\033[33m[Menu Tareas > *Eliminar Tareas*]\033[0m")
-    print()
+    #! AGREGAR CONFIRMACION PARA EL DELETE DE LA TAREA + MOSTRAR LA TAREA (imprimir Tarea) para que el usuario vea los datos y confirme visualmente que sea la tarea que queria inputear by ID
     if len(ListaTareas) == 0:
+        clearConsole()
+        print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Eliminar Tarea*]\033[0m")
+        print()
         input("No hay tareas registradas.")
     else:
         on = True
         while on:
+            clearConsole()
+            print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Eliminar Tarea*]\033[0m")
+            print()
             id = input("• Ingrese el ID de la tarea a eliminar: ")
             isTaskReal = False
             if id == "":
@@ -380,7 +387,7 @@ def eliminar_tarea(ListaTareas):
             elif id == "0":
                 on = False
                 print()
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             else:
                 id = int(id)
                 for item in ListaTareas:
@@ -390,7 +397,7 @@ def eliminar_tarea(ListaTareas):
                     del ListaTareas[id-1]
                     on = False
                     print()
-                    print("Tarea eliminada exitosamente. Ingrese cualquier opcion para continuar.")
-                    input("Ingrese cualquier opcion para continuar...")
+                    input("\033[92m[EXITO] Tarea eliminada correctamente.\033[0m")
                 else:
+                    print()
                     input("\033[31m[ERROR] La tarea con el ID ingresado no existe.\033[0m")

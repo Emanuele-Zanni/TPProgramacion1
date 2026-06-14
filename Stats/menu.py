@@ -38,7 +38,7 @@ def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
                     
         elif opcion == "0":
                 activo=False
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         else:
             print()
             input("Opcion invalida. Intente nuevamente.")

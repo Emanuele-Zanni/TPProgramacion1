@@ -63,7 +63,7 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                     if id == "0":
                         inProgress = False
                         print()
-                        input("Operacion cancelada")
+                        input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                     else:    
                         id = int(id)
                         for project in ListaProyectos:
@@ -151,7 +151,7 @@ def crear_proyecto(ListaProyectos):
         elif nombreProyecto == "0":
             inProgress = False
             print()
-            input("Operacion cancelada")
+            input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         else:
             p1 = False
             p2 = True
@@ -168,7 +168,7 @@ def crear_proyecto(ListaProyectos):
         elif FechaInicio == "0":
             inProgress = False
             print()
-            input("Operacion cancelada")
+            input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         elif FechaInicio == None:
             print("")
             input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
@@ -192,7 +192,7 @@ def crear_proyecto(ListaProyectos):
         elif FechaFinal == "0":
             inProgress = False
             print()
-            input("Operacion cancelada")
+            input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         else:
             Estado = "Activo"
             p3 = False
@@ -211,7 +211,7 @@ def crear_proyecto(ListaProyectos):
         print(f"Fecha de Inicio: {FechaInicio.strftime('%d/%m/%Y')}")
         print(f"Fecha de Finalizacion: {FechaFinal.strftime('%d/%m/%Y')}")
         print()
-        input("[EXITO] Proyecto creado exitosamente.")
+        input("\033[92m[EXITO] Proyecto creado correctamente.\033[0m")
 
 #no basico
 def editar_proyecto(ListaProyectos):
@@ -244,7 +244,7 @@ def editar_proyecto(ListaProyectos):
                 on = False
                 # print()
                 # input("Volviendo al menu...")
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             elif project_id.isdigit() == True and project_id != "":
                 project_id = int(project_id)
                 for item in ListaProyectos:
@@ -285,7 +285,7 @@ def editar_proyecto(ListaProyectos):
                                 input("\033[31m[ERROR] El nombre ingresado no puede estar vacio.\033[0m")
                             elif editarNombre == "0":
                                 p4 = False
-                                input("Operacion cancelada...")
+                                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                             else:
                                 p4 = False   
                                 p1 = False
@@ -306,7 +306,7 @@ def editar_proyecto(ListaProyectos):
                                 input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
                             elif editarFechaInicio == "0":
                                 p4 = False
-                                input("Operacion cancelada...")
+                                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                             elif editarFechaInicio > editarFechaFinal:
                                 print("")
                                 input("\033[31m[ERROR] La fecha de inicio no puede ser posterior a la fecha final.\033[0m")
@@ -327,7 +327,7 @@ def editar_proyecto(ListaProyectos):
                                 input("\033[31m[ERROR] La fecha ingresada no puede estar vacia.\033[0m")
                             elif editarFechaFinal == "0":
                                 p4 = False
-                                input("Operacion cancelada...")
+                                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                             elif editarFechaFinal == None:
                                 print("")
                                 input("\033[31m[ERROR] La fecha ingresada no es valida.\033[0m")
@@ -368,13 +368,13 @@ def editar_proyecto(ListaProyectos):
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarEstado == "0":
                                 p4 = False
-                                input("Operacion cancelada...")
+                                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                             else:
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
                     elif opcion == "0":
                         p1 = False
-                        input("Operacion Cancelada...")
+                        input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                     else:
                         input("\033[31m[ERROR] Número inválido.\033[0m")
 
@@ -393,12 +393,12 @@ def editar_proyecto(ListaProyectos):
                     if opcion == "1":
                         ListaProyectos[posicion] = proyecto_editado
                         print()
-                        input("Proyecto editado exitosamente. Ingrese cualquier opcion para continuar.")
+                        input("[EXITO] Proyecto editado correctamente.")
                         p2 = False
                         
                     elif opcion == "0":
                         print()
-                        input("Proyecto no guardado. Ingrese cualquier opcion para continuar.")
+                        input("\033[93m[CANCELADO] No se realizaron cambios.\033[0m")
                         p2 = False
 
                     elif opcion == "":
@@ -432,7 +432,7 @@ def eliminar_proyecto(ListaProyectos):
             elif id == "0":
                 on = False
                 print()
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             else:
                 id = int(id)
                 for item in ListaProyectos:
@@ -448,14 +448,14 @@ def eliminar_proyecto(ListaProyectos):
                             opcion = input("¿Desea eliminar este proyecto? (1 = Si | 0 = No): ")
                             if opcion == "1":
                                 ListaProyectos.remove(item)
-                                input(f"'{item}' eliminado exitosamente")
+                                input(f"[EXITO] '{item}' eliminado exitosamente")
                                 p1 = False
                                 on = False
                             elif opcion == "0":
                                 p1 = False
                                 on = False
                                 print()
-                                input("Operacion cancelada")
+                                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                             else:
                                 print()
                                 input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")

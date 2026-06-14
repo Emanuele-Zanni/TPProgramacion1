@@ -191,7 +191,7 @@ def signUp(usuarios, listaRoles,isAdmin=False, menuLoop = True):
 
     if inProgress:
         print()
-        input("[EXITO] Usuario registrado correctamente.")
+        input("\033[92m[EXITO] Usuario registrado correctamente.\033[0m")
         usuarios[user] = {
             "password": password,
             "clearance": clearance,

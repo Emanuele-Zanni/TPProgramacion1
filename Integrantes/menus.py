@@ -19,7 +19,7 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
                 ver_integrantes(ListaUsuarios)
             elif opcion == "0":
                 activo=False
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             else:
                 print()
                 input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
@@ -38,7 +38,7 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
                 imprimirMenuRoles(ListaRoles, credencial)
             elif opcion == "0":
                 activo=False
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             else:
                 print()
                 input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
@@ -63,7 +63,7 @@ def imprimirMenuIntegrantes(ListaUsuarios,ListaRoles,credencial):
                 signUp(ListaUsuarios, ListaRoles,True,False)
             elif opcion == "0":
                 activo=False
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             else:
                 print()
                 input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")

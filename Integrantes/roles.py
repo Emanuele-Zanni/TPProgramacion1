@@ -17,7 +17,7 @@ def imprimirMenuRoles(ListaRoles, credencial):
 
             elif opcion_rol== "0": 
                 activo=False
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             elif opcion_rol=="":
                 print()
                 input("Opcion inválida")
@@ -53,7 +53,7 @@ def imprimirMenuRoles(ListaRoles, credencial):
 
             elif opcion_rol== "0": 
                 activo=False
-                input("Operacion cancelada")
+                input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             
             elif opcion_rol=="":
                 print()
@@ -119,7 +119,7 @@ def editar_rol(ListaRoles):
                         print("\033[33m[Menu Principal > Personal > *Crear Rol*]\033[0m")
                         print()
                         ver_roles([ListaRoles[i]],False)
-                        input("[Exito] Rol actualizado exitosamente")
+                        input("\033[92m[EXITO] Rol actualizado correctamente\033[0m")
         except ValueError:
             print()
             input("\033[31m[ERROR] El ID ingresado no existe.\033[0m")
@@ -146,7 +146,7 @@ def eliminar_rol(ListaRoles):
                     ListaRoles.pop(i)
 
                     print()
-                    input("[EXITO] Rol eliminado exitosamente")
+                    input("\033[92m[EXITO] Rol eliminado correctamente\033[0m")
                     break
 
 

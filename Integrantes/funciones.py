@@ -67,7 +67,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
                 input("\033[31m[ERROR] El usuario no puede empezar con un numero.\033[0m")
             else:
                 ListaUsuarios[nuevo_usuario] = ListaUsuarios.pop(usuario)
-                input("[EXITO] Usuario editado correctamente.")
+                input("\033[92m[EXITO] Usuario editado correctamente.\033[0m")
 
         elif opcion == "2":
             if len(ListaRoles) == 0:
@@ -91,7 +91,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
                         rolEncontrado = True
 
                 if rolEncontrado:
-                    input("[EXITO] Rol editado correctamente.")
+                    input("\033[92m[EXITO] Rol editado correctamente.\033[0m")
                 else:
                     input("\033[31m[ERROR] El rol no existe.\033[0m")
 
@@ -104,7 +104,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
                 input("\033[31m[ERROR] El nivel de acceso debe ser un numero.\033[0m")
             else:
                 ListaUsuarios[usuario]["clearance"] = int(nuevo_clearance)
-                input("[EXITO] Acceso editado correctamente.")
+                input("\033[92m[EXITO] Acceso editado correctamente.\033[0m")
 
         else:
             input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
@@ -130,4 +130,4 @@ def eliminar_integrante(ListaUsuarios):
         input("\033[31m[ERROR] El integrante ingresado no existe.\033[0m")
     else:
         del ListaUsuarios[usuario]
-        input("[EXITO] Integrante eliminado correctamente.")
+        input("\033[92m[EXITO] Integrante eliminado correctamente.\033[0m")

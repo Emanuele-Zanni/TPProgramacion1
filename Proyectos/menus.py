@@ -23,6 +23,7 @@ def imprimirMenuProyectos(ListaProyectos, credencial):
             elif opcion=="0":
                 activo=False
             else:
+                print()
                 input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
         
         #? ACCESO COMO MIEMBRO

@@ -6,7 +6,7 @@ def imprimirMenuTareas(ListaTareas):
     activo=True
     
     while activo:
-        print("1. Ver tarea")
+        print("1. Ver tarea") #! Hacer que la funcion ver_tareas() permita seleccionar una tarea en particular para verla en detalle
         print("2. Crear tarea")
         print("3. Editar tarea")
         print("4. Eliminar tarea")
@@ -24,4 +24,5 @@ def imprimirMenuTareas(ListaTareas):
         elif opcion=="0":
             activo=False
         else:
+            print()
             input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
