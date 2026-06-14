@@ -1,26 +1,55 @@
 from General.clearConsole import *
 from General.inputFecha import *
 from General.mostrarTareasProyectos import *
+from General.formato import imprimir_titulo
+
+
+def formatearDescripcion(texto, max_caracteres=76):
+    texto = str(texto)
+    return texto[:max_caracteres - 3] + "..." if len(texto) > max_caracteres else texto
+
 
 def formatearDescripcion(texto, max_caracteres=76):
     texto = str(texto)
     return texto[:max_caracteres - 3] + "..." if len(texto) > max_caracteres else texto
 
 def mostrarListaTareas(ListaTareas):
-    print(f"{'ID':<5}{'Nombre':<25}{'Descripcion':<33}{'Fecha Inicio':<15}{'Fecha Final':<15}{'Estado':<15}")
-    print("-" * 108)
+    imprimir_titulo("Lista de Tareas")
+    print(
+        f"{'ID':<5}"
+        f"{'Nombre':<25}"
+        f"{'Fecha Inicio':<15}"
+        f"{'Fecha Final':<15}"
+        f"{'Estado':<15}"
+    )
+    print("-" * 75)
     
     for tarea in ListaTareas:
         id_tarea = tarea[0]
         nombre = tarea[1]
-        descripcion = tarea[2]
+        descripcion = [2]
         fecha_inicio = tarea[3]
         fecha_final = tarea[4]
         estado = tarea[5]
 
-        nombre_formateado = str(nombre)[:20] + "..." if len(str(nombre)) > 20 else str(nombre)
-        descripcion_formateada = str(descripcion)[:28] + "..." if len(str(descripcion)) > 28 else str(descripcion)
-        print(f"{str(id_tarea):<5}{nombre_formateado:<25}{descripcion_formateada:<33}{(fecha_inicio).strftime('%d/%m/%Y'):<15}{(fecha_final).strftime('%d/%m/%Y'):<15}{str(estado):<15}")
+        if len(nombre) > 20:
+            # print(f"{str(id_tarea):<5}{str(nombre)[0:20]+'...':<25}{(fecha_inicio).strftime('%d/%m/%Y'):<15}{(fecha_final).strftime('%d/%m/%Y'):<15}{str(estado):<15}")
+            print(
+                f"{str(id_tarea):<5}"
+                f"{str(nombre)[0:20] + '...':<25}"
+                f"{fecha_inicio.strftime('%d/%m/%Y'):<15}"
+                f"{fecha_final.strftime('%d/%m/%Y'):<15}"
+                f"{str(estado):<15}"
+            )
+        else:
+            # print(f"{str(id_tarea):<5}{str(nombre):<25}{(fecha_inicio).strftime('%d/%m/%Y'):<15}{(fecha_final).strftime('%d/%m/%Y'):<15}{str(estado):<15}")
+            print(
+                f"{str(id_tarea):<5}"
+                f"{str(nombre):<25}"
+                f"{fecha_inicio.strftime('%d/%m/%Y'):<15}"
+                f"{fecha_final.strftime('%d/%m/%Y'):<15}"
+                f"{str(estado):<15}"
+            )
 
     print("")
 
@@ -137,7 +166,7 @@ def crear_tarea(ListaTareas):
     
     if inProgress:
         #? Type Proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
-        nueva_tarea = [id,nombreTarea,descripcionTarea,FechaInicio,FechaFinal,EstadoTarea]
+        nueva_tarea = [id,nombreTarea,descripcionTarea,FechaInicio,FechaFinal,EstadoTarea,[]]
         
         ListaTareas.append(nueva_tarea)
         clearConsole()
@@ -202,6 +231,7 @@ def editar_tarea(ListaTareas):
                     editarFechaInicio = ListaTareas[posicion][3]
                     editarFechaFinal = ListaTareas[posicion][4]
                     editarEstado = ListaTareas[posicion][5]
+                    integrantesAsignados = ListaTareas[posicion][6]
                    
                     clearConsole()
                     print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Editar Tareas*]\033[0m")
@@ -296,9 +326,10 @@ def editar_tarea(ListaTareas):
                             print()
                             mostrar_tarea_proyecto("tarea", ListaTareas[posicion])
                             print("1. Activo")
-                            print("2. Inactivo")
-                            print()
-                            editarEstado=input("• Ingrese el nuevo estado de la tarea: ")
+                            print("2. Completado")
+                            print("3. Expirado")
+                            print("0. Volver")
+                            editarEstado=input("Ingrese el nuevo estado de la tarea: ")
                             ListaTareas[posicion][5] = editarEstado
                             if editarEstado == "1":
                                 editarEstado = "Activo"
@@ -307,7 +338,13 @@ def editar_tarea(ListaTareas):
                                 p1 = False
                                 p2 = True
                             elif editarEstado == "2":
-                                editarEstado = "Inactivo"
+                                editarEstado = "Completado"
+                                ListaTareas[posicion][5] = editarEstado
+                                p4 = False
+                                p1 = False
+                                p2 = True
+                            elif editarEstado == "3":
+                                editarEstado = "Expirado"
                                 ListaTareas[posicion][5] = editarEstado
                                 p4 = False
                                 p1 = False
@@ -324,7 +361,7 @@ def editar_tarea(ListaTareas):
                     else:
                         input("\033[31m[ERROR] Número inválido.\033[0m")
 
-                    tarea_editada = [id,editarNombre,editarDescripcion,editarFechaInicio,editarFechaFinal,editarEstado]
+                    tarea_editada = [id,editarNombre,editarDescripcion,editarFechaInicio,editarFechaFinal,editarEstado,integrantesAsignados]
                    
 
                 while p2 and isTaskReal:
@@ -401,3 +438,79 @@ def eliminar_tarea(ListaTareas):
                 else:
                     print()
                     input("\033[31m[ERROR] La tarea con el ID ingresado no existe.\033[0m")
+
+def asignar_tarea_integrante(ListaTareas, ListaUsuariosProyecto):
+    clearConsole()
+    print("\033[33m[[Menu Principal > Proyectos > Seleccionar Proyectos > Asignar *Tareas*]\033[0m")
+    print()
+    if len(ListaTareas) == 0:
+        input("No hay tareas registradas para asignar.")
+    elif len(ListaUsuariosProyecto) == 0:
+        input("No hay integrantes registrados para asignar.")
+    else:
+        p1 = True
+        while p1:
+            clearConsole()
+            print("\033[33m[[Menu Principal > Proyectos > Seleccionar Proyectos > Asignar *Tareas*]\033[0m")
+            print()
+            mostrarListaTareas(ListaTareas)
+            isTaskReal = False
+            try:
+                id = int(input("• Ingrese el ID de la tarea a asignar (0 para cancelar): "))
+                if id == 0:
+                    p1 = False
+                    print()
+                    input("Operacion cancelada")
+                else:
+                    for item in ListaTareas:
+                        if item[0] == id:
+                            isTaskReal = True
+                    if isTaskReal:
+                        #* Mostrar lista de integrantes y seleccionar integrante para asignar la tarea
+                        clearConsole()
+                        print("\033[33m[[Menu Principal > Proyectos > Seleccionar Proyectos > Asignar *Tareas*]\033[0m")
+                        print()
+                        #for integrante in ListaUsuariosProyecto:
+                            # print("==== Integrantes ====")
+                            # print()
+                            # print(f"{'ID':<5}{'Nombre':<25}{'Rol':<15}")
+                            # print("-" * 50)
+                            # print(f"ID: {integrante[0]} | Nombre: {integrante[1]} | Rol: {integrante[2]}")
+                        print()
+                        p2 = True
+                        while p2:
+                            clearConsole()
+                            print("\033[33m[[Menu Principal > Proyectos > Seleccionar Proyectos > Asignar *Tareas*]\033[0m")
+                            print()
+                            try:    
+                                isIntegranteReal = False
+                                usuario_id = int(input("• Ingrese el ID del integrante a asignar la tarea (0 para cancelar): "))
+                                if usuario_id == 0:
+                                    p2 = False
+                                    print()
+                                    input("Operacion cancelada")
+                                else:
+                                    for usuario in ListaUsuariosProyecto:
+                                        if usuario == usuario_id:
+                                            isIntegranteReal = True
+                                            ListaTareas[item[0]-1][6].append(ListaUsuariosProyecto[usuario_id-1])
+
+                                    if isIntegranteReal:
+                                        p2 = False
+                                        print()
+                                        print(f"Tarea asignada exitosamente a {ListaUsuariosProyecto[usuario_id-1]}")
+                                        input("Ingrese cualquier opcion para continuar...")
+
+                                    else:
+                                        input("\033[31m[ERROR] El integrante con el ID ingresado no existe.\033[0m")
+
+                            
+                            except ValueError:
+                                print()
+                                input("\033[31m[ERROR] El id debe ser un numero.\033[0m")
+
+                    else:
+                        input("\033[31m[ERROR] La tarea con el ID ingresado no existe.\033[0m")
+            
+            except ValueError:
+                input("\033[31m[ERROR] El id debe ser un numero.\033[0m")

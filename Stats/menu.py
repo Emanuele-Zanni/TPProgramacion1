@@ -19,7 +19,7 @@ def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
             clearConsole()
             ver_StatsProyectos(ListaProyectos)
             input("Presione enter para continuar...")
-
+        
         elif opcion == "2":
             clearConsole()
             ver_StatsIntegrantes(ListaUsuarios)
@@ -29,7 +29,7 @@ def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
             clearConsole()
             ver_StatsRoles(ListaRoles)
             input("Presione enter para continuar...")
-        
+
         elif opcion == "4":
             clearConsole()
             ver_StatsTotal(ListaProyectos, ListaUsuarios, ListaRoles)

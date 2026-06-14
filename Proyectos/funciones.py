@@ -1,32 +1,64 @@
 from General.clearConsole import *
 from General.inputFecha import *
 from Tareas.funciones import *
+from General.formato import imprimir_titulo
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
 def mostrarListaProyectos(ListaProyectos):
-        print(f"{'ID':<5}{'Nombre':<25}{'Tareas':<15}{'Inicio':<12}{'Fin':<12}{'Estado':<10}")
-        print("-" * 75)
-        
-        for proyecto in ListaProyectos:
-            id_ = proyecto[0]
-            nombre = proyecto[1]
-            tareas = len(proyecto[2])  # cantidad de tareas en vez de []
-            inicio = proyecto[3]
-            fin = proyecto[4]
-            estado = proyecto[5]
-            
-            if len(nombre) > 20 and len(str(tareas)) > 10:
-                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas)[:10]+ '...':<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
-           
-            elif  len(str(tareas)) > 10:
-                print(f"{id_:<5}{nombre:<25}{str(tareas)[:10]+ '...':<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
-            
-            elif len(nombre) > 20:
-                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas):<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
-           
-            else:
-                print(f"{id_:<5}{nombre:<25}{str(tareas):<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
-        print("")
+    imprimir_titulo("Lista de Proyectos")
+    print(
+        f"{'ID':<5}"
+        f"{'Nombre':<25}"
+        f"{'Tareas':<15}"
+        f"{'Inicio':<12}"
+        f"{'Fin':<12}"
+        f"{'Estado':<10}"
+    )
+    print("-" * 75)
+    for proyecto in ListaProyectos:
+        id_ = proyecto[0]
+        nombre = proyecto[1]
+        tareas = len(proyecto[2])
+        inicio = proyecto[3]
+        fin = proyecto[4]
+        estado = proyecto[5]
+        if len(nombre) > 20 and len(str(tareas)) > 10:
+            print(
+                f"{id_:<5}"
+                f"{nombre[:20] + '...':<25}"
+                f"{str(tareas)[:10] + '...':<15}"
+                f"{inicio.strftime('%d/%m/%Y'):<12}"
+                f"{fin.strftime('%d/%m/%Y'):<12}"
+                f"{estado:<10}"
+            )
+        elif len(str(tareas)) > 10:
+            print(
+                 f"{id_:<5}"
+                f"{nombre:<25}"
+                f"{str(tareas)[:10] + '...':<15}"
+                f"{inicio.strftime('%d/%m/%Y'):<12}"
+                f"{fin.strftime('%d/%m/%Y'):<12}"
+                f"{estado:<10}"
+            )
+        elif len(nombre) > 20:
+            print(
+                f"{id_:<5}"
+                f"{nombre[:20] + '...':<25}"
+                f"{str(tareas):<15}"
+                f"{inicio.strftime('%d/%m/%Y'):<12}"
+                f"{fin.strftime('%d/%m/%Y'):<12}"
+                f"{estado:<10}"
+            )
+        else: 
+            print(
+                f"{id_:<5}"
+                f"{nombre:<25}"
+                f"{str(tareas):<15}"
+                f"{inicio.strftime('%d/%m/%Y'):<12}"
+                f"{fin.strftime('%d/%m/%Y'):<12}"
+                f"{estado:<10}"
+            )
+    print("")
     
 
 def ver_proyectos(ListaProyectos):
@@ -90,7 +122,6 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                     print("\033[33m[Menu principal > Proyectos > *Proyecto Seleccionado*]\033[0m")
                     print() 
                     mostrar_tarea_proyecto("proyecto", proyecto)
-                    print("")
 
                     if credencial["clearance"] == 1:
                         print("1. Ver tarea")
@@ -109,6 +140,7 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                         print("2. Crear tarea")
                         print("3. Editar tarea")
                         print("4. Eliminar tarea")
+                        print("5. Asignar tarea")
                         print("0. Volver atras")
                         print()
                         opcion=input("• Seleccione una opcion: ")
@@ -120,6 +152,9 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                             editar_tarea(proyecto[2])
                         elif opcion=="4":
                             eliminar_tarea(proyecto[2])
+                        elif opcion=="5":
+                            ListaUsuariosFalsa = [1,2,3]
+                            asignar_tarea_integrante(proyecto[2], ListaUsuariosFalsa)
                         elif opcion=="0":
                             on=False
                         else:
@@ -347,9 +382,10 @@ def editar_proyecto(ListaProyectos):
                             print()
                             mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
                             print("1. Activo")
-                            print("2. Inactivo")
-                            print()
-                            editarEstado=input("• Ingrese el nuevo estado del proyecto: ")
+                            print("2. Completado")
+                            print("3. Expirado")
+                            print("0. Volver")
+                            editarEstado=input("Ingrese el nuevo estado del proyecto(0 para cancelar): ")
                             ListaProyectos[posicion][4] = editarEstado
                             if editarEstado == "1":
                                 editarEstado = "Activo"
@@ -358,7 +394,13 @@ def editar_proyecto(ListaProyectos):
                                 p1 = False
                                 p2 = True
                             elif editarEstado == "2":
-                                editarEstado = "Inactivo"
+                                editarEstado = "Completado"
+                                ListaProyectos[posicion][4] = editarEstado
+                                p4 = False
+                                p1 = False
+                                p2 = True
+                            elif editarEstado == "3":
+                                editarEstado = "Expirado"
                                 ListaProyectos[posicion][4] = editarEstado
                                 p4 = False
                                 p1 = False

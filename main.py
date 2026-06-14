@@ -31,7 +31,7 @@ Proyecto ()
 app=True
 mainMenu=True
 
-#? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
+#? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto","integrantes"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
 
 #! ListaTareas Version 2.0
@@ -64,10 +64,10 @@ for usuario, rol, tareas in zip(listaNombres, listaRolesUsuarios, listaTareasAsi
 
 date = datetime.now()
 
-ListaProyectos = [[1, 'Proyecto 1', [], date, date, 'Activo'],
-                  [2, 'Proyecto 2', [], date, date, 'Activo'],
-                  [3, 'Proyecto 3', [], date, date, 'Activo'],
-                  [4, 'Proyecto 4', [], date, date, 'Activo']]
+ListaProyectos = [[1, 'Proyecto 1', [], date, date, 'Activo',[]],
+                  [2, 'Proyecto 2', [], date, date, 'Activo',[]],
+                  [3, 'Proyecto 3', [], date, date, 'Activo',[]],
+                  [4, 'Proyecto 4', [], date, date, 'Activo',[]]]
 
 #ListaTareas = []
 
