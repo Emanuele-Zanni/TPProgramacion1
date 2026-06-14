@@ -31,7 +31,7 @@ Proyecto ()
 app=True
 mainMenu=True
 
-#? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto"]
+#? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto","integrantes"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
 
 #! ListaTareas Version 2.0
@@ -64,10 +64,10 @@ for usuario, rol, tareas in zip(listaNombres, listaRolesUsuarios, listaTareasAsi
 
 date = datetime.now()
 
-ListaProyectos = [[1, 'Proyecto 1', [], date, date, 'Activo'],
-                  [2, 'Proyecto 2', [], date, date, 'Activo'],
-                  [3, 'Proyecto 3', [], date, date, 'Activo'],
-                  [4, 'Proyecto 4', [], date, date, 'Activo']]
+ListaProyectos = [[1, 'Proyecto 1', [], date, date, 'Activo',[]],
+                  [2, 'Proyecto 2', [], date, date, 'Activo',[]],
+                  [3, 'Proyecto 3', [], date, date, 'Activo',[]],
+                  [4, 'Proyecto 4', [], date, date, 'Activo',[]]]
 
 #ListaTareas = []
 
@@ -92,7 +92,7 @@ ListaStats= []
 while app:
     #? Descomentar credencial hardcodeada y comentar credencial con "login()" para MODO DEV
     credencial = {'user': 'ADMIN', 'clearance': 4}
-    #credencial = menuAcceso(ListaUsuarios,ListaRoles)
+    # credencial = menuAcceso(ListaUsuarios,ListaRoles)
 
     mainMenu = True
     while mainMenu:
@@ -104,7 +104,8 @@ while app:
         print("3. Stats (WIP)")
         print("4. Cerrar sesión")
         print("0. Cerrar Programa")
-        Opcion=input("Selecione una opcion: ")
+        print()
+        Opcion=input("• Selecione una opcion: ")
         if Opcion=="1": #* Ver Proyectos
             imprimirMenuProyectos(ListaProyectos, credencial)            
         elif Opcion=="2": #* Ver Personal

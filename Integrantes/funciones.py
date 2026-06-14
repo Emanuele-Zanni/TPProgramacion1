@@ -38,7 +38,8 @@ def ver_integrantes(ListaUsuarios):
         input("No hay integrantes registrados")
     else:
         mostrarListaIntegrantes(ListaUsuarios)
-        input("\nPresione cualquier tecla para continuar...")
+        print()
+        input("Presione cualquier tecla para continuar...")
 
 
 def editar_integrante(ListaUsuarios, ListaRoles):
@@ -53,7 +54,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
     mostrarListaIntegrantes(ListaUsuarios)
     print()
 
-    usuario = input("Ingrese el usuario del integrante a editar: ").lower().strip()
+    usuario = input("• Ingrese el usuario del integrante a editar: ").lower().strip()
 
     if usuario == "":
         input("\033[31m[ERROR] El usuario no puede estar vacio.\033[0m")
@@ -68,7 +69,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
         opcion = input("• Seleccione una opcion: ")
 
         if opcion == "1":
-            nuevo_usuario = input("Ingrese el nuevo nombre de usuario: ").lower().strip()
+            nuevo_usuario = input("• Ingrese el nuevo nombre de usuario: ").lower().strip()
 
             if nuevo_usuario == "":
                 input("\033[31m[ERROR] El usuario no puede estar vacio.\033[0m")
@@ -86,7 +87,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
                 return
 
             mostrarListaRoles(ListaRoles)
-            editarRol = input("Ingrese el ID del nuevo rol: ")
+            editarRol = input("• Ingrese el ID del nuevo rol: ")
 
             if editarRol == "":
                 input("\033[31m[ERROR] El rol no puede estar vacio.\033[0m")
@@ -107,7 +108,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
                     input("\033[31m[ERROR] El rol no existe.\033[0m")
 
         elif opcion == "3":
-            nuevo_clearance = input("Ingrese el nuevo nivel de acceso: ")
+            nuevo_clearance = input("• Ingrese el nuevo nivel de acceso: ")
 
             if nuevo_clearance == "":
                 input("\033[31m[ERROR] El nivel de acceso no puede estar vacio.\033[0m")
@@ -133,7 +134,7 @@ def eliminar_integrante(ListaUsuarios):
     mostrarListaIntegrantes(ListaUsuarios)
     print()
 
-    usuario = input("Ingrese el usuario del integrante a eliminar: ").lower().strip()
+    usuario = input("• Ingrese el usuario del integrante a eliminar: ").lower().strip()
 
     if usuario == "":
         input("\033[31m[ERROR] El usuario no puede estar vacio.\033[0m")

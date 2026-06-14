@@ -7,9 +7,18 @@ Stats va a dividirse por cada modulo (Stats de proyectos, Stats de integrantes, 
 
 - Normalizar todas las cosas que hagan falta normalizar (Textos, estilos, prints, etc)
 
-- Upgradear la logica de TAREAS (agregar descripcion para tareas , mejorar el print de tareas mostrando title y desc??)
+- Upgradear la logica de TAREAS (agregar descripcion para tareas , mejorar el print de tareas mostrando title y desc??). aGREGAR TAMBIEN reloj interno para determinar cuando expira o no (automaticamente cambiar el estado. Agregar esstados a tarea y modificaciones)
+- Estados de tarea: Completado, Pendiente/InProgress, Expirado/DueDate,
 
 - Upgradear y normalizar prints de las listas? Agregar sistema de logs de todas las tareas/proyectos/integrantes???
+
+- Validaciones de fecha para los inputs de fecha en proyecto y tareas
+
+- asignar tarea a persona (falta funcion)
+
+# Bugs
+
+- el de Candela de login con ucuenta creada e intento de acceso a proyectos (ver proyectos o crea proyecto)
 
 # Corto Plazo -----
 
@@ -19,6 +28,20 @@ Agregar el CRUD de Tareas dentro de seleccionar Proyecto (agregar mismas validac
 
 Agregar lambdas (min 2) 
 
+Agergar LOGIN y USERS (minimo 2 lvls, user y superUser) [Invitado?, Integrante, Manager, SuperUser/Developer/Admin]
+
+- stats de proyectos: 
+    cantidad de proyectos total (en marcha, terminados, cancelados, entre otros)
+    cantidad de tiempo que lleva en proceso el proyecto
+
+- stats de tareas: lo mismo que stats proyectos 
+- stats personal: 
+    cantidad de proyectos y tareas a los que fue asigando
+    cantidad de proyectos y tareas completadas
+    cantidad de tiempo invertido en cada proyecto o tarea
+
+
+# Cosas de Clase -----
 # Cosas de Clase / CHECKLIST -----
 
 HACER VIDEO (chequear consignas) ||| Grabar pantalla, uno habla y el otro ejecuta codigo? repartir tiempos y partes

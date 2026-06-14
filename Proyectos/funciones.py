@@ -90,7 +90,7 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                 print("\033[33m[Menu principal > Proyectos > *Seleccionar Proyectos*]\033[0m")
                 print()
                 mostrarListaProyectos(ListaProyectos)
-                id = input("ingrese el ID del proyecto a seleccionar (0 para cancelar): ")
+                id = input("• Ingrese el ID del proyecto a seleccionar (0 para cancelar): ")
                 if id.isdigit():
                     if id == "0":
                         inProgress = False
@@ -122,13 +122,13 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                     print("\033[33m[Menu principal > Proyectos > *Proyecto Seleccionado*]\033[0m")
                     print() 
                     mostrar_tarea_proyecto("proyecto", proyecto)
-                    print("")
 
                     if credencial["clearance"] == 1:
                         print("1. Ver tarea")
                         print("?. Seleccionar tarea (WIP)")
                         print("0. Volver atras")
-                        opcion=input("Seleccione una opcion: ")
+                        print()
+                        opcion=input("• Seleccione una opcion: ")
                         if opcion=="1":
                             ver_tareas(proyecto[2])
                         elif opcion=="0":
@@ -140,8 +140,10 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                         print("2. Crear tarea")
                         print("3. Editar tarea")
                         print("4. Eliminar tarea")
+                        print("5. Asignar tarea")
                         print("0. Volver atras")
-                        opcion=input("Seleccione una opcion: ")
+                        print()
+                        opcion=input("• Seleccione una opcion: ")
                         if opcion=="1":
                             ver_tareas(proyecto[2])
                         elif opcion=="2":
@@ -150,6 +152,9 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                             editar_tarea(proyecto[2])
                         elif opcion=="4":
                             eliminar_tarea(proyecto[2])
+                        elif opcion=="5":
+                            ListaUsuariosFalsa = [1,2,3]
+                            asignar_tarea_integrante(proyecto[2], ListaUsuariosFalsa)
                         elif opcion=="0":
                             on=False
                         else:
@@ -263,7 +268,7 @@ def editar_proyecto(ListaProyectos):
             #* Que_proyecto? [POSICION]
             posicion = 0
             isProjectReal = False
-            project_id = input("Ingrese ID del proyecto a editar (0 para vover cancelar): ")
+            project_id = input("• Ingrese ID del proyecto a editar (0 para vover cancelar): ")
             if project_id == "":
                 print()
                 input("\033[31m[ERROR] El id no puede estar vacio.\033[0m")
@@ -300,7 +305,7 @@ def editar_proyecto(ListaProyectos):
                     print("4. Cambiar el estado del proyecto")
                     print("0. Volver")
                     print("")
-                    opcion = input("Seleccione una opcion")
+                    opcion = input("• Seleccione una opcion:")
                     p4 = True
 
                     if opcion == "1":
@@ -309,7 +314,7 @@ def editar_proyecto(ListaProyectos):
                             print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos(Nombre)*]\033[0m")
                             print()
                             mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
-                            editarNombre=input("Ingrese el nuevo nombre del proyecto (0 para cancelar): ")
+                            editarNombre=input("• Ingrese el nuevo nombre del proyecto (0 para cancelar): ")
                             if editarNombre == "":
                                 print("")
                                 input("\033[31m[ERROR] El nombre ingresado no puede estar vacio.\033[0m")
@@ -377,7 +382,9 @@ def editar_proyecto(ListaProyectos):
                             print()
                             mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
                             print("1. Activo")
-                            print("2. Inactivo")
+                            print("2. Completado")
+                            print("3. Expirado")
+                            print("0. Volver")
                             editarEstado=input("Ingrese el nuevo estado del proyecto(0 para cancelar): ")
                             ListaProyectos[posicion][4] = editarEstado
                             if editarEstado == "1":
@@ -387,7 +394,13 @@ def editar_proyecto(ListaProyectos):
                                 p1 = False
                                 p2 = True
                             elif editarEstado == "2":
-                                editarEstado = "Inactivo"
+                                editarEstado = "Completado"
+                                ListaProyectos[posicion][4] = editarEstado
+                                p4 = False
+                                p1 = False
+                                p2 = True
+                            elif editarEstado == "3":
+                                editarEstado = "Expirado"
                                 ListaProyectos[posicion][4] = editarEstado
                                 p4 = False
                                 p1 = False
@@ -418,7 +431,7 @@ def editar_proyecto(ListaProyectos):
                     print(f"Fecha Final: {editarFechaFinal.strftime('%d/%m/%Y')}")
                     print(f"Estado: {editarEstado}")
                     print()
-                    opcion = input("¿Desea guardar los cambios?\nsi == 1\nno == 0: ")
+                    opcion = input("¿Desea guardar los cambios? (1 = Si | 0 = No): ")
                     if opcion == "1":
                         ListaProyectos[posicion] = proyecto_editado
                         print()
@@ -452,7 +465,7 @@ def eliminar_proyecto(ListaProyectos):
             input("No hay proyectos registrados.")
         else:
             #* Aca falta agregar validacion de input NO numerico para que no rompa (y conversor de texto a num)
-            id = input("Ingrese el ID del proyecto a eliminar (0 para cancelar): ")
+            id = input("• Ingrese el ID del proyecto a eliminar (0 para cancelar): ")
             isProjectReal = False
 
             if id == "":
@@ -473,8 +486,8 @@ def eliminar_proyecto(ListaProyectos):
                             print("\033[33m[Menu principal > Proyectos > *Eliminar Proyectos*]\033[0m")
                             print()  
                             mostrar_tarea_proyecto("proyecto", item)
-                            print("¿Desea eliminar este proyecto?\nsi == 1\nno == 0")
-                            opcion = input("ingrese la opcion: ")
+                            print()
+                            opcion = input("¿Desea eliminar este proyecto? (1 = Si | 0 = No): ")
                             if opcion == "1":
                                 ListaProyectos.remove(item)
                                 input(f"'{item}' eliminado exitosamente")
