@@ -1,18 +1,34 @@
 from General.clearConsole import *
 from Integrantes.roles import *
 from Database.usuarios import signUp
+from General.formato import imprimir_titulo
 
 
 def mostrarListaIntegrantes(ListaUsuarios):
-    print(f"{'Usuario':<20}{'Rol':<20}{'Acceso':<10}{'Tareas':<20}")
-    print("-" * 70)
+    imprimir_titulo("Lista de Integrantes")
+    
+    print(
+        f"{'Usuario':<20}"
+        f"{'Rol':<20}"
+        f"{'Acceso':<10}"
+        f"{'Tareas':<20}"
+    )
+    
+    print("=" * 70)
 
     for usuario, datos in ListaUsuarios.items():
         rol = datos.get("rol", "Ninguno")
         clearance = datos.get("clearance", "")
         tareas = str(datos.get("tareas", []))
-        print(f"{usuario.capitalize():<20}{rol:<20}{clearance:<10}{tareas:<20}")
 
+        print(
+            f"{usuario.capitalize():<20}"
+            f"{rol:<20}"
+            f"{clearance:<10}"
+            f"{tareas:<20}"
+        )
+    print("")
+    
 
 def ver_integrantes(ListaUsuarios):
     clearConsole()
@@ -23,10 +39,6 @@ def ver_integrantes(ListaUsuarios):
     else:
         mostrarListaIntegrantes(ListaUsuarios)
         input("\nPresione cualquier tecla para continuar...")
-
-
-# def agregar_integrante(ListaUsuarios, ListaRoles):
-#     signUp(ListaUsuarios, ListaRoles)
 
 
 def editar_integrante(ListaUsuarios, ListaRoles):

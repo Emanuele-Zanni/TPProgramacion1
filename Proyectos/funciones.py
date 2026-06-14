@@ -1,32 +1,64 @@
 from General.clearConsole import *
 from General.inputFecha import *
 from Tareas.funciones import *
+from General.formato import imprimir_titulo
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
 def mostrarListaProyectos(ListaProyectos):
-        print(f"{'ID':<5}{'Nombre':<25}{'Tareas':<15}{'Inicio':<12}{'Fin':<12}{'Estado':<10}")
-        print("-" * 75)
-        
-        for proyecto in ListaProyectos:
-            id_ = proyecto[0]
-            nombre = proyecto[1]
-            tareas = len(proyecto[2])  # cantidad de tareas en vez de []
-            inicio = proyecto[3]
-            fin = proyecto[4]
-            estado = proyecto[5]
-            
-            if len(nombre) > 20 and len(str(tareas)) > 10:
-                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas)[:10]+ '...':<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
-           
-            elif  len(str(tareas)) > 10:
-                print(f"{id_:<5}{nombre:<25}{str(tareas)[:10]+ '...':<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
-            
-            elif len(nombre) > 20:
-                print(f"{id_:<5}{nombre[:20]+ '...':<25}{str(tareas):<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
-           
-            else:
-                print(f"{id_:<5}{nombre:<25}{str(tareas):<15}{inicio.strftime('%d/%m/%Y'):<12}{fin.strftime('%d/%m/%Y'):<12}{estado:<10}")
-        print("")
+    imprimir_titulo("Lista de Proyectos")
+    print(
+        f"{'ID':<5}"
+        f"{'Nombre':<25}"
+        f"{'Tareas':<15}"
+        f"{'Inicio':<12}"
+        f"{'Fin':<12}"
+        f"{'Estado':<10}"
+    )
+    print("-" * 75)
+    for proyecto in ListaProyectos:
+        id_ = proyecto[0]
+        nombre = proyecto[1]
+        tareas = len(proyecto[2])
+        inicio = proyecto[3]
+        fin = proyecto[4]
+        estado = proyecto[5]
+        if len(nombre) > 20 and len(str(tareas)) > 10:
+            print(
+                f"{id_:<5}"
+                f"{nombre[:20] + '...':<25}"
+                f"{str(tareas)[:10] + '...':<15}"
+                f"{inicio.strftime('%d/%m/%Y'):<12}"
+                f"{fin.strftime('%d/%m/%Y'):<12}"
+                f"{estado:<10}"
+            )
+        elif len(str(tareas)) > 10:
+            print(
+                 f"{id_:<5}"
+                f"{nombre:<25}"
+                f"{str(tareas)[:10] + '...':<15}"
+                f"{inicio.strftime('%d/%m/%Y'):<12}"
+                f"{fin.strftime('%d/%m/%Y'):<12}"
+                f"{estado:<10}"
+            )
+        elif len(nombre) > 20:
+            print(
+                f"{id_:<5}"
+                f"{nombre[:20] + '...':<25}"
+                f"{str(tareas):<15}"
+                f"{inicio.strftime('%d/%m/%Y'):<12}"
+                f"{fin.strftime('%d/%m/%Y'):<12}"
+                f"{estado:<10}"
+            )
+        else: 
+            print(
+                f"{id_:<5}"
+                f"{nombre:<25}"
+                f"{str(tareas):<15}"
+                f"{inicio.strftime('%d/%m/%Y'):<12}"
+                f"{fin.strftime('%d/%m/%Y'):<12}"
+                f"{estado:<10}"
+            )
+    print("")
     
 
 def ver_proyectos(ListaProyectos):

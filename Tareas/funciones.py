@@ -1,10 +1,18 @@
 from General.clearConsole import *
 from General.inputFecha import *
 from General.mostrarTareasProyectos import *
+from General.formato import imprimir_titulo
 
 def mostrarListaTareas(ListaTareas):
-    print(f"{'ID':<5}{'Nombre':<25}{'Fecha Inicio':<15}{'Fecha Final':<15}{'Estado':<15}")
-    print("-" * 67)
+    imprimir_titulo("Lista de Tareas")
+    print(
+        f"{'ID':<5}"
+        f"{'Nombre':<25}"
+        f"{'Fecha Inicio':<15}"
+        f"{'Fecha Final':<15}"
+        f"{'Estado':<15}"
+    )
+    print("-" * 75)
     
     for tarea in ListaTareas:
         id_tarea = tarea[0]
@@ -14,10 +22,21 @@ def mostrarListaTareas(ListaTareas):
         estado = tarea[4]
 
         if len(nombre) > 20:
-            print(f"{str(id_tarea):<5}{str(nombre)[0:20]+'...':<25}{(fecha_inicio).strftime('%d/%m/%Y'):<15}{(fecha_final).strftime('%d/%m/%Y'):<15}{str(estado):<15}")
+            print(
+                f"{str(id_tarea):<5}"
+                f"{str(nombre)[0:20] + '...':<25}"
+                f"{fecha_inicio.strftime('%d/%m/%Y'):<15}"
+                f"{fecha_final.strftime('%d/%m/%Y'):<15}"
+                f"{str(estado):<15}"
+            )
         else:
-            print(f"{str(id_tarea):<5}{str(nombre):<25}{(fecha_inicio).strftime('%d/%m/%Y'):<15}{(fecha_final).strftime('%d/%m/%Y'):<15}{str(estado):<15}")
-
+            print(
+                f"{str(id_tarea):<5}"
+                f"{str(nombre):<25}"
+                f"{fecha_inicio.strftime('%d/%m/%Y'):<15}"
+                f"{fecha_final.strftime('%d/%m/%Y'):<15}"
+                f"{str(estado):<15}"
+            )
     print("")
 
 def seleccionar_tarea():
