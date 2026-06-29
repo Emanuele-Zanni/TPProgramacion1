@@ -1,6 +1,4 @@
-from General.clearConsole import *
-from Integrantes.roles import *
-from Database.usuarios import signUp
+from General.clearConsole import clearConsole
 from General.formato import imprimir_tabla, imprimir_titulo
 
 
@@ -51,7 +49,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
     mostrarListaIntegrantes(ListaUsuarios)
     print()
 
-    usuario = input("â€¢ Ingrese el usuario del integrante a editar: ").lower().strip()
+    usuario = input("• Ingrese el usuario del integrante a editar: ").lower().strip()
 
     if usuario == "":
         input("\033[31m[ERROR] El usuario no puede estar vacio.\033[0m")
@@ -62,10 +60,10 @@ def editar_integrante(ListaUsuarios, ListaRoles):
         print("1. Cambiar nombre de usuario")
         print("2. Cambiar nivel de Acceso")
         print()
-        opcion = input("â€¢ Seleccione una opcion: ")
+        opcion = input("• Seleccione una opción: ")
 
         if opcion == "1":
-            nuevo_usuario = input("â€¢ Ingrese el nuevo nombre de usuario: ").lower().strip()
+            nuevo_usuario = input("• Ingrese el nuevo nombre de usuario: ").lower().strip()
 
             if nuevo_usuario == "":
                 input("\033[31m[ERROR] El usuario no puede estar vacio.\033[0m")
@@ -78,7 +76,7 @@ def editar_integrante(ListaUsuarios, ListaRoles):
                 input("\033[92m[EXITO] Usuario editado correctamente.\033[0m")
 
         elif opcion == "2":
-            nuevo_clearance = input("â€¢ Ingrese el nuevo nivel de acceso: ")
+            nuevo_clearance = input("• Ingrese el nuevo nivel de acceso: ")
 
             if nuevo_clearance == "":
                 input("\033[31m[ERROR] El nivel de acceso no puede estar vacio.\033[0m")
@@ -104,12 +102,15 @@ def eliminar_integrante(ListaUsuarios):
     mostrarListaIntegrantes(ListaUsuarios)
     print()
 
-    usuario = input("â€¢ Ingrese el usuario del integrante a eliminar: ").lower().strip()
+    usuario = input("• Ingrese el usuario del integrante a eliminar: ").lower().strip()
 
     if usuario == "":
         input("\033[31m[ERROR] El usuario no puede estar vacio.\033[0m")
     elif usuario not in ListaUsuarios:
         input("\033[31m[ERROR] El integrante ingresado no existe.\033[0m")
     else:
+        if len(ListaUsuarios[usuario].get("projects", [])) > 0:
+            input("\033[31m[ERROR] No se puede eliminar un integrante asignado a proyectos.\033[0m")
+            return
         del ListaUsuarios[usuario]
         input("\033[92m[EXITO] Integrante eliminado correctamente.\033[0m")

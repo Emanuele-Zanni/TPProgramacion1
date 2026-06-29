@@ -1,132 +1,117 @@
-#! Imports --------------------
+"""Punto de entrada de la aplicación de seguimiento de proyectos."""
 
-from General.clearConsole import *
-from Tareas.funciones import *
-from Proyectos.funciones import *
-from Integrantes.funciones import *
-from Integrantes.menus import *
-from Integrantes.roles import *
-from Tareas.menus import *
-from Proyectos.menus import *
-from Integrantes.roles import*
-from Database.usuarios import*
-from Stats.menu import*
-from Stats.funciones import*
+from Database.usuarios import menuAcceso
+from General.clearConsole import clearConsole
+from General.persistencia import (
+    RUTA_DATOS_JSON,
+    RUTA_ROLES_TXT,
+    cargar_datos_json,
+    cargar_roles_txt,
+    guardar_datos_json,
+    guardar_roles_txt,
+)
+from Integrantes.menus import imprimirMenuIntegrantes
+from Proyectos.menus import imprimirMenuProyectos
+from Stats.menu import imprimirMenuStats
 
-#! Variables Principales --------------------
 
-app=True
-mainMenu=True
-
-# ListaProyectos = []
-# ListaTareas = []
-# ListaIntegrantes= []
-# ListaRoles=[]
-
-#? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto","integrantes","ownerId"]
-#? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
-
-#! ListaTareas Version 2.0
-#! ListaTareas = ["id","titulo","descripcion","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
-
-#? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
-#? ListaRoles= [["id","rol"]]
-#? ListaUsuarios = {
-#?     "usuario": {
-#?         "id": int,
-#?         "password": str,
-#?         "clearance": int,
-#?         "projects": [
-#?             {
-#?                 "projectId": int,
-#?                 "rol": str,
-#?                 "tareas": [int]
-#?             }
-#?         ]
-#?     }
-#? }
-
-#! ========================== Datos Mockeados para TESTING / DEMO del Proyecto ==========================
-
-#* Listas Mock de Usuarios (para conversion Lista => Diccionario por consigna del CHECKLIST) -------
-subHeaders = ["id","password","clearance","projects"]
-listaIdsUsuarios = [1,2,3]
-listaNombres = ["candela","emanuele","eze"]
-listaContraseñas = ["1234","5555","123"]
-listaNivelesAcceso = [3,3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
-listaProyectosUsuario = [
-    [{"projectId": 1, "rol": "Desarrollador", "tareas": [1, 2]}],
-    [{"projectId": 1, "rol": "Desarrollador", "tareas": [3]}],
-    [{"projectId": 2, "rol": "QA", "tareas": []}]
-]
-
-#* Menuda diccionario por comprension chaval
-ListaUsuarios = {
-    nombre: dict(zip(subHeaders, [id_usuario, contraseña, acceso, proyectos]))
-    for id_usuario, nombre, contraseña, acceso, proyectos in zip(
-        listaIdsUsuarios,
-        listaNombres,
-        listaContraseñas,
-        listaNivelesAcceso,
-        listaProyectosUsuario
-    )
+USUARIOS_INICIALES = {
+    "admin": {
+        "id": 1,
+        "password": "1234",
+        "clearance": 3,
+        "projects": [],
+    },
+    "manager": {
+        "id": 2,
+        "password": "5555",
+        "clearance": 2,
+        "projects": [],
+    },
+    "integrante": {
+        "id": 3,
+        "password": "123",
+        "clearance": 1,
+        "projects": [],
+    },
 }
-#* ----------------------------------------------------------------------------------------------------
-
-#* Mock Proyectos --------
-mockDate = datetime.now()
-ListaProyectos = [[1, 'Proyecto 1', [
-                        [1,"nombreTarea","descTarea",mockDate,mockDate,"activo",[]],
-                        [2,"nombreTarea","descTarea",mockDate,mockDate,"activo",[]],
-                        [3,"nombreTareaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","descTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTarea",mockDate,mockDate,"activo",[1,2,3]],
-                ], mockDate, mockDate, 'Activo',[], 1],
-                  [2, 'Proyecto 2', [], mockDate, mockDate, 'Activo',[], 3],
-                  [3, 'Proyecto 3', [], mockDate, mockDate, 'Activo',[], None],
-                  [4, 'Proyecto 444444444444444444444444444444444444444', [], mockDate, mockDate, 'Activo',[], None]]
-
-#* Mock Tareas ---------------
-
-ListaTareas = []
+ROLES_INICIALES = [[1, "Desarrollador"], [2, "QA"]]
 
 
-ListaRoles= [[1, "Desarrollador"],
-            [2, "QA"]]
+def cargar_sistema():
+    """Carga memoria desde disco y crea datos mínimos en la primera ejecución."""
+    datos = cargar_datos_json(RUTA_DATOS_JSON)
 
-ListaStats= []
+    roles = cargar_roles_txt(RUTA_ROLES_TXT)
+    if len(datos["usuarios"]) == 0:
+        datos["usuarios"] = {
+            nombre: {
+                "id": valores["id"],
+                "password": valores["password"],
+                "clearance": valores["clearance"],
+                "projects": valores["projects"][:],
+            }
+            for nombre, valores in USUARIOS_INICIALES.items()
+        }
+        guardar_datos_json(
+            RUTA_DATOS_JSON, datos["proyectos"], datos["usuarios"]
+        )
+    if len(roles) == 0:
+        roles.extend([rol[:] for rol in ROLES_INICIALES])
+        guardar_roles_txt(RUTA_ROLES_TXT, roles)
+    return datos["proyectos"], datos["usuarios"], roles
 
 
-#! Main  ----------------------
-while app:
-    #? Comentar la variable "credencial" que no se quiera utilizar para elegir entre modo NORMAL / DEV
-    #* MODO NORMAL
-    # credencial = menuAcceso(ListaUsuarios,ListaRoles)
-    #* MODO DEV
-    credencial = {'user': 'ADMIN', 'clearance': 4}
+def guardar_sistema(proyectos, usuarios, roles):
+    guardar_datos_json(RUTA_DATOS_JSON, proyectos, usuarios)
+    guardar_roles_txt(RUTA_ROLES_TXT, roles)
 
 
-    mainMenu = True
-    while mainMenu:
-        clearConsole()
-        print("\033[33m[*Menu Principal*]\033[0m")
-        print("")
-        print("1. Proyectos")
-        print("2. Personal")
-        print("3. Stats")
-        print("4. Cerrar sesiÃ³n")
-        print("0. Cerrar Programa")
-        print()
-        Opcion=input("â€¢ Selecione una opcion: ")
-        if Opcion=="1": #* Ver Proyectos
-            imprimirMenuProyectos(ListaProyectos, ListaUsuarios, credencial)            
-        elif Opcion=="2": #* Ver Personal
-            imprimirMenuIntegrantes(ListaUsuarios, ListaRoles, credencial)
-        elif Opcion=="3": #* Stats
-            imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles)
-        elif Opcion=="4":
-            mainMenu = False
-        elif Opcion=="0": #* Cerrar el programa
-            app=False
-            mainMenu=False
-        else: 
-            print("")
-            input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
+def ejecutar():
+    try:
+        proyectos, usuarios, roles = cargar_sistema()
+    except (ValueError, OSError) as error:
+        print(f"\033[31m[ERROR] No se pudo iniciar la aplicación: {error}\033[0m")
+        return
+    aplicacion_activa = True
+
+    while aplicacion_activa:
+        credencial = menuAcceso(usuarios, roles)
+        sesion_activa = True
+
+        while sesion_activa:
+            clearConsole()
+            print("\033[33m[Menú principal]\033[0m\n")
+            print("1. Proyectos")
+            print("2. Personal")
+            print("3. Estadísticas")
+            print("4. Cerrar sesión")
+            print("0. Cerrar programa")
+            opcion = input("• Seleccione una opción: ").strip()
+
+            try:
+                if opcion == "1":
+                    imprimirMenuProyectos(proyectos, usuarios, credencial)
+                    guardar_sistema(proyectos, usuarios, roles)
+                elif opcion == "2":
+                    imprimirMenuIntegrantes(
+                        usuarios, roles, credencial, proyectos
+                    )
+                    guardar_sistema(proyectos, usuarios, roles)
+                elif opcion == "3":
+                    imprimirMenuStats(proyectos, usuarios, roles)
+                elif opcion == "4":
+                    guardar_sistema(proyectos, usuarios, roles)
+                    sesion_activa = False
+                elif opcion == "0":
+                    guardar_sistema(proyectos, usuarios, roles)
+                    sesion_activa = False
+                    aplicacion_activa = False
+                else:
+                    input("\033[31m[ERROR] Opción inválida. Presione Enter.\033[0m")
+            except OSError as error:
+                input(f"\033[31m[ERROR] No se pudo persistir la operación: {error}\033[0m")
+
+
+if __name__ == "__main__":
+    ejecutar()

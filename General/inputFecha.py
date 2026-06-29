@@ -1,27 +1,21 @@
-from datetime import datetime
+"""Entrada interactiva de fechas usando la validación centralizada."""
+
+from General.validaciones import convertir_fecha
+
 
 def inputFecha(mode):
-            
-    if mode == "Inicio" or mode == "inicio":
-        fecha_texto = input("• Ingrese la fecha de inicio del proyecto (DD/MM/YYYY): ")
-    elif mode == "Final" or mode == "final":
-        fecha_texto = input("• Ingrese la fecha de finalizacion del proyecto (DD/MM/YYYY) : ")
-
-    if fecha_texto == "0":
-         
-        return fecha_texto
-    
-    elif fecha_texto == "":
-        
-        return fecha_texto
+    modo = str(mode).strip().lower()
+    if modo == "inicio":
+        mensaje = "• Ingrese la fecha de inicio (DD/MM/AAAA): "
+    elif modo == "final":
+        mensaje = "• Ingrese la fecha de finalización (DD/MM/AAAA): "
     else:
-        try:
-            fecha = datetime.strptime(fecha_texto, "%d/%m/%Y")
+        raise ValueError("El modo debe ser Inicio o Final.")
 
-            return fecha
-
-        except ValueError:
-            
-            return None
-
-        
+    fecha_texto = input(mensaje).strip()
+    if fecha_texto in ("", "0"):
+        return fecha_texto
+    try:
+        return convertir_fecha(fecha_texto)
+    except (TypeError, ValueError):
+        return None

@@ -1,8 +1,15 @@
-from General.clearConsole import *
-from General.inputFecha import *
-from Tareas.funciones import *
+from General.clearConsole import clearConsole
+from General.inputFecha import inputFecha
+from General.mostrarTareasProyectos import mostrar_tarea_proyecto
 from General.formato import imprimir_tabla, imprimir_titulo
-# from Proyectos.menus import imprimirMenuSeleccionarProyecto
+from General.utilidades import obtener_proximo_id
+from Tareas.funciones import (
+    asignar_tarea_integrante,
+    crear_tarea,
+    editar_tarea,
+    eliminar_tarea,
+    ver_tareas,
+)
 
 def mostrarListaProyectos(ListaProyectos):
     imprimir_titulo("Lista de Proyectos")
@@ -87,7 +94,7 @@ def entregar_ownership_proyecto(proyecto, ListaUsuarios):
         [[datos_usuario.get("id", ""), nombre_usuario.capitalize()] for nombre_usuario, datos_usuario in managers_disponibles]
     )
 
-    nuevo_owner_id = input("â€¢ Ingrese el ID del manager que recibira el ownership (0 para cancelar): ")
+    nuevo_owner_id = input("• Ingrese el ID del manager que recibirá el ownership (0 para cancelar): ")
     if nuevo_owner_id == "0":
         print()
         input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
@@ -195,7 +202,6 @@ def seleccionar_proyecto(ListaProyectos, ListaUsuarios, credencial):
 
                     if credencial["clearance"] == 1:
                         print("1. Ver tarea")
-                        print("?. Seleccionar tarea (WIP)")
                         print("0. Volver atras")
                         print()
                         opcion=input("• Seleccione una opcion: ")
@@ -234,7 +240,7 @@ def seleccionar_proyecto(ListaProyectos, ListaUsuarios, credencial):
                         elif opcion=="3":
                             editar_tarea(proyecto[2])
                         elif opcion=="4":
-                            eliminar_tarea(proyecto[2])
+                            eliminar_tarea(proyecto[2], proyecto, ListaUsuarios)
                         elif opcion=="5":
                             asignar_tarea_integrante(proyecto[2], proyecto, ListaUsuarios)
                         elif opcion=="6":
@@ -252,10 +258,7 @@ def crear_proyecto(ListaProyectos, ListaUsuarios, credencial):
     #* Variables para inicializar las flags para persistencia de inputs + validaciones
     inProgress = True
     p1,p2,p3 = True,False,False
-    if len(ListaProyectos) == 0:
-        id = 1
-    else:    
-        id = ListaProyectos[len(ListaProyectos)-1][0]+1
+    id = obtener_proximo_id(ListaProyectos)
     tareas = []
     Estado = "Activo?" #* Hacer enum!
 
@@ -381,9 +384,9 @@ def editar_proyecto(ListaProyectos, ListaUsuarios, credencial):
                 input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
             elif project_id.isdigit() == True and project_id != "":
                 project_id = int(project_id)
-                for item in ListaProyectos:
+                for indice, item in enumerate(ListaProyectos):
                         if item[0] == project_id:
-                            posicion = project_id - 1
+                            posicion = indice
                             isProjectReal = True
                             p1 = True
 
@@ -488,26 +491,22 @@ def editar_proyecto(ListaProyectos, ListaUsuarios, credencial):
                             print("3. Expirado")
                             print("0. Volver")
                             editarEstado=input("Ingrese el nuevo estado del proyecto(0 para cancelar): ")
-                            ListaProyectos[posicion][4] = editarEstado
                             if editarEstado == "1":
                                 editarEstado = "Activo"
-                                ListaProyectos[posicion][4] = editarEstado
                                 p4 = False
                                 p1 = False
                                 p2 = True
                             elif editarEstado == "2":
                                 editarEstado = "Completado"
-                                ListaProyectos[posicion][4] = editarEstado
                                 p4 = False
                                 p1 = False
                                 p2 = True
                             elif editarEstado == "3":
                                 editarEstado = "Expirado"
-                                ListaProyectos[posicion][4] = editarEstado
                                 p4 = False
                                 p1 = False
                                 p2 = True
-                            elif opcion == "":
+                            elif editarEstado == "":
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
                             elif editarEstado == "0":
@@ -568,7 +567,7 @@ def editar_proyecto(ListaProyectos, ListaUsuarios, credencial):
    
                                                                
 #no basico
-def eliminar_proyecto(ListaProyectos):
+def eliminar_proyecto(ListaProyectos, ListaUsuarios=None):
     on = True
     while on:    
         clearConsole()
@@ -588,6 +587,9 @@ def eliminar_proyecto(ListaProyectos):
                 on = False
                 print()
                 input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
+            elif id.isdigit() == False:
+                print()
+                input("\033[31m[ERROR] El ID debe ser un numero.\033[0m")
             else:
                 id = int(id)
                 for item in ListaProyectos:
@@ -602,6 +604,17 @@ def eliminar_proyecto(ListaProyectos):
                             print()
                             opcion = input("¿Desea eliminar este proyecto? (1 = Si | 0 = No): ")
                             if opcion == "1":
+                                if len(item[2]) > 0:
+                                    input("\033[31m[ERROR] No se puede eliminar un proyecto con tareas.\033[0m")
+                                    p1 = False
+                                    continue
+                                if ListaUsuarios is not None:
+                                    for datos_usuario in ListaUsuarios.values():
+                                        datos_usuario["projects"] = [
+                                            relacion
+                                            for relacion in datos_usuario.get("projects", [])
+                                            if relacion.get("projectId") != item[0]
+                                        ]
                                 ListaProyectos.remove(item)
                                 input(f"[EXITO] '{item}' eliminado exitosamente")
                                 p1 = False
@@ -649,7 +662,7 @@ def gestionar_integrantes_proyecto(proyecto, ListaUsuarios):
         print()
         mostrar_tarea_proyecto("proyecto", proyecto)
         mostrarListaIntegrantesProyecto(ListaUsuarios, proyecto)
-        usuario_id = input("Ingrese el ID del usuario para agregarlo o quitarlo del proyecto (0 para volver): ")
+        usuario_id = input("Ingrese el ID del usuario para agregarlo o quitarlo del proyecto (0 para finalizar): ")
 
         if usuario_id == "":
             print()

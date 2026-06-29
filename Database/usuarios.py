@@ -1,201 +1,84 @@
-from General.clearConsole import *
-from Integrantes.roles import *
+"""Acceso y registro de usuarios de la aplicacion."""
+
+from General.clearConsole import clearConsole
+from General.logica import autenticar, crear_integrante_logica
+from General.validaciones import validar_password, validar_usuario
 
 
 def obtenerProximoIdUsuario(usuarios):
-    max_id = 0
-
-    for datos_usuario in usuarios.values():
-        usuario_id = datos_usuario.get("id")
-        if isinstance(usuario_id, int) and usuario_id > max_id:
-            max_id = usuario_id
-
-    if max_id == 0:
-        return 1
-
-    return max_id + 1
+    return max(
+        (datos.get("id", 0) for datos in usuarios.values()), default=0
+    ) + 1
 
 
 def menuAcceso(usuarios, listaRoles):
     while True:
         clearConsole()
-        print("""\033[33m[*Menu de Acceso*]\033[0m
-
-1. Iniciar Sesion
-2. Registrarse
- """)
-        choice = input("â€¢ Ingrese una opcion: ")
-        if choice == "1":
+        print("\033[33m[Menu de acceso]\033[0m\n")
+        print("1. Iniciar sesion")
+        print("2. Registrarse")
+        opcion = input("• Ingrese una opcion: ").strip()
+        if opcion == "1":
             return login(usuarios)
-        elif choice == "2":
+        if opcion == "2":
             return signUp(usuarios, listaRoles)
-        else:
-            input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
+        input("\033[31m[ERROR] Opcion invalida. Presione Enter.\033[0m")
 
 
 def login(usuarios):
-    on = True
-    p1, p2 = True, False
-    isPasswordCorrect = False
-    isUserReal = False
-
-    while p1 and on:
+    while True:
         clearConsole()
-        print("\033[33m[Menu de Acceso > *Iniciar Sesion*]\033[0m")
-        print()
+        print("\033[33m[Menu de acceso > Iniciar sesion]\033[0m\n")
+        usuario = input("• Usuario: ").strip().lower()
+        if usuario == "":
+            input("\033[31m[ERROR] El usuario no puede estar vacio.\033[0m")
+            continue
+        if usuario not in usuarios:
+            input("\033[31m[ERROR] El usuario no existe.\033[0m")
+            continue
 
-        user = input("â€¢ Ingrese nombre de usuario: ").lower().strip()
-        if user == "":
-            print()
-            input("\033[31m[ERROR] El nombre de usuario no puede estar vacio.\033[0m")
-        elif user in usuarios:
-            isUserReal = True
-            p1 = False
-            p2 = True
-        else:
-            print()
-            input("\033[31m[ERROR] El usuario ingresado no existe.\033[0m")
-
-    while p2 and on:
-        clearConsole()
-        print("\033[33m[Menu de Acceso > *Iniciar Sesion*]\033[0m")
-        print()
-        print(f"Usuario: {user}")
-        print()
-        password = input("â€¢ Ingrese contraseÃ±a: ").strip()
-
-        if usuarios.get(user, {}).get("password") == password:
-            isPasswordCorrect = True
-
-            if isUserReal and isPasswordCorrect:
-                clearConsole()
-                print("\033[33m[Menu de Acceso > *Iniciar Sesion*]\033[0m")
-                print()
-                print(f"Usuario: {user}")
-                print(f"Contrasena: {password}")
-                print()
-                input(f"Sesion iniciada correctamente. Bienvenid@ {user}!")
-
-                on = False
-
-                credencial = {
-                    "user": user,
-                    "clearance": usuarios[user]["clearance"]
-                }
-                return credencial
-        elif password == "":
-            print()
+        password = input("• Contrasena: ").strip()
+        if password == "":
             input("\033[31m[ERROR] La contrasena no puede estar vacia.\033[0m")
-        else:
-            print()
+            continue
+        if not autenticar(usuarios, usuario, password):
             input("\033[31m[ERROR] Contrasena incorrecta.\033[0m")
+            continue
+
+        print(f"\nSesion iniciada correctamente. Bienvenido/a {usuario}.")
+        input("Presione Enter para continuar.")
+        return {
+            "user": usuario,
+            "clearance": usuarios[usuario]["clearance"],
+        }
 
 
 def signUp(usuarios, listaRoles, isAdmin=False, menuLoop=True):
-    clearance = 1
-    inProgress = True
-    p1, p2, p3, p4 = True, False, False, False
+    clearConsole()
+    print("\033[33m[Menu de acceso > Registro]\033[0m\n")
+    try:
+        usuario = validar_usuario(input("• Nuevo usuario: "))
+        if usuario in usuarios:
+            raise ValueError("El usuario ya existe.")
+        password = validar_password(input("• Contrasena: "))
+        confirmacion = input("• Repita la contrasena: ").strip()
+        if confirmacion != password:
+            raise ValueError("Las contrasenas no coinciden.")
 
-    while p1 and inProgress:
-        clearConsole()
-        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
-        print()
-        user = input("â€¢ Ingrese nombre de usuario: ").lower().strip()
-
-        if user == "":
-            print()
-            input("\033[31m[ERROR] El nombre de usuario no puede estar vacio.\033[0m")
-        elif user in usuarios:
-            print()
-            input("\033[31m[ERROR] El usuario ingresado ya existe.\033[0m")
-        elif user[0].isdigit():
-            print()
-            input("\033[31m[ERROR] El usuario no puede empezar con un numero.\033[0m")
-        else:
-            p1 = False
-            p2 = True
-
-    while p2 and inProgress:
-        clearConsole()
-        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
-        print()
-        print(f"Usuario: {user.capitalize()}")
-        print()
-        password = input("â€¢ Ingrese contraseÃ±a: ").strip()
-
-        if password == "":
-            print()
-            input("\033[31m[ERROR] La contraseÃ±a no puede estar vacia.\033[0m")
-        else:
-            cant = len(password)
-            hiddenPassword = "*" * cant
-
-            p2 = False
-            p3 = True
-
-    while p3 and inProgress:
-        clearConsole()
-        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
-        print()
-        print(f"Usuario: {user.capitalize()}")
-        print(f"ContraseÃ±a: {hiddenPassword}")
-        confirmPassword = input("â€¢ Confirme contraseÃ±a: ").strip()
-
-        if password == "":
-            print()
-            input("\033[31m[ERROR] La contraseÃ±a no puede estar vacia.\033[0m")
-        elif confirmPassword != password:
-            print()
-            input("\033[31m[ERROR] Las contraseÃ±as no coinciden.\033[0m")
-        else:
-            p3 = False
-            p4 = True
-
-    while p4 and inProgress:
-        clearConsole()
-        print("\033[33m[Menu de Acceso > *Registrarse*]\033[0m")
-        print()
-        print(f"Usuario: {user}")
-        print(f"ContraseÃ±a: {hiddenPassword}")
-        print()
-
+        clearance = 1
         if isAdmin:
-            clearance = input("â€¢ Ingrese el nivel de acceso del usuario: ")
-            if clearance == "":
-                print()
-                input("\033[31m[ERROR] El nivel de acceso no puede estar vacio.\033[0m")
-            elif clearance.isdigit() == False:
-                print()
-                input("\033[31m[ERROR] El nivel de acceso debe ser un numero.\033[0m")
-            else:
-                clearance = int(clearance)
-                p4 = False
-        else:
-            p4 = False
+            texto_clearance = input("• Nivel de acceso (0 a 3): ").strip()
+            if not texto_clearance.isdigit() or int(texto_clearance) not in range(4):
+                raise ValueError("El nivel de acceso debe estar entre 0 y 3.")
+            clearance = int(texto_clearance)
 
-    if inProgress:
-        print()
-        input("\033[92m[EXITO] Usuario registrado correctamente.\033[0m")
-        nuevo_id = obtenerProximoIdUsuario(usuarios)
-        usuarios[user] = {
-            "id": nuevo_id,
-            "password": password,
-            "clearance": clearance,
-            "projects": []
-        }
+        crear_integrante_logica(usuarios, usuario, password, clearance)
+    except (TypeError, ValueError) as error:
+        input(f"\033[31m[ERROR] {error}\033[0m")
+        return None
 
-        if menuLoop:
-            resultado = menuAcceso(usuarios, listaRoles)
-            print(f"signUp devuelve: {resultado}")
-            return resultado
-        else:
-            resultado = {
-                "user": user,
-                "clearance": usuarios[user]["clearance"]
-            }
-            print(f"signUp devuelve: {resultado}")
-            return resultado
-
-
-# def singUp(usuarios, listaRoles):
-#     return signUp(usuarios, listaRoles)
+    input("[EXITO] Usuario registrado correctamente.")
+    return {
+        "user": usuario,
+        "clearance": usuarios[usuario]["clearance"],
+    }

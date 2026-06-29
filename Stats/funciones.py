@@ -1,8 +1,18 @@
 from datetime import datetime
+from functools import reduce
 
 from General.clearConsole import clearConsole
 from General.formato import imprimir_tabla, imprimir_titulo
 from Proyectos.funciones import mostrarListaProyectos
+from General.constantes import (
+    PROYECTO_ESTADO,
+    PROYECTO_NOMBRE,
+    PROYECTO_TAREAS,
+    TAREA_ASIGNADOS,
+    TAREA_ESTADO,
+)
+from General.consultas import tareas_de_integrante, tareas_de_proyecto, tareas_por_estado
+from Recursividad.funciones import contar_tareas_estado_recursivo
 
 
 def normalizar_estado(estado):
@@ -416,4 +426,183 @@ def ver_StatsTotal(ListaProyectos, ListaUsuarios, ListaRoles):
             [[fila[0], fila[3], fila[4], fila[5], fila[2]] for fila in filas_carga]
         )
 
+    resumen = calcular_resumen_estadistico(
+        ListaProyectos, ListaUsuarios, ListaRoles
+    )
+    imprimir_titulo("Indicadores")
+    imprimir_tabla(
+        [
+            {"titulo": "% Tareas completadas", "min": 20, "peso": 1},
+            {"titulo": "% Tareas activas", "min": 18, "peso": 1},
+            {"titulo": "% Proyectos activos", "min": 20, "peso": 1},
+            {"titulo": "Prom. tareas/proyecto", "min": 20, "peso": 1},
+            {"titulo": "Prom. tareas/integrante", "min": 22, "peso": 1},
+        ],
+        [[
+            f"{resumen['porcentajes']['tareas_finalizadas']:.2f}%",
+            f"{resumen['porcentajes']['tareas_pendientes']:.2f}%",
+            f"{resumen['porcentajes']['proyectos_activos']:.2f}%",
+            f"{resumen['promedios']['tareas_por_proyecto']:.2f}",
+            f"{resumen['promedios']['tareas_por_integrante']:.2f}",
+        ]],
+    )
+    imprimir_tabla(
+        [
+            {"titulo": "Proyectos con más tareas", "min": 24, "peso": 1},
+            {"titulo": "Proyectos con menos tareas", "min": 24, "peso": 1},
+            {"titulo": "Integrantes con más tareas", "min": 24, "peso": 1},
+            {"titulo": "Integrantes con menos tareas", "min": 24, "peso": 1},
+        ],
+        [[
+            ", ".join(resumen["extremos_proyectos"]["maximo"]) or "Sin datos",
+            ", ".join(resumen["extremos_proyectos"]["minimo"]) or "Sin datos",
+            ", ".join(resumen["extremos_integrantes"]["maximo"]) or "Sin datos",
+            ", ".join(resumen["extremos_integrantes"]["minimo"]) or "Sin datos",
+        ]],
+    )
+
     input("Presione enter para volver...")
+
+
+def calcular_resumen_estadistico(ListaProyectos, ListaUsuarios, ListaRoles):
+    """Devuelve estadísticas completas y testeables, incluso con listas vacías."""
+    tareas = [
+        tarea
+        for proyecto in ListaProyectos
+        for tarea in proyecto[PROYECTO_TAREAS]
+    ]
+    total_tareas = reduce(lambda acumulado, _: acumulado + 1, tareas, 0)
+    tareas_por_estado = {}
+    for tarea in tareas:
+        estado = tarea[TAREA_ESTADO]
+        tareas_por_estado[estado] = tareas_por_estado.get(estado, 0) + 1
+
+    proyectos_por_estado = {}
+    for proyecto in ListaProyectos:
+        estado = proyecto[PROYECTO_ESTADO]
+        proyectos_por_estado[estado] = proyectos_por_estado.get(estado, 0) + 1
+
+    conteos_proyecto = [
+        (proyecto[PROYECTO_NOMBRE], len(proyecto[PROYECTO_TAREAS]))
+        for proyecto in ListaProyectos
+    ]
+    conteos_integrante = {
+        datos.get("id"): [nombre.title(), 0]
+        for nombre, datos in ListaUsuarios.items()
+    }
+    for tarea in tareas:
+        ids_tarea = {
+            asignado.get("id") if isinstance(asignado, dict) else asignado
+            for asignado in tarea[TAREA_ASIGNADOS]
+        }
+        for usuario_id in ids_tarea:
+            if usuario_id in conteos_integrante:
+                conteos_integrante[usuario_id][1] += 1
+
+    def extremos(conteos):
+        if len(conteos) == 0:
+            return {"maximo": [], "minimo": []}
+        maximo = max(cantidad for _, cantidad in conteos)
+        minimo = min(cantidad for _, cantidad in conteos)
+        return {
+            "maximo": [nombre for nombre, cantidad in conteos if cantidad == maximo],
+            "minimo": [nombre for nombre, cantidad in conteos if cantidad == minimo],
+        }
+
+    finalizadas = contar_tareas_estado_recursivo(tareas, "Completado")
+    pendientes = contar_tareas_estado_recursivo(tareas, "Activo")
+    activos = proyectos_por_estado.get("Activo", 0)
+    cantidad_proyectos = len(ListaProyectos)
+    cantidad_integrantes = len(ListaUsuarios)
+    conteos_usuarios = [
+        (datos[0], datos[1]) for datos in conteos_integrante.values()
+    ]
+
+    return {
+        "totales": {
+            "proyectos": cantidad_proyectos,
+            "tareas": total_tareas,
+            "integrantes": cantidad_integrantes,
+            "roles": len(ListaRoles),
+        },
+        "proyectos_por_estado": proyectos_por_estado,
+        "tareas_por_estado": tareas_por_estado,
+        "tareas_por_proyecto": dict(conteos_proyecto),
+        "tareas_por_integrante": dict(conteos_usuarios),
+        "porcentajes": {
+            "tareas_finalizadas": (finalizadas * 100 / total_tareas) if total_tareas else 0,
+            "tareas_pendientes": (pendientes * 100 / total_tareas) if total_tareas else 0,
+            "proyectos_activos": (activos * 100 / cantidad_proyectos) if cantidad_proyectos else 0,
+        },
+        "promedios": {
+            "tareas_por_proyecto": total_tareas / cantidad_proyectos if cantidad_proyectos else 0,
+            "tareas_por_integrante": total_tareas / cantidad_integrantes if cantidad_integrantes else 0,
+        },
+        "extremos_proyectos": extremos(conteos_proyecto),
+        "extremos_integrantes": extremos(conteos_usuarios),
+    }
+
+
+def ver_consultas_relacionadas(ListaProyectos, ListaUsuarios):
+    """Menú de consultas cruzadas por proyecto, estado y responsable."""
+    while True:
+        clearConsole()
+        imprimir_titulo("Consultas relacionadas")
+        print("1. Tareas de un proyecto")
+        print("2. Tareas por estado")
+        print("3. Tareas por responsable")
+        print("0. Volver")
+        opcion = input("Seleccione una opcion: ").strip()
+        if opcion == "0":
+            return
+
+        tareas = None
+        if opcion == "1":
+            valor = input("ID del proyecto: ").strip()
+            if not valor.isdigit():
+                input("\033[31m[ERROR] El ID debe ser numerico.\033[0m")
+                continue
+            tareas = tareas_de_proyecto(ListaProyectos, int(valor))
+            if tareas is None:
+                input("\033[31m[ERROR] El proyecto no existe.\033[0m")
+                continue
+        elif opcion == "2":
+            print("Estados: Activo, Completado, Expirado")
+            estado = input("Estado: ").strip().title()
+            if estado not in ("Activo", "Completado", "Expirado"):
+                input("\033[31m[ERROR] Estado invalido.\033[0m")
+                continue
+            tareas = tareas_por_estado(ListaProyectos, estado)
+        elif opcion == "3":
+            filas_usuarios = [
+                [datos.get("id"), nombre.title()]
+                for nombre, datos in ListaUsuarios.items()
+            ]
+            imprimir_tabla(
+                [
+                    {"titulo": "ID", "min": 4, "peso": 1},
+                    {"titulo": "Usuario", "min": 18, "peso": 3},
+                ],
+                filas_usuarios,
+            )
+            valor = input("ID del responsable: ").strip()
+            if not valor.isdigit():
+                input("\033[31m[ERROR] El ID debe ser numerico.\033[0m")
+                continue
+            tareas = tareas_de_integrante(ListaProyectos, int(valor))
+        else:
+            input("\033[31m[ERROR] Opcion invalida.\033[0m")
+            continue
+
+        if len(tareas) == 0:
+            input("No hay tareas para la consulta seleccionada.")
+            continue
+        imprimir_tabla(
+            [
+                {"titulo": "ID", "min": 4, "peso": 1},
+                {"titulo": "Tarea", "min": 20, "peso": 3},
+                {"titulo": "Estado", "min": 12, "peso": 1},
+            ],
+            [[tarea[0], tarea[1], tarea[5]] for tarea in tareas],
+        )
+        input("Presione Enter para continuar.")

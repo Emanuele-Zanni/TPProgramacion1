@@ -12,6 +12,7 @@ def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
         print("2. Ver Stats de integrantes")
         print("3. Ver Stats de roles")
         print("4. Ver resumen ejecutivo")
+        print("5. Consultas relacionadas")
         print("0. Volver al menu principal")
         
         opcion=input("Selecione una opcion: ")
@@ -26,6 +27,9 @@ def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
 
         elif opcion == "4":
             ver_StatsTotal(ListaProyectos, ListaUsuarios, ListaRoles)
+
+        elif opcion == "5":
+            ver_consultas_relacionadas(ListaProyectos, ListaUsuarios)
                     
         elif opcion == "0":
                 activo=False

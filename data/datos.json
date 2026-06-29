@@ -1,0 +1,62 @@
+{
+    "proyectos": [
+        [
+            1,
+            "a",
+            [],
+            "11/11/1111",
+            "11/11/1112",
+            "Activo",
+            [
+                3,
+                1,
+                2
+            ],
+            1
+        ]
+    ],
+    "usuarios": {
+        "admin": {
+            "id": 1,
+            "password": "1234",
+            "clearance": 3,
+            "projects": [
+                {
+                    "projectId": 1,
+                    "rol": "Sin rol",
+                    "tareas": []
+                }
+            ]
+        },
+        "manager": {
+            "id": 2,
+            "password": "5555",
+            "clearance": 2,
+            "projects": [
+                {
+                    "projectId": 1,
+                    "rol": "Sin rol",
+                    "tareas": []
+                }
+            ]
+        },
+        "integrante": {
+            "id": 3,
+            "password": "123",
+            "clearance": 1,
+            "projects": [
+                {
+                    "projectId": 1,
+                    "rol": "Sin rol",
+                    "tareas": []
+                }
+            ]
+        },
+        "cande": {
+            "id": 4,
+            "password": "123",
+            "clearance": 1,
+            "projects": []
+        }
+    }
+}
