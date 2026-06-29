@@ -1,0 +1,1547 @@
+Actuá como un desarrollador senior de Python, revisor técnico de código y corrector académico de la materia Programación 1 — Algoritmos y Estructuras de Datos 1.
+
+Voy a proporcionarte el repositorio completo de un proyecto de consola llamado “Aplicación de seguimiento de proyectos”.
+
+Tu tarea consiste en revisar, corregir, completar y probar el proyecto para que cumpla:
+
+1. Todas las correcciones indicadas por el profesor en la devolución de la primera entrega.
+2. Todos los requisitos obligatorios del checklist de la segunda entrega.
+3. Los contenidos técnicos solicitados por la materia.
+4. Una mejora general de la organización, estabilidad y claridad del sistema.
+
+No quiero solamente recomendaciones generales. Necesito que analices el código real, identifiques los problemas archivo por archivo y propongas o implementes soluciones verificables.
+
+# OBJETIVO GENERAL
+
+El proyecto final debe:
+
+* Continuar siendo una aplicación de consola desarrollada en Python.
+* Mantener una organización modular.
+* Implementar correctamente el CRUD de las entidades principales.
+* Manejar proyectos, tareas, integrantes y roles.
+* Utilizar matrices o listas de listas como estructura principal.
+* Evitar errores de índices, IDs y relaciones.
+* Validar correctamente las entradas.
+* Utilizar excepciones.
+* Persistir información en archivos planos.
+* Persistir información en archivos JSON.
+* Implementar pruebas unitarias.
+* Implementar al menos tres funcionalidades recursivas.
+* Incorporar estadísticas reales.
+* Aplicar expresiones regulares.
+* Incorporar lambda, `map`, `filter` y `reduce`.
+* Utilizar de manera significativa listas, diccionarios, tuplas y conjuntos.
+* Presentar la información de manera clara.
+* Poder ejecutarse y probarse sin errores.
+
+# REGLAS GENERALES DE TRABAJO
+
+Antes de realizar cambios:
+
+1. Revisá todos los archivos del repositorio.
+2. Mostrá el árbol de carpetas y archivos.
+3. Detectá cuál es el archivo principal de ejecución.
+4. Identificá todas las entidades y sus estructuras.
+5. Identificá todas las funciones que modifican esas estructuras.
+6. Detectá código no utilizado, duplicado o incompleto.
+7. Detectá errores que puedan detener la ejecución.
+8. Prepará un plan de corrección por etapas.
+9. Indicá qué archivos serán modificados en cada etapa.
+10. Esperá mi aprobación antes de hacer una reestructuración masiva.
+
+No realices cambios aislados sin revisar previamente las dependencias.
+
+No utilices:
+
+* Clases, salvo que hayan sido autorizadas expresamente.
+* Bases de datos.
+* Pandas.
+* Frameworks.
+* Interfaces gráficas.
+* Aplicaciones web.
+* Librerías externas innecesarias.
+* Soluciones demasiado avanzadas para Programación 1.
+
+Priorizá herramientas de la biblioteca estándar de Python.
+
+No elimines funcionalidades que ya funcionen correctamente.
+
+No implementes requisitos de forma artificial solamente para indicar que fueron utilizados. Cada recurso debe resolver una necesidad real del sistema.
+
+# PARTE 1 — CORRECCIONES DE LA PRIMERA ENTREGA
+
+## 1. Analizar y documentar las estructuras de datos
+
+El sistema utiliza matrices o listas de listas para representar:
+
+* Proyectos.
+* Tareas.
+* Integrantes.
+* Roles.
+
+Antes de modificar cualquier función, indicá qué representa cada posición.
+
+Ejemplo de formato esperado:
+
+```text
+ENTIDAD: Tarea
+
+[0] ID
+[1] Nombre
+[2] Fecha de inicio
+[3] Fecha de finalización
+[4] Estado
+[5] ID del proyecto
+[6] ID del integrante responsable
+```
+
+Este ejemplo es únicamente orientativo. La estructura definitiva debe determinarse a partir del código real.
+
+Para cada entidad:
+
+* Identificá la estructura actualmente utilizada.
+* Indicá qué representa cada índice.
+* Detectá si hay funciones que esperan distintas cantidades de campos.
+* Verificá que altas, modificaciones, bajas, listados y búsquedas usen el mismo orden.
+* Corregí campos inexistentes.
+* Documentá las posiciones con constantes o comentarios claros cuando sea conveniente.
+* Evitá índices mágicos sin explicación.
+
+## 2. Corregir urgentemente la estructura de tareas
+
+Existe una inconsistencia señalada por el profesor: las tareas se crean con una cantidad determinada de campos, pero en `editar_tarea()` se intenta acceder a posiciones que podrían no existir, por ejemplo:
+
+```python
+ListaTareas[posicion][5] = editarEstado
+```
+
+Debés:
+
+* Localizar dónde se crean las tareas.
+* Determinar cuántos campos tienen realmente.
+* Revisar todas las funciones que acceden a `ListaTareas`.
+* Corregir todos los índices incorrectos.
+* Evitar `IndexError`.
+* Verificar que los encabezados coincidan con los campos.
+* Verificar que el estado, proyecto y responsable se almacenen en posiciones consistentes.
+* Probar la modificación de todos los campos de una tarea.
+* Verificar que editar una tarea nunca modifique otro campo por error.
+
+Esta corrección debe realizarse antes de implementar archivos, estadísticas o recursividad.
+
+## 3. Completar el CRUD
+
+Cada entidad principal debe tener:
+
+* Alta.
+* Baja.
+* Modificación.
+* Listado general.
+* Consulta de un registro particular.
+
+Entidades mínimas:
+
+* Proyectos.
+* Tareas.
+* Integrantes.
+* Roles.
+
+Para cada CRUD:
+
+* Validá los datos.
+* Comprobá que el registro exista antes de modificarlo.
+* Comprobá que exista antes de eliminarlo.
+* Informá claramente cuando no se encuentre.
+* Evitá imprimir el mensaje de “no encontrado” dentro de cada iteración.
+* Evitá `return` anticipados mal ubicados.
+* Evitá modificar registros incorrectos.
+* Comprobá las relaciones antes de eliminar.
+* Actualizá la persistencia después de cada operación.
+
+El login no debe contarse como CRUD de usuarios. Solamente es una validación de acceso.
+
+## 4. Eliminar la dependencia entre ID y posición
+
+No se debe asumir:
+
+```python
+posicion = id - 1
+```
+
+El ID identifica un registro, mientras que la posición indica dónde está almacenado en una lista.
+
+Debés:
+
+* Buscar cada registro comparando su ID.
+* Guardar la posición encontrada.
+* Mantener IDs únicos.
+* No reutilizar un ID eliminado accidentalmente.
+* Calcular el próximo ID a partir del mayor existente más uno.
+* Contemplar listas vacías.
+* Probar eliminaciones de registros intermedios.
+* Comprobar que los registros restantes sigan siendo accesibles.
+
+Ejemplo conceptual:
+
+```python
+def obtener_proximo_id(registros):
+    if len(registros) == 0:
+        return 1
+
+    return max(registro[0] for registro in registros) + 1
+```
+
+Adaptá la solución a los contenidos permitidos por la materia.
+
+## 5. Revisar las bajas físicas y las relaciones
+
+Antes de eliminar un registro:
+
+* Verificá si un proyecto tiene tareas.
+* Verificá si un integrante tiene tareas asignadas.
+* Verificá si un rol se encuentra asignado.
+* Evitá dejar referencias a IDs inexistentes.
+* Informá por qué una eliminación no puede realizarse.
+* Permití cancelar la operación.
+
+Si se utiliza baja lógica, debe estar claramente justificada y debe mantenerse un campo de estado coherente.
+
+No cambies automáticamente el criterio de baja física por baja lógica sin explicar el impacto.
+
+# PARTE 2 — VALIDACIONES Y MANEJO DE ERRORES
+
+## 6. Crear validaciones reutilizables
+
+Centralizá las validaciones comunes.
+
+Como mínimo deben existir validaciones para:
+
+* Opciones de menú.
+* Números enteros.
+* IDs.
+* Campos obligatorios.
+* Nombres.
+* Fechas.
+* Estados.
+* Usuarios y contraseñas.
+* Registros duplicados.
+* Relaciones con registros inexistentes.
+* Confirmaciones de eliminación.
+* Datos leídos desde archivos.
+
+Las validaciones deben:
+
+* Mostrar mensajes claros.
+* Repetir el ingreso hasta obtener un valor válido.
+* No producir ciclos infinitos.
+* No duplicarse en distintos módulos.
+* No dejar variables sin inicializar.
+* No depender de datos globales innecesariamente.
+
+## 7. Aplicar correctamente `try/except`
+
+El checklist exige uso verificable de `try/except`.
+
+Utilizalo en operaciones donde realmente pueda producirse una excepción.
+
+Contemplá, cuando corresponda:
+
+* `ValueError`.
+* `TypeError`.
+* `IndexError`.
+* `FileNotFoundError`.
+* `PermissionError`.
+* `OSError`.
+* `json.JSONDecodeError`.
+
+Ejemplo:
+
+```python
+def pedir_entero(mensaje):
+    numero_valido = False
+    numero = 0
+
+    while not numero_valido:
+        try:
+            numero = int(input(mensaje))
+            numero_valido = True
+        except ValueError:
+            print("Error: debe ingresar un número entero.")
+
+    return numero
+```
+
+Reglas:
+
+* No uses `except:` sin indicar el tipo de excepción.
+* No ocultes errores estructurales mediante `try/except`.
+* No utilices excepciones para reemplazar validaciones sencillas.
+* No captures una excepción para luego ignorarla.
+* Indicá en qué funciones se aplica el manejo de errores.
+* Probá deliberadamente cada excepción contemplada.
+
+## 8. Validar fechas correctamente
+
+Las fechas deben:
+
+* Tener un formato único, preferentemente `dd/mm/aaaa`.
+* Cumplir el patrón esperado.
+* Representar una fecha real.
+* Compararse correctamente.
+* Evitar fechas finales anteriores a las iniciales.
+
+La devolución indica que:
+
+* Solo se verificaba si el campo era numérico o no estaba vacío.
+* Se validaba por error nuevamente la fecha inicial al ingresar la fecha final.
+* En modificaciones se permitían valores arbitrarios.
+
+Creá una función reutilizable.
+
+Primero validá el formato, por ejemplo con expresión regular:
+
+```python
+r"^\d{2}/\d{2}/\d{4}$"
+```
+
+Después validá la fecha real mediante `datetime.strptime()`.
+
+Ejemplo:
+
+```python
+from datetime import datetime
+import re
+
+def convertir_fecha(fecha_texto):
+    patron = r"^\d{2}/\d{2}/\d{4}$"
+
+    if re.fullmatch(patron, fecha_texto) is None:
+        raise ValueError("El formato debe ser dd/mm/aaaa.")
+
+    return datetime.strptime(fecha_texto, "%d/%m/%Y").date()
+```
+
+La expresión regular valida el formato, pero `datetime` debe verificar que la fecha exista realmente.
+
+Aplicá esta validación en:
+
+* Alta de proyectos.
+* Modificación de proyectos.
+* Alta de tareas.
+* Modificación de tareas.
+* Filtros por fecha, si existen.
+
+Revisá la función `inputFecha()` ubicada en `General/inputFecha.py`.
+
+Integrala correctamente o reemplazala. No dejes dos funciones distintas haciendo lo mismo.
+
+## 9. Normalizar los estados
+
+No permitas estados como `"Activo?"` ni cualquier texto arbitrario.
+
+Definí estados fijos mediante tuplas.
+
+Ejemplo:
+
+```python
+ESTADOS_PROYECTO = (
+    "Activo",
+    "Finalizado",
+    "Cancelado"
+)
+
+ESTADOS_TAREA = (
+    "Pendiente",
+    "En progreso",
+    "Finalizada"
+)
+```
+
+La selección debe realizarse mediante opciones numeradas.
+
+Debés:
+
+* Validar la opción.
+* Guardar siempre el mismo texto.
+* Reutilizar las constantes.
+* Evitar diferencias por mayúsculas o espacios.
+* Mostrar correctamente los estados en listados y estadísticas.
+
+# PARTE 3 — BÚSQUEDAS Y DATOS RELACIONADOS
+
+## 10. Mejorar las búsquedas
+
+La devolución indica que se utilizaron búsquedas con `for` y que debería aplicarse el criterio trabajado en la materia.
+
+Para búsquedas secuenciales, utilizá cuando corresponda:
+
+* `while`.
+* Variable de posición.
+* Variable booleana.
+* Comparación explícita del ID.
+* `in` y `not in`.
+
+No uses `break` si el criterio académico lo evita.
+
+Ejemplo conceptual:
+
+```python
+def buscar_posicion_por_id(registros, id_buscado):
+    posicion = 0
+    encontrado = False
+
+    while posicion < len(registros) and not encontrado:
+        if registros[posicion][0] == id_buscado:
+            encontrado = True
+        else:
+            posicion += 1
+
+    if encontrado:
+        return posicion
+
+    return -1
+```
+
+No reemplaces automáticamente todos los `for`.
+
+Un `for` sigue siendo apropiado para:
+
+* Listar registros.
+* Calcular estadísticas.
+* Recorrer todos los elementos.
+* Construir colecciones.
+
+## 11. Implementar consultas relacionadas
+
+Deben existir funciones claras para consultar relaciones entre entidades.
+
+Implementá como mínimo:
+
+### Tareas de un proyecto
+
+* Seleccionar un proyecto.
+* Verificar que exista.
+* Listar las tareas asociadas.
+* Informar cuando no haya tareas.
+
+### Tareas de un integrante
+
+* Seleccionar un integrante.
+* Verificar que exista.
+* Listar todas las tareas asignadas.
+* No mostrar solamente una cantidad.
+
+### Integrantes asociados a un proyecto
+
+* Obtenerlos a partir de las tareas u otra relación existente.
+* Evitar duplicados mediante un conjunto.
+* Mostrar información legible.
+
+### Tareas por estado
+
+* Mostrar estados válidos.
+* Filtrar las tareas.
+* Informar si no hay coincidencias.
+
+### Tareas por responsable
+
+* Seleccionar un integrante.
+* Mostrar las tareas asignadas.
+
+### Tareas por rol
+
+Implementala solamente si el modelo contiene una relación coherente entre tareas, integrantes y roles.
+
+Todas las consultas deben:
+
+* Estar integradas a menús.
+* Poder ejecutarse desde el flujo principal.
+* Mostrar resultados tabulados.
+* Tener pruebas asociadas.
+
+# PARTE 4 — IMPRESIÓN Y MANIPULACIÓN DE CADENAS
+
+## 12. Mejorar los listados
+
+No se deben imprimir directamente listas internas:
+
+```python
+print(ListaRoles)
+```
+
+Cada listado debe tener:
+
+* Título.
+* Encabezados.
+* Separadores.
+* Columnas alineadas.
+* Mensaje si no existen registros.
+* Textos truncados cuando sea necesario.
+
+Ejemplo:
+
+```text
+ID    Nombre                     Estado
+------------------------------------------------
+1     Desarrollo del sistema     Activo
+2     Diseño de interfaz         Finalizado
+```
+
+Utilizá f-strings y slicing.
+
+Ejemplo:
+
+```python
+def truncar_texto(texto, longitud=25):
+    return texto[:longitud - 3] + "..." if len(texto) > longitud else texto
+```
+
+Esto permite incorporar slicing de forma útil y verificable.
+
+## 13. Utilizar operaciones de cadenas
+
+El proyecto debe utilizar de forma coherente:
+
+* `.strip()`.
+* `.lower()`.
+* `.upper()`.
+* `.title()`.
+* `.isdigit()`.
+* `in`.
+* `not in`.
+* Slicing.
+* f-strings.
+* Comparaciones normalizadas.
+
+No agregues `ord()` o `chr()` salvo que exista una aplicación real.
+
+# PARTE 5 — ESTRUCTURAS DE DATOS
+
+## 14. Matrices o listas de listas
+
+Deben continuar siendo la estructura principal de las entidades.
+
+No reemplaces las matrices por:
+
+* Clases.
+* DataFrames.
+* Bases de datos.
+* Objetos complejos.
+
+Corregí su consistencia y documentá sus campos.
+
+## 15. Listas
+
+Utilizá:
+
+* Agregado.
+* Eliminación.
+* Modificación.
+* Recorrido.
+* Comprensión de listas.
+* Slicing.
+
+Incorporá comprensión de listas cuando mejore la claridad.
+
+## 16. Diccionarios
+
+Mantené y revisá el diccionario de usuarios.
+
+Actualmente parece construirse mediante `dict(zip(...))`.
+
+Verificá:
+
+* Correspondencia entre usuario y contraseña.
+* Que una contraseña no permita acceder a otro usuario.
+* Que no se confunda el login con un CRUD.
+* Que las claves no estén duplicadas.
+* Que los datos puedan cargarse desde un archivo cuando corresponda.
+
+También podés utilizar un diccionario para agrupar estadísticas.
+
+## 17. Tuplas
+
+Incorporá tuplas como datos inmutables.
+
+Usos posibles:
+
+* Estados válidos.
+* Tipos de archivo.
+* Opciones fijas.
+* Resultado múltiple de una función.
+
+Debe existir al menos un uso significativo y explicado.
+
+## 18. Conjuntos
+
+Incorporá conjuntos en una funcionalidad real.
+
+Usos posibles:
+
+* Obtener integrantes únicos de un proyecto.
+* Detectar IDs duplicados.
+* Obtener estados existentes.
+* Obtener roles utilizados.
+* Evitar resultados repetidos.
+
+Podés utilizar:
+
+* `.add()`.
+* Unión.
+* Intersección.
+* Diferencia.
+
+# PARTE 6 — PROGRAMACIÓN FUNCIONAL
+
+## 19. Funciones lambda
+
+Implementá lambdas en casos breves y claros.
+
+Ejemplos:
+
+* Obtener una columna para ordenar.
+* Truncar textos.
+* Obtener el nombre de un registro.
+* Definir una condición simple de filtrado.
+
+No reemplaces funciones complejas por lambdas.
+
+## 20. Uso de `map`
+
+Utilizá `map` para una transformación real.
+
+Ejemplos:
+
+* Normalizar nombres.
+* Convertir datos.
+* Obtener una lista de nombres.
+* Formatear campos.
+
+El resultado debe utilizarse en el programa.
+
+## 21. Uso de `filter`
+
+Utilizá `filter` en una consulta real.
+
+Ejemplos:
+
+* Tareas por estado.
+* Tareas por proyecto.
+* Proyectos activos.
+* Integrantes con tareas asignadas.
+
+La salida debe mostrarse al usuario.
+
+## 22. Uso de `reduce`
+
+Importá:
+
+```python
+from functools import reduce
+```
+
+Utilizá `reduce` para una acumulación coherente.
+
+Ejemplos:
+
+* Contar registros.
+* Sumar tareas por proyecto.
+* Calcular un total.
+* Obtener un acumulado estadístico.
+
+No inventes campos solamente para utilizarlo.
+
+# PARTE 7 — EXPRESIONES REGULARES
+
+## 23. Implementar expresiones regulares
+
+El proyecto debe utilizar `re` en validaciones reales.
+
+Aplicaciones posibles:
+
+* Fecha.
+* Nombre de proyecto.
+* Nombre de usuario.
+* Correo electrónico, si existe.
+* Contraseña, si existe un requisito concreto.
+
+El patrón debe incluir elementos identificables de expresiones regulares:
+
+* Anclas.
+* Clases de caracteres.
+* Cuantificadores.
+* Grupos, cuando sean necesarios.
+* Metacaracteres.
+
+Cada patrón debe:
+
+* Estar centralizado.
+* Tener una función de validación.
+* Estar explicado.
+* Ser utilizado en el flujo real.
+* Tener al menos una prueba válida y una inválida.
+
+# PARTE 8 — ESTADÍSTICAS
+
+## 24. Implementar reportes estadísticos reales
+
+La opción “WIP ESTADISTICAS” debe ser reemplazada.
+
+Creá un módulo de estadísticas.
+
+Debe calcular dinámicamente:
+
+### Conteos generales
+
+* Total de proyectos.
+* Total de tareas.
+* Total de integrantes.
+* Total de roles.
+
+### Conteos por categoría
+
+* Proyectos por estado.
+* Tareas por estado.
+* Tareas por proyecto.
+* Tareas por integrante.
+
+### Porcentajes
+
+* Porcentaje de tareas finalizadas.
+* Porcentaje de tareas pendientes.
+* Porcentaje de proyectos activos.
+
+Evitá división por cero.
+
+### Promedios
+
+* Promedio de tareas por proyecto.
+* Promedio de tareas por integrante.
+* Otro promedio por categoría coherente con los datos.
+
+### Máximos y mínimos
+
+* Proyecto con más tareas.
+* Proyecto con menos tareas.
+* Integrante con más tareas.
+* Integrante con menos tareas.
+
+Contemplá empates.
+
+### Resumen estadístico
+
+Ejemplo:
+
+```text
+RESUMEN ESTADÍSTICO
+-----------------------------------------
+Proyectos totales:                   5
+Tareas totales:                     18
+Tareas finalizadas:                  7
+Porcentaje finalizadas:          38.89 %
+Promedio de tareas por proyecto:  3.60
+Proyecto con más tareas: Proyecto A
+```
+
+Las estadísticas deben:
+
+* Funcionar con listas vacías.
+* No contener valores escritos manualmente.
+* Integrarse al menú principal.
+* Tener pruebas unitarias.
+
+# PARTE 9 — ARCHIVOS PLANOS
+
+## 25. Implementar lectura y escritura de archivos planos
+
+El checklist exige:
+
+* Lectura de archivos planos.
+* Escritura de archivos planos.
+* CRUD utilizando archivos planos.
+
+No alcanza con exportar un listado. Debe existir una entidad cuyo ciclo CRUD se encuentre persistido en un archivo plano.
+
+Elegí una entidad adecuada, por ejemplo:
+
+* Roles.
+* Integrantes.
+* Usuarios.
+* Un registro de auditoría, solamente si permite CRUD real.
+
+Preferentemente utilizá una entidad sencilla como roles, siempre que sea compatible con el proyecto.
+
+Definí un formato explícito.
+
+Ejemplo:
+
+```text
+1|Administrador|Acceso total
+2|Desarrollador|Acceso técnico
+3|Diseñador|Diseño de interfaz
+```
+
+Implementá funciones separadas:
+
+```python
+cargar_roles_desde_txt()
+guardar_roles_en_txt()
+crear_rol()
+buscar_rol()
+modificar_rol()
+eliminar_rol()
+listar_roles()
+```
+
+Requisitos:
+
+* Utilizar `with open(...)`.
+* Especificar `encoding="utf-8"`.
+* Manejar archivo inexistente.
+* Manejar líneas vacías o inválidas.
+* Evitar duplicar encabezados.
+* Reescribir el archivo después de modificar o eliminar.
+* Mantener sincronizada la lista en memoria.
+* No perder registros al agregar.
+* Documentar el separador elegido.
+* Probar altas, bajas, modificaciones y consultas.
+* Tener pruebas para funciones que no dependan de `input()`.
+
+El archivo plano debe demostrar un CRUD completo verificable.
+
+# PARTE 10 — ARCHIVOS JSON
+
+## 26. Implementar lectura y escritura JSON
+
+El checklist exige:
+
+* Lectura JSON.
+* Escritura JSON.
+* CRUD utilizando archivos JSON.
+
+Elegí una o más entidades principales, preferentemente:
+
+* Proyectos.
+* Tareas.
+* Integrantes.
+
+Podés guardar todo el sistema en una estructura general:
+
+```json
+{
+    "proyectos": [],
+    "tareas": [],
+    "integrantes": [],
+    "roles": []
+}
+```
+
+Sin embargo, debe quedar claro qué CRUD se persiste mediante JSON.
+
+Implementá funciones como:
+
+```python
+cargar_datos_json()
+guardar_datos_json()
+crear_proyecto()
+buscar_proyecto()
+modificar_proyecto()
+eliminar_proyecto()
+```
+
+Requisitos:
+
+* Utilizar `json.load()`.
+* Utilizar `json.dump()`.
+* Usar `indent=4`.
+* Usar `ensure_ascii=False`.
+* Utilizar `with open(...)`.
+* Manejar `FileNotFoundError`.
+* Manejar `json.JSONDecodeError`.
+* Crear una estructura inicial si el archivo no existe.
+* Evitar escribir varios objetos JSON consecutivos.
+* Guardar siempre una estructura JSON válida.
+* Actualizar el archivo después de cada alta, baja o modificación.
+* Cargar los datos al iniciar el programa.
+* Verificar que los datos sobrevivan al reinicio.
+
+Ejemplo:
+
+```python
+import json
+
+def guardar_datos_json(ruta, datos):
+    try:
+        with open(ruta, "w", encoding="utf-8") as archivo:
+            json.dump(datos, archivo, indent=4, ensure_ascii=False)
+    except PermissionError:
+        print("No se tienen permisos para escribir el archivo.")
+```
+
+No utilices repetidas llamadas a `json.dump()` para pegar objetos individuales dentro del mismo archivo.
+
+# PARTE 11 — COEXISTENCIA ENTRE MEMORIA Y ARCHIVOS
+
+## 27. Definir una estrategia clara de persistencia
+
+Debés explicar:
+
+* Qué entidades se guardan en archivo plano.
+* Qué entidades se guardan en JSON.
+* Cuándo se cargan.
+* Cuándo se guardan.
+* Qué estructura se mantiene en memoria.
+* Cómo se evita que el archivo y la memoria tengan datos diferentes.
+
+Una estrategia posible:
+
+* Roles mediante archivo plano.
+* Proyectos, tareas e integrantes mediante JSON.
+
+No dupliques una misma entidad en TXT y JSON sin una justificación clara.
+
+Cada operación CRUD debe seguir este flujo:
+
+1. Validar la entrada.
+2. Modificar la estructura en memoria.
+3. Guardar la estructura actualizada.
+4. Informar el resultado.
+5. Manejar posibles errores de archivo.
+
+# PARTE 12 — PRUEBAS UNITARIAS
+
+## 28. Implementar pruebas mediante `pytest`
+
+El checklist exige implementación de pruebas y al menos tres casos de prueba diferentes.
+
+Utilizá `pytest`.
+
+Creá una carpeta:
+
+```text
+tests/
+```
+
+Y archivos como:
+
+```text
+tests/
+    test_validaciones.py
+    test_proyectos.py
+    test_tareas.py
+    test_archivos.py
+    test_estadisticas.py
+```
+
+Las funciones de lógica deben poder probarse sin depender directamente de `input()` o `print()`.
+
+Separá:
+
+* Entrada del usuario.
+* Lógica.
+* Persistencia.
+* Presentación.
+
+Como mínimo deben existir tres casos conceptualmente distintos, pero se recomienda una cobertura más amplia.
+
+Casos obligatorios mínimos:
+
+### Caso 1: validación correcta
+
+Ejemplo:
+
+* Una fecha válida es aceptada.
+* Una fecha inválida produce `ValueError` o resultado falso.
+
+### Caso 2: operación CRUD
+
+Ejemplo:
+
+* Crear un proyecto aumenta la cantidad de registros.
+* Modificar cambia el campo correcto.
+* Eliminar quita el registro correcto.
+
+### Caso 3: condición de error
+
+Ejemplo:
+
+* Buscar un ID inexistente devuelve `-1` o `None`.
+* Eliminar un registro inexistente no altera la lista.
+* Un archivo JSON inválido se maneja correctamente.
+
+Agregá también pruebas recomendadas para:
+
+* Próximo ID.
+* Comparación de fechas.
+* Estado válido.
+* Tareas por proyecto.
+* Estadísticas con listas vacías.
+* Máximo y mínimo.
+* Lectura y escritura TXT.
+* Lectura y escritura JSON.
+* Funciones recursivas.
+
+Utilizá:
+
+* `assert`.
+* `pytest.raises(...)`.
+* `tmp_path` para no modificar los archivos reales durante las pruebas.
+
+Ejemplo:
+
+```python
+import pytest
+
+def test_fecha_invalida():
+    with pytest.raises(ValueError):
+        convertir_fecha("31/02/2026")
+```
+
+La ejecución debe funcionar con:
+
+```bash
+pytest
+```
+
+y:
+
+```bash
+pytest -v
+```
+
+Explicá cómo ejecutar las pruebas desde la terminal de Visual Studio Code.
+
+# PARTE 13 — RECURSIVIDAD
+
+## 29. Implementar al menos tres funcionalidades recursivas
+
+El checklist exige recursividad en al menos tres funcionalidades.
+
+No alcanza con crear tres ejemplos desconectados del sistema. Las funciones deben estar integradas o ser utilizadas por funcionalidades reales.
+
+Cada función recursiva debe tener:
+
+* Caso base.
+* Caso recursivo.
+* Progreso hacia el caso base.
+* Retorno claro.
+* Prueba unitaria.
+* Explicación del funcionamiento.
+
+Implementá al menos tres de las siguientes opciones:
+
+### Funcionalidad recursiva 1: buscar un registro por ID
+
+```python
+def buscar_por_id_recursivo(registros, id_buscado, indice=0):
+    if indice >= len(registros):
+        return -1
+
+    if registros[indice][0] == id_buscado:
+        return indice
+
+    return buscar_por_id_recursivo(registros, id_buscado, indice + 1)
+```
+
+Debe utilizarse en una consulta o funcionalidad real.
+
+### Funcionalidad recursiva 2: contar tareas de un proyecto
+
+```python
+def contar_tareas_proyecto_recursivo(tareas, id_proyecto, indice=0):
+    if indice >= len(tareas):
+        return 0
+
+    cantidad_actual = 1 if tareas[indice][ID_PROYECTO] == id_proyecto else 0
+
+    return cantidad_actual + contar_tareas_proyecto_recursivo(
+        tareas,
+        id_proyecto,
+        indice + 1
+    )
+```
+
+Puede utilizarse en estadísticas.
+
+### Funcionalidad recursiva 3: listar o construir registros
+
+Ejemplo:
+
+```python
+def obtener_nombres_recursivo(registros, indice=0):
+    if indice >= len(registros):
+        return []
+
+    return [registros[indice][1]] + obtener_nombres_recursivo(
+        registros,
+        indice + 1
+    )
+```
+
+Puede utilizarse en un menú, informe o consulta.
+
+Otras posibilidades:
+
+* Contar tareas finalizadas.
+* Calcular una suma.
+* Obtener el máximo de una lista.
+* Recorrer una lista para verificar duplicados.
+* Mostrar una estructura jerárquica.
+* Calcular estadísticas.
+
+Reglas:
+
+* Deben ser tres funcionalidades diferentes.
+* No deben ser tres variantes casi idénticas de la misma función.
+* No uses recursión infinita.
+* No modifiques accidentalmente la lista original.
+* Documentá el caso base y el caso recursivo.
+* Incluí pruebas con lista vacía, un elemento y varios elementos.
+
+# PARTE 14 — MODULARIZACIÓN Y LIMPIEZA
+
+## 30. Revisar funciones no utilizadas
+
+La devolución menciona:
+
+* `inputFecha()` en `General/inputFecha.py`.
+* `imprimirMenuSeleccionarProyecto()` en `Proyectos/menus.py`.
+* `imprimirMenuTareas()` en `Tareas/menus.py`.
+
+Para cada función:
+
+* Comprobá si se importa.
+* Comprobá si se ejecuta.
+* Determiná si duplica otra función.
+* Integrala si es útil.
+* Eliminala si quedó obsoleta.
+* Eliminá imports no utilizados.
+
+## 31. Separar responsabilidades
+
+La organización debería diferenciar:
+
+* Menús.
+* Validaciones.
+* Lógica CRUD.
+* Persistencia.
+* Consultas.
+* Estadísticas.
+* Recursividad.
+* Pruebas.
+
+Estructura orientativa:
+
+```text
+Proyecto/
+│
+├── main.py
+├── data/
+│   ├── datos.json
+│   └── roles.txt
+│
+├── General/
+│   ├── validaciones.py
+│   ├── fechas.py
+│   ├── archivos.py
+│   └── utilidades.py
+│
+├── Proyectos/
+│   ├── crud.py
+│   ├── consultas.py
+│   └── menus.py
+│
+├── Tareas/
+│   ├── crud.py
+│   ├── consultas.py
+│   └── menus.py
+│
+├── Integrantes/
+│   ├── crud.py
+│   ├── consultas.py
+│   └── menus.py
+│
+├── Roles/
+│   ├── crud.py
+│   └── menus.py
+│
+├── Estadisticas/
+│   ├── calculos.py
+│   └── menus.py
+│
+├── Recursividad/
+│   └── funciones_recursivas.py
+│
+└── tests/
+    ├── test_validaciones.py
+    ├── test_crud.py
+    ├── test_archivos.py
+    ├── test_estadisticas.py
+    └── test_recursividad.py
+```
+
+No reorganices todo si la estructura actual ya es clara. Adaptá esta propuesta al repositorio.
+
+Evitá:
+
+* Imports circulares.
+* Funciones duplicadas.
+* Variables globales innecesarias.
+* Dependencia directa de `input()` dentro de todas las funciones de lógica.
+* Archivos con nombres confusos.
+* Código comentado que ya no se utiliza.
+* Funciones demasiado extensas.
+
+# PARTE 15 — LOGIN
+
+## 32. Revisar el acceso de usuarios
+
+El login debe:
+
+* Verificar que el usuario exista.
+* Verificar que la contraseña corresponda a ese usuario.
+* Rechazar contraseñas incorrectas.
+* Evitar que la contraseña de otro usuario permita acceder.
+* Mostrar mensajes claros.
+* Permitir reintentar o salir.
+* No mostrar las contraseñas.
+* Manejar entradas vacías.
+
+No implementes hashing ni sistemas avanzados salvo que la consigna lo pida.
+
+# PARTE 16 — GIT E INFORME
+
+## 33. Repositorio Git
+
+La devolución indica que el repositorio no pudo evaluarse porque no se proporcionó el enlace.
+
+Prepará una lista de verificación:
+
+* Repositorio existente.
+* Enlace accesible.
+* Permisos correctos.
+* Historial de commits.
+* Participación de todos los integrantes.
+* Commits descriptivos.
+* Rama correcta.
+* `.gitignore`.
+* Ausencia de entornos virtuales.
+* Ausencia de `__pycache__`.
+* Ausencia de archivos temporales.
+* README actualizado.
+
+No inventes commits ni participación.
+
+## 34. README
+
+Debe incluir:
+
+* Nombre del proyecto.
+* Número de grupo.
+* Integrantes.
+* Descripción.
+* Requisitos.
+* Versión de Python.
+* Instrucciones de instalación.
+* Instrucciones de ejecución.
+* Cómo ejecutar pruebas.
+* Credenciales de prueba.
+* Estructura de carpetas.
+* Entidades del sistema.
+* Persistencia TXT y JSON.
+* Funciones recursivas utilizadas.
+* Funcionalidades.
+* Enlace o información de entrega.
+
+## 35. Informe en Word
+
+El informe debe ser un archivo `.docx` accesible.
+
+Debe contener:
+
+1. Portada.
+2. Integrantes.
+3. Descripción del sistema.
+4. Objetivos.
+5. Estructura modular.
+6. Entidades y campos.
+7. Relaciones entre entidades.
+8. CRUD implementado.
+9. Correcciones de la primera entrega.
+10. Validaciones.
+11. Manejo de excepciones.
+12. Expresiones regulares.
+13. Listas de listas.
+14. Listas y slicing.
+15. Diccionarios.
+16. Tuplas.
+17. Conjuntos.
+18. Lambda.
+19. `map`.
+20. `filter`.
+21. `reduce`.
+22. Estadísticas.
+23. Archivos planos.
+24. Archivos JSON.
+25. Tres funcionalidades recursivas.
+26. Pruebas unitarias.
+27. Casos de prueba.
+28. Capturas de ejecución.
+29. Enlace al repositorio.
+30. Enlace al video creado por el usuario.
+31. Conclusiones.
+
+El informe debe coincidir con el código real.
+
+# PARTE 17 — PRUEBAS MANUALES OBLIGATORIAS
+
+Realizá o describí pruebas para los siguientes casos:
+
+## Login
+
+1. Usuario válido y contraseña correcta.
+2. Usuario válido y contraseña incorrecta.
+3. Usuario inexistente.
+4. Campos vacíos.
+
+## Proyectos
+
+5. Crear proyecto válido.
+6. Crear proyecto con nombre vacío.
+7. Crear proyecto con fecha inválida.
+8. Crear proyecto con fecha final anterior.
+9. Modificar nombre.
+10. Modificar fechas.
+11. Modificar estado.
+12. Buscar ID existente.
+13. Buscar ID inexistente.
+14. Eliminar proyecto sin tareas.
+15. Intentar eliminar proyecto con tareas.
+
+## Tareas
+
+16. Crear tarea válida.
+17. Crear tarea con proyecto inexistente.
+18. Crear tarea con responsable inexistente.
+19. Modificar todos sus campos.
+20. Comprobar que no se produzca `IndexError`.
+21. Filtrar por estado.
+22. Listar tareas de un proyecto.
+23. Listar tareas de un integrante.
+24. Eliminar una tarea.
+
+## IDs
+
+25. Eliminar un registro intermedio.
+26. Crear un registro nuevo.
+27. Verificar que no se repita el ID.
+28. Buscar registros después de una eliminación.
+
+## Archivos planos
+
+29. Leer archivo existente.
+30. Crear archivo inexistente.
+31. Agregar un registro.
+32. Modificar un registro.
+33. Eliminar un registro.
+34. Manejar línea inválida.
+35. Manejar falta de permisos cuando sea posible.
+
+## JSON
+
+36. Leer JSON válido.
+37. Crear archivo si no existe.
+38. Manejar JSON vacío.
+39. Manejar JSON mal formado.
+40. Guardar un alta.
+41. Guardar una modificación.
+42. Guardar una baja.
+43. Reiniciar y recuperar los datos.
+
+## Estadísticas
+
+44. Calcular con datos.
+45. Calcular con listas vacías.
+46. Evitar división por cero.
+47. Resolver empates en máximos y mínimos.
+
+## Recursividad
+
+48. Probar cada función con lista vacía.
+49. Probar cada función con un registro.
+50. Probar cada función con varios registros.
+51. Probar búsqueda de elemento inexistente.
+52. Verificar que cada llamada se acerque al caso base.
+
+## Pruebas unitarias
+
+53. Ejecutar `pytest`.
+54. Ejecutar `pytest -v`.
+55. Verificar que no se modifiquen archivos reales.
+56. Verificar que todos los tests sean independientes.
+57. Verificar al menos tres casos conceptualmente diferentes.
+
+## Menús
+
+58. Probar cada opción.
+59. Probar opciones inválidas.
+60. Volver al menú anterior.
+61. Salir correctamente.
+62. Verificar ausencia de ciclos infinitos.
+
+# PARTE 18 — FORMATO DE RESPUESTA
+
+Antes de modificar, entregame:
+
+## 1. Diagnóstico inicial
+
+* Árbol de carpetas.
+* Archivo principal.
+* Entidades.
+* Estructuras actuales.
+* Dependencias.
+* Errores críticos.
+* Funciones no utilizadas.
+* Requisitos faltantes.
+
+## 2. Matriz de cumplimiento
+
+Creá una tabla con:
+
+```text
+Requisito | Estado actual | Archivo relacionado | Acción necesaria
+```
+
+Estados permitidos:
+
+* Cumplido.
+* Parcialmente cumplido.
+* No cumplido.
+* No verificable.
+
+Incluí todos estos requisitos:
+
+* Correcciones de la primera entrega.
+* Mejora general.
+* CRUD.
+* Validaciones.
+* `try/except`.
+* Pruebas.
+* Tres casos de prueba.
+* Archivo plano.
+* CRUD con archivo plano.
+* JSON.
+* CRUD con JSON.
+* Tres funcionalidades recursivas.
+* Estadísticas.
+* Regex.
+* Lambda.
+* `map`.
+* `filter`.
+* `reduce`.
+* Listas.
+* Matrices.
+* Diccionarios.
+* Tuplas.
+* Conjuntos.
+* Slicing.
+* Consultas relacionadas.
+* Git.
+* README.
+* Informe.
+
+## 3. Plan por etapas
+
+El plan debe seguir este orden:
+
+1. Estabilización de estructuras.
+2. Corrección de tareas.
+3. Corrección de IDs.
+4. CRUD.
+5. Validaciones.
+6. Excepciones.
+7. Consultas relacionadas.
+8. Presentación.
+9. Estructuras obligatorias.
+10. Programación funcional.
+11. Regex.
+12. Estadísticas.
+13. Archivo plano.
+14. JSON.
+15. Recursividad.
+16. Pruebas unitarias.
+17. Limpieza.
+18. Documentación.
+19. Verificación final.
+
+## 4. Correcciones individuales
+
+Para cada corrección utilizá:
+
+### Corrección N — Nombre
+
+#### Problema detectado
+
+#### Archivo y función
+
+#### Consecuencia
+
+#### Solución propuesta
+
+#### Código anterior relevante
+
+#### Código corregido completo
+
+#### Dependencias revisadas
+
+#### Prueba manual
+
+#### Prueba unitaria
+
+#### Estado
+
+Estados:
+
+* Corregido.
+* Parcialmente corregido.
+* Pendiente.
+* Requiere decisión del equipo.
+
+# CONDICIONES FINALES DE ACEPTACIÓN
+
+El proyecto solamente puede considerarse completo si:
+
+* No hay accesos a índices inexistentes.
+* No se depende de `id - 1`.
+* Todos los CRUD funcionan.
+* Las fechas se validan.
+* Los estados están normalizados.
+* Las relaciones son consistentes.
+* Las consultas cruzadas funcionan.
+* Las estadísticas están implementadas.
+* Se utilizan expresiones regulares.
+* Se utilizan lambda, `map`, `filter` y `reduce`.
+* Se utilizan matrices, listas, diccionarios, tuplas y conjuntos.
+* Existe slicing útil.
+* Se utiliza `try/except`.
+* Existe CRUD persistido en archivo plano.
+* Existe CRUD persistido en JSON.
+* Los archivos se cargan y guardan correctamente.
+* Existen al menos tres funcionalidades recursivas reales.
+* Existen pruebas unitarias.
+* Existen al menos tres casos de prueba diferentes.
+* Todos los tests pasan.
+* No existen funciones huérfanas.
+* No existen imports innecesarios.
+* La salida es legible.
+* El repositorio es accesible.
+* El README está actualizado.
+* El informe coincide con el código.
+
+No declares un requisito como cumplido sin indicar:
+
+1. En qué archivo está implementado.
+2. En qué función está implementado.
+3. Cómo se ejecuta.
+4. Cómo se prueba.
+5. Qué resultado esperado tiene.

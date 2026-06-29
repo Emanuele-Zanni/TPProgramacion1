@@ -1,0 +1,23 @@
+## 36. Video
+
+El video debe demostrar:
+
+* Inicio del programa.
+* Login.
+* Menú principal.
+* CRUD de proyectos.
+* CRUD de tareas.
+* CRUD de integrantes.
+* CRUD de roles.
+* Validaciones.
+* Manejo de errores.
+* Consulta de datos relacionados.
+* Estadísticas.
+* Archivo plano.
+* Archivo JSON.
+* Persistencia después de reiniciar.
+* Ejecución de pruebas.
+* Tres funcionalidades recursivas.
+* Organización del repositorio.
+
+El enlace debe ser accesible sin solicitar permisos.

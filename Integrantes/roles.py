@@ -1,5 +1,6 @@
 from General.clearConsole import*
 from Integrantes.validaciones import *
+from General.formato import imprimir_tabla, imprimir_titulo
 
 def imprimirMenuRoles(ListaRoles, credencial):
     activo=True
@@ -151,15 +152,14 @@ def eliminar_rol(ListaRoles):
 
 
 def mostrarListaRoles(ListaRoles):
-    print(f"{'ID':<5}{'Nombre del rol':<30}")
-    print("-" * 20)
-    
-    for rol in ListaRoles:
-        id = rol[0]
-        nombre = rol[1]     
-        print(f"{id:<5}{nombre:<30}")
-    
-    print()
+    imprimir_titulo("Lista de Roles")
+    imprimir_tabla(
+        [
+            {"titulo": "ID", "min": 4, "peso": 1},
+            {"titulo": "Nombre del rol", "min": 20, "peso": 4},
+        ],
+        [[rol[0], rol[1]] for rol in ListaRoles]
+    )
 
 
 

@@ -1,20 +1,20 @@
 from General.clearConsole import *
 from General.inputFecha import *
 from Tareas.funciones import *
-from General.formato import imprimir_titulo
+from General.formato import imprimir_tabla, imprimir_titulo
 # from Proyectos.menus import imprimirMenuSeleccionarProyecto
 
 def mostrarListaProyectos(ListaProyectos):
     imprimir_titulo("Lista de Proyectos")
-    print(
-        f"{'ID':<5}"
-        f"{'Nombre':<25}"
-        f"{'Tareas':<15}"
-        f"{'Inicio':<12}"
-        f"{'Fin':<12}"
-        f"{'Estado':<10}"
-    )
-    print("-" * 75)
+    columnas = [
+        {"titulo": "ID", "min": 4, "peso": 1},
+        {"titulo": "Nombre", "min": 18, "peso": 4},
+        {"titulo": "Tareas", "min": 8, "peso": 1},
+        {"titulo": "Inicio", "min": 12, "peso": 2},
+        {"titulo": "Fin", "min": 12, "peso": 2},
+        {"titulo": "Estado", "min": 10, "peso": 2},
+    ]
+    filas = []
     for proyecto in ListaProyectos:
         id_ = proyecto[0]
         nombre = proyecto[1]
@@ -22,43 +22,15 @@ def mostrarListaProyectos(ListaProyectos):
         inicio = proyecto[3]
         fin = proyecto[4]
         estado = proyecto[5]
-        if len(nombre) > 20 and len(str(tareas)) > 10:
-            print(
-                f"{id_:<5}"
-                f"{nombre[:20] + '...':<25}"
-                f"{str(tareas)[:10] + '...':<15}"
-                f"{inicio.strftime('%d/%m/%Y'):<12}"
-                f"{fin.strftime('%d/%m/%Y'):<12}"
-                f"{estado:<10}"
-            )
-        elif len(str(tareas)) > 10:
-            print(
-                 f"{id_:<5}"
-                f"{nombre:<25}"
-                f"{str(tareas)[:10] + '...':<15}"
-                f"{inicio.strftime('%d/%m/%Y'):<12}"
-                f"{fin.strftime('%d/%m/%Y'):<12}"
-                f"{estado:<10}"
-            )
-        elif len(nombre) > 20:
-            print(
-                f"{id_:<5}"
-                f"{nombre[:20] + '...':<25}"
-                f"{str(tareas):<15}"
-                f"{inicio.strftime('%d/%m/%Y'):<12}"
-                f"{fin.strftime('%d/%m/%Y'):<12}"
-                f"{estado:<10}"
-            )
-        else: 
-            print(
-                f"{id_:<5}"
-                f"{nombre:<25}"
-                f"{str(tareas):<15}"
-                f"{inicio.strftime('%d/%m/%Y'):<12}"
-                f"{fin.strftime('%d/%m/%Y'):<12}"
-                f"{estado:<10}"
-            )
-    print("")
+        filas.append([
+            id_,
+            nombre,
+            tareas,
+            inicio.strftime('%d/%m/%Y'),
+            fin.strftime('%d/%m/%Y'),
+            estado,
+        ])
+    imprimir_tabla(columnas, filas)
     
 
 def ver_proyectos(ListaProyectos):
@@ -73,7 +45,104 @@ def ver_proyectos(ListaProyectos):
         input("Ingrese cualquier opcion para continuar...")
 
 
-def seleccionar_proyecto(ListaProyectos, credencial):
+def obtener_id_usuario_desde_credencial(ListaUsuarios, credencial):
+    usuario_credencial = credencial.get("user")
+
+    for nombre_usuario, datos_usuario in ListaUsuarios.items():
+        if nombre_usuario == usuario_credencial:
+            return datos_usuario.get("id")
+
+    return None
+
+
+def obtener_managers_disponibles(ListaUsuarios, owner_id_actual):
+    managers = []
+
+    for nombre_usuario, datos_usuario in ListaUsuarios.items():
+        usuario_id = datos_usuario.get("id")
+        if datos_usuario.get("clearance") == 2 and usuario_id != owner_id_actual:
+            managers.append((nombre_usuario, datos_usuario))
+
+    return managers
+
+
+def entregar_ownership_proyecto(proyecto, ListaUsuarios):
+    owner_id_actual = proyecto[7] if len(proyecto) > 7 else None
+    managers_disponibles = obtener_managers_disponibles(ListaUsuarios, owner_id_actual)
+
+    if len(managers_disponibles) == 0:
+        print()
+        input("No hay managers disponibles")
+        return
+
+    clearConsole()
+    print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > Editar *Proyectos(Ownership)*]\033[0m")
+    print()
+    mostrar_tarea_proyecto("proyecto", proyecto)
+    imprimir_tabla(
+        [
+            {"titulo": "ID", "min": 4, "peso": 1},
+            {"titulo": "Usuario", "min": 18, "peso": 3},
+        ],
+        [[datos_usuario.get("id", ""), nombre_usuario.capitalize()] for nombre_usuario, datos_usuario in managers_disponibles]
+    )
+
+    nuevo_owner_id = input("â€¢ Ingrese el ID del manager que recibira el ownership (0 para cancelar): ")
+    if nuevo_owner_id == "0":
+        print()
+        input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
+        return
+    if nuevo_owner_id == "":
+        print()
+        input("\033[31m[ERROR] El id no puede estar vacio.\033[0m")
+        return
+    if nuevo_owner_id.isdigit() == False:
+        print()
+        input("\033[31m[ERROR] El id debe ser un numero.\033[0m")
+        return
+
+    nuevo_owner_id = int(nuevo_owner_id)
+    nuevo_owner_usuario = None
+    for nombre_usuario, datos_usuario in managers_disponibles:
+        if datos_usuario.get("id") == nuevo_owner_id:
+            nuevo_owner_usuario = (nombre_usuario, datos_usuario)
+            break
+
+    if nuevo_owner_usuario is None:
+        print()
+        input("\033[31m[ERROR] El manager con ese ID no existe.\033[0m")
+        return
+
+    proyecto[7] = nuevo_owner_id
+    if nuevo_owner_id not in proyecto[6]:
+        proyecto[6].append(nuevo_owner_id)
+
+    for _, datos_usuario in ListaUsuarios.items():
+        for proyecto_usuario in datos_usuario.get("projects", []):
+            if proyecto_usuario.get("projectId") == proyecto[0] and proyecto_usuario.get("rol") == "Owner":
+                proyecto_usuario["rol"] = "Sin rol"
+
+    proyectos_usuario_owner = nuevo_owner_usuario[1].setdefault("projects", [])
+    registro_owner = None
+    for proyecto_usuario in proyectos_usuario_owner:
+        if proyecto_usuario.get("projectId") == proyecto[0]:
+            registro_owner = proyecto_usuario
+            break
+
+    if registro_owner is None:
+        proyectos_usuario_owner.append({
+            "projectId": proyecto[0],
+            "rol": "Owner",
+            "tareas": []
+        })
+    else:
+        registro_owner["rol"] = "Owner"
+
+    print()
+    input("\033[92m[EXITO] Ownership transferido correctamente.\033[0m")
+
+
+def seleccionar_proyecto(ListaProyectos, ListaUsuarios, credencial):
         isProjectReal = False
         p1 = True
         inProgress = True
@@ -88,14 +157,14 @@ def seleccionar_proyecto(ListaProyectos, credencial):
             while p1 and inProgress:
                 clearConsole()
                 print("\033[33m[Menu principal > Proyectos > *Seleccionar Proyectos*]\033[0m")
-                print()
+                # print()
                 mostrarListaProyectos(ListaProyectos)
-                id = input("• Ingrese el ID del proyecto a seleccionar (0 para cancelar): ")
+                id = input("• Ingrese el ID del proyecto a seleccionar (0 para volver): ")
                 if id.isdigit():
                     if id == "0":
                         inProgress = False
                         print()
-                        input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
+                        # input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                     else:    
                         id = int(id)
                         for project in ListaProyectos:
@@ -119,8 +188,9 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                 on = True
                 while on:
                     clearConsole()
-                    print("\033[33m[Menu principal > Proyectos > *Proyecto Seleccionado*]\033[0m")
-                    print() 
+                    print("\033[33m[Menu principal > Proyectos > Seleccionar Proyectos > *Proyecto Seleccionado*]\033[0m")
+                    # print() 
+                    #! nombre poco autodescriptivo
                     mostrar_tarea_proyecto("proyecto", proyecto)
 
                     if credencial["clearance"] == 1:
@@ -130,22 +200,35 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                         print()
                         opcion=input("• Seleccione una opcion: ")
                         if opcion=="1":
-                            ver_tareas(proyecto[2])
+                            ver_tareas(proyecto[2], proyecto, ListaUsuarios, credencial)
                         elif opcion=="0":
                             on=False
                         else:
                             input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
+                    # elif credencial["clearance"] > 1:
+                    #     print("1. Ver tarea")
+                    #     print("?. Seleccionar tarea (WIP)")
+                    #     print("0. Volver atras")
+                    #     print()
+                    #     opcion=input("• Seleccione una opcion: ")
+                    #     if opcion=="1":
+                    #         ver_tareas(proyecto[2])
+                    #     elif opcion=="0":
+                    #         on=False
+                    #     else:
+                    #         input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
                     else:
-                        print("1. Ver tarea")
+                        print("1. Ver tareas")
                         print("2. Crear tarea")
                         print("3. Editar tarea")
                         print("4. Eliminar tarea")
-                        print("5. Asignar tarea")
+                        print("5. Asignar tareas")
+                        print("6. Gestionar integrantes del proyecto")
                         print("0. Volver atras")
                         print()
                         opcion=input("• Seleccione una opcion: ")
                         if opcion=="1":
-                            ver_tareas(proyecto[2])
+                            ver_tareas(proyecto[2], proyecto, ListaUsuarios, credencial)
                         elif opcion=="2":
                             crear_tarea(proyecto[2])
                         elif opcion=="3":
@@ -153,15 +236,16 @@ def seleccionar_proyecto(ListaProyectos, credencial):
                         elif opcion=="4":
                             eliminar_tarea(proyecto[2])
                         elif opcion=="5":
-                            ListaUsuariosFalsa = [1,2,3]
-                            asignar_tarea_integrante(proyecto[2], ListaUsuariosFalsa)
+                            asignar_tarea_integrante(proyecto[2], proyecto, ListaUsuarios)
+                        elif opcion=="6":
+                            gestionar_integrantes_proyecto(proyecto, ListaUsuarios)
                         elif opcion=="0":
                             on=False
                         else:
                             input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
     
 
-def crear_proyecto(ListaProyectos):
+def crear_proyecto(ListaProyectos, ListaUsuarios, credencial):
     clearConsole()
     print("\033[33m[Menu Principal > Proyectos > *Crear Proyectos*]\033[0m")
     print()
@@ -234,10 +318,24 @@ def crear_proyecto(ListaProyectos):
 
     if inProgress:
 
-        #? Type Proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
-        nuevo_proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado]
+        owner_id = obtener_id_usuario_desde_credencial(ListaUsuarios, credencial)
+        integrantes = []
+        if owner_id is not None:
+            integrantes.append(owner_id)
+
+        #? Type Proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado,integrantes,ownerId]
+        nuevo_proyecto = [id,nombreProyecto,tareas,FechaInicio,FechaFinal,Estado,integrantes,owner_id]
         
         ListaProyectos.append(nuevo_proyecto)
+        if owner_id is not None:
+            for datos_usuario in ListaUsuarios.values():
+                if datos_usuario.get("id") == owner_id:
+                    datos_usuario.setdefault("projects", []).append({
+                        "projectId": id,
+                        "rol": "Owner",
+                        "tareas": []
+                    })
+                    break
         clearConsole()
         print("\033[33m[Menu Principal > Proyectos > *Crear Proyectos*]\033[0m")
         print()
@@ -247,9 +345,10 @@ def crear_proyecto(ListaProyectos):
         print(f"Fecha de Finalizacion: {FechaFinal.strftime('%d/%m/%Y')}")
         print()
         input("\033[92m[EXITO] Proyecto creado correctamente.\033[0m")
+        gestionar_integrantes_proyecto(nuevo_proyecto, ListaUsuarios)
 
 #no basico
-def editar_proyecto(ListaProyectos):
+def editar_proyecto(ListaProyectos, ListaUsuarios, credencial):
     on = True
     
     if len(ListaProyectos) == 0:
@@ -299,10 +398,13 @@ def editar_proyecto(ListaProyectos):
                     clearConsole()
                     print("\033[33m[Menu Principal > Proyectos > Seleccionar Proyectos > Editar *Proyectos*]\033[0m")
                     print()
+                    mostrar_tarea_proyecto("proyecto", ListaProyectos[posicion])
                     print("1. Cambiar Nombre")
                     print("2. Cambiar fecha de inicio")
                     print("3. Cambiar fecha final")
                     print("4. Cambiar el estado del proyecto")
+                    if credencial["clearance"] >= 2:
+                        print("5. Entregar Ownership")
                     print("0. Volver")
                     print("")
                     opcion = input("• Seleccione una opcion:")
@@ -414,13 +516,24 @@ def editar_proyecto(ListaProyectos):
                             else:
                                 print("Opcion invalida. Intente nuevamente.")
                                 input("Ingrese cualquier opcion para continuar...")
+                    elif opcion == "5" and credencial["clearance"] >= 2:
+                        entregar_ownership_proyecto(ListaProyectos[posicion], ListaUsuarios)
                     elif opcion == "0":
                         p1 = False
                         input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
                     else:
                         input("\033[31m[ERROR] Número inválido.\033[0m")
 
-                    proyecto_editado = [id,editarNombre,editarFechaInicio,editarFechaFinal,editarEstado]
+                    proyecto_editado = [
+                        id,
+                        editarNombre,
+                        ListaProyectos[posicion][2],
+                        editarFechaInicio,
+                        editarFechaFinal,
+                        editarEstado,
+                        ListaProyectos[posicion][6],
+                        ListaProyectos[posicion][7]
+                    ]
 
                 while p2 and isProjectReal:
                     clearConsole()
@@ -505,3 +618,91 @@ def eliminar_proyecto(ListaProyectos):
                 if isProjectReal == False:
                     print()
                     input("\033[31m[ERROR] El proyecto con el ID ingresado no existe.\033[0m")
+
+def mostrarListaIntegrantesProyecto(ListaUsuarios, proyecto):
+    integrantes_proyecto = proyecto[6] if len(proyecto) > 6 else []
+    filas = []
+    for nombre_usuario, datos_usuario in ListaUsuarios.items():
+        usuario_id = datos_usuario.get("id", "")
+        agregado = "Si" if usuario_id in integrantes_proyecto else "No"
+        filas.append([usuario_id, nombre_usuario.capitalize(), agregado])
+
+    imprimir_tabla(
+        [
+            {"titulo": "ID", "min": 4, "peso": 1},
+            {"titulo": "Usuario", "min": 18, "peso": 3},
+            {"titulo": "Agregado", "min": 10, "peso": 1},
+        ],
+        filas
+    )
+
+
+def gestionar_integrantes_proyecto(proyecto, ListaUsuarios):
+    if len(proyecto) <= 6:
+        proyecto.append([])
+
+    on = True
+
+    while on:
+        clearConsole()
+        print("\033[33m[Menu principal > Proyectos > Proyecto Seleccionado > *Gestionar Integrantes*]\033[0m")
+        print()
+        mostrar_tarea_proyecto("proyecto", proyecto)
+        mostrarListaIntegrantesProyecto(ListaUsuarios, proyecto)
+        usuario_id = input("Ingrese el ID del usuario para agregarlo o quitarlo del proyecto (0 para volver): ")
+
+        if usuario_id == "":
+            print()
+            input("\033[31m[ERROR] El ID no puede estar vacio.\033[0m")
+            continue
+
+        if usuario_id == "0":
+            print()
+            # input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
+            on = False
+            continue
+
+        if usuario_id.isdigit() == False:
+            print()
+            input("\033[31m[ERROR] El ID debe ser un numero.\033[0m")
+            continue
+
+        usuario_id = int(usuario_id)
+        usuario_encontrado = None
+
+        for nombre_usuario, datos_usuario in ListaUsuarios.items():
+            if datos_usuario.get("id") == usuario_id:
+                usuario_encontrado = (nombre_usuario, datos_usuario)
+                break
+
+        if usuario_encontrado is None:
+            print()
+            input("\033[31m[ERROR] El usuario con ese ID no existe.\033[0m")
+            continue
+
+        nombre_usuario, datos_usuario = usuario_encontrado
+        proyectos_usuario = datos_usuario.setdefault("projects", [])
+        registro_proyecto = None
+
+        for proyecto_usuario in proyectos_usuario:
+            if proyecto_usuario.get("projectId") == proyecto[0]:
+                registro_proyecto = proyecto_usuario
+                break
+
+        if usuario_id in proyecto[6]:
+            proyecto[6].remove(usuario_id)
+            if registro_proyecto is not None:
+                proyectos_usuario.remove(registro_proyecto)
+            print()
+            # input(f"\033[92m[EXITO] {nombre_usuario} fue quitado del proyecto.\033[0m")
+        else:
+            proyecto[6].append(usuario_id)
+            if registro_proyecto is None:
+                proyectos_usuario.append({
+                    "projectId": proyecto[0],
+                    "rol": "Sin rol",
+                    "tareas": []
+                })
+            print()
+            # input(f"\033[92m[EXITO] {nombre_usuario} fue agregado al proyecto.\033[0m")
+

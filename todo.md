@@ -5,8 +5,6 @@ Stats va a dividirse por cada modulo (Stats de proyectos, Stats de integrantes, 
 
 - Aplicar todos los requisitos del CHECKLIST
 
-- Normalizar todas las cosas que hagan falta normalizar (Textos, estilos, prints, etc)
-
 - Upgradear la logica de TAREAS (agregar descripcion para tareas , mejorar el print de tareas mostrando title y desc??). aGREGAR TAMBIEN reloj interno para determinar cuando expira o no (automaticamente cambiar el estado. Agregar esstados a tarea y modificaciones)
 - Estados de tarea: Completado, Pendiente/InProgress, Expirado/DueDate,
 

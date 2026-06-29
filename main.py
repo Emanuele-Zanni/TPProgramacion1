@@ -1,5 +1,3 @@
-
-#
 #! Imports --------------------
 
 from General.clearConsole import *
@@ -15,23 +13,17 @@ from Database.usuarios import*
 from Stats.menu import*
 from Stats.funciones import*
 
-
-"""Tareas (Crear tareas, eliminar tareas
-asignar tareas, actualizar su estado (pendiente
-en progreso, completada), registrar nuevas tareas)
-
-Integrante (Búsqueda por integrante para ver las tareas
-asignadas, estasdísticas de la cantidad de proyectos activos
-porcentaje de tareas completadas, promedio de tareas por integrante)
-
-Proyecto ()
-"""
-#! Variables --------------------
+#! Variables Principales --------------------
 
 app=True
 mainMenu=True
 
-#? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto","integrantes"]
+# ListaProyectos = []
+# ListaTareas = []
+# ListaIntegrantes= []
+# ListaRoles=[]
+
+#? ListaProyectos = ["id","nombreProyecto","tareas","FechaIncio", "FechaFinal", "EstadoProyecto","integrantes","ownerId"]
 #? ListaTareas = ["id","nombre","integranteAsignados","fechaInicio","FechaFinal","estadoTarea"]
 
 #! ListaTareas Version 2.0
@@ -39,43 +31,63 @@ mainMenu=True
 
 #? ListaIntegrantes= [["id","nombre","rol","TareasAsignadas"]]
 #? ListaRoles= [["id","rol"]]
-#? ListaUsuarios= [usuario, password, clearance, rol, tareas]
+#? ListaUsuarios = {
+#?     "usuario": {
+#?         "id": int,
+#?         "password": str,
+#?         "clearance": int,
+#?         "projects": [
+#?             {
+#?                 "projectId": int,
+#?                 "rol": str,
+#?                 "tareas": [int]
+#?             }
+#?         ]
+#?     }
+#? }
 
+#! ========================== Datos Mockeados para TESTING / DEMO del Proyecto ==========================
 
-
-#* Datos Mockeados
-subHeaders = ["password","clearance","rol","tareas"]
+#* Listas Mock de Usuarios (para conversion Lista => Diccionario por consigna del CHECKLIST) -------
+subHeaders = ["id","password","clearance","projects"]
+listaIdsUsuarios = [1,2,3]
 listaNombres = ["candela","emanuele","eze"]
 listaContraseñas = ["1234","5555","123"]
 listaNivelesAcceso = [3,3,3] #? 0 Invitado?, 1 Miembro, 2 Manager, 3 SuperAdmin
-listaRolesUsuarios = ["Desarrollador","Desarrollador","QA"]
-listaTareasAsignadas = [[],[],[]]
+listaProyectosUsuario = [
+    [{"projectId": 1, "rol": "Desarrollador", "tareas": [1, 2]}],
+    [{"projectId": 1, "rol": "Desarrollador", "tareas": [3]}],
+    [{"projectId": 2, "rol": "QA", "tareas": []}]
+]
 
 #* Menuda diccionario por comprension chaval
-#* Explicacion de esta lista... (agregar)
 ListaUsuarios = {
-    nombre: dict(zip(subHeaders, [contraseña, acceso]))
-    for nombre, contraseña, acceso in zip(listaNombres, listaContraseñas, listaNivelesAcceso)
+    nombre: dict(zip(subHeaders, [id_usuario, contraseña, acceso, proyectos]))
+    for id_usuario, nombre, contraseña, acceso, proyectos in zip(
+        listaIdsUsuarios,
+        listaNombres,
+        listaContraseñas,
+        listaNivelesAcceso,
+        listaProyectosUsuario
+    )
 }
+#* ----------------------------------------------------------------------------------------------------
 
-for usuario, rol, tareas in zip(listaNombres, listaRolesUsuarios, listaTareasAsignadas):
-    ListaUsuarios[usuario]["rol"] = rol
-    ListaUsuarios[usuario]["tareas"] = tareas
+#* Mock Proyectos --------
+mockDate = datetime.now()
+ListaProyectos = [[1, 'Proyecto 1', [
+                        [1,"nombreTarea","descTarea",mockDate,mockDate,"activo",[]],
+                        [2,"nombreTarea","descTarea",mockDate,mockDate,"activo",[]],
+                        [3,"nombreTareaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","descTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTareadescTarea",mockDate,mockDate,"activo",[1,2,3]],
+                ], mockDate, mockDate, 'Activo',[], 1],
+                  [2, 'Proyecto 2', [], mockDate, mockDate, 'Activo',[], 3],
+                  [3, 'Proyecto 3', [], mockDate, mockDate, 'Activo',[], None],
+                  [4, 'Proyecto 444444444444444444444444444444444444444', [], mockDate, mockDate, 'Activo',[], None]]
 
-date = datetime.now()
+#* Mock Tareas ---------------
 
-ListaProyectos = [[1, 'Proyecto 1', [], date, date, 'Activo',[]],
-                  [2, 'Proyecto 2', [], date, date, 'Activo',[]],
-                  [3, 'Proyecto 3', [], date, date, 'Activo',[]],
-                  [4, 'Proyecto 4', [], date, date, 'Activo',[]]]
+ListaTareas = []
 
-#ListaTareas = []
-
-# ListaIntegrantes= [[1,"Emanuele","Desarrollador",[]],
-#                    [2,"Ezequiel","QA",[]],
-#                    [3,"Rodolfo","QA",[]],
-#                    [4,"Candela","Desarrollador",[]],
-#                    [5,"Francisco","QA",[]]]
 
 ListaRoles= [[1, "Desarrollador"],
             [2, "QA"]]
@@ -83,16 +95,14 @@ ListaRoles= [[1, "Desarrollador"],
 ListaStats= []
 
 
-# ListaProyectos = []
-# ListaTareas = []
-# ListaIntegrantes= []
-# ListaRoles=[]
-
 #! Main  ----------------------
 while app:
-    #? Descomentar credencial hardcodeada y comentar credencial con "login()" para MODO DEV
-    credencial = {'user': 'ADMIN', 'clearance': 4}
+    #? Comentar la variable "credencial" que no se quiera utilizar para elegir entre modo NORMAL / DEV
+    #* MODO NORMAL
     # credencial = menuAcceso(ListaUsuarios,ListaRoles)
+    #* MODO DEV
+    credencial = {'user': 'ADMIN', 'clearance': 4}
+
 
     mainMenu = True
     while mainMenu:
@@ -101,13 +111,13 @@ while app:
         print("")
         print("1. Proyectos")
         print("2. Personal")
-        print("3. Stats (WIP)")
-        print("4. Cerrar sesión")
+        print("3. Stats")
+        print("4. Cerrar sesiÃ³n")
         print("0. Cerrar Programa")
         print()
-        Opcion=input("• Selecione una opcion: ")
+        Opcion=input("â€¢ Selecione una opcion: ")
         if Opcion=="1": #* Ver Proyectos
-            imprimirMenuProyectos(ListaProyectos, credencial)            
+            imprimirMenuProyectos(ListaProyectos, ListaUsuarios, credencial)            
         elif Opcion=="2": #* Ver Personal
             imprimirMenuIntegrantes(ListaUsuarios, ListaRoles, credencial)
         elif Opcion=="3": #* Stats

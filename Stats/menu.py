@@ -6,39 +6,30 @@ def imprimirMenuStats(ListaProyectos, ListaUsuarios, ListaRoles):
     activo=True
     while activo:
         clearConsole()
-        print("\033[33m[*Menu Stats*]\033[0m")
+        print("\033[33m[Menu principal > *Stats*]\033[0m")
         print("")
         print("1. Ver Stats de proyectos")
         print("2. Ver Stats de integrantes")
         print("3. Ver Stats de roles")
-        print("4. Ver todas las stats")
+        print("4. Ver resumen ejecutivo")
         print("0. Volver al menu principal")
         
         opcion=input("Selecione una opcion: ")
         if opcion == "1":
-            clearConsole()
-            ver_StatsProyectos(ListaProyectos)
-            input("Presione enter para continuar...")
+            ver_StatsProyectos(ListaProyectos, ListaUsuarios)
         
         elif opcion == "2":
-            clearConsole()
-            ver_StatsIntegrantes(ListaUsuarios)
-            input("Presione enter para continuar...")
+            ver_StatsIntegrantes(ListaUsuarios, ListaProyectos)
         
         elif opcion == "3":
-            clearConsole()
-            ver_StatsRoles(ListaRoles)
-            input("Presione enter para continuar...")
+            ver_StatsRoles(ListaRoles, ListaUsuarios)
 
         elif opcion == "4":
-            clearConsole()
             ver_StatsTotal(ListaProyectos, ListaUsuarios, ListaRoles)
-            print()
-            input("Presione enter para continuar...")
                     
         elif opcion == "0":
                 activo=False
                 input("\033[93m[CANCELADO] Operacion cancelada\033[0m")
         else:
             print()
-            input("Opcion invalida. Intente nuevamente.")
+            input("\033[31m[ERROR] Opcion invalida. Intente nuevamente.\033[0m")
